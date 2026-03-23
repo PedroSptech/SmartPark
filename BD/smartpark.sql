@@ -3,24 +3,26 @@
     Comentado com as alterações
 
 	> Pontos a destacar:
+
+    - Falta registros do sensor no banco.
     
-    Não 
+    - 
 */
 
 CREATE DATABASE smart_park;
 USE smart_park;
 
-CREATE TABLE usuario( /* funcionário */
+CREATE TABLE funcionario( /* funcionário */
 	id_usuario INT PRIMARY KEY AUTO_INCREMENT,
     /* fkEmpresa, para saber de qual empresa é o funcionário */
 	nome_usuario VARCHAR(40) NOT NULL,
 	email_usuario VARCHAR(254) NOT NULL, /* Alterei o varchar, email pode ter até 254 caracteres */
 	senha_usuario VARCHAR(8) NOT NULL, /* VARCHAR(8)? Não é muito pouco? */
-	nivel_acesso_usuario VARCHAR(20) DEFAULT('Usuário Comum'), -- Apagar usuário comum
-	CONSTRAINT Cnivel_acesso_usuario CHECK(nivel_acesso_usuario IN('Administrador','Cliente','Usuário Comum')) -- Apagar usuário comum, e alterar Cliente e Administrador para Funcionário e Gestor
+	nivel_acesso_usuario VARCHAR(20), -- Apagar usuário comum
+	-- CONSTRAINT Cnivel_acesso_usuario CHECK(nivel_acesso_usuario IN('Administrador','Cliente','Usuário Comum')) -- Apagar usuário comum.
 );
 
-CREATE TABLE empresa( /* MUDAR O NOME DESSA TABELA */
+CREATE TABLE cliente(
 	id_empresa INT PRIMARY KEY AUTO_INCREMENT,
     /* fkEstacionamento */
     razao_social_empresa VARCHAR(40) NOT NULL, 
@@ -31,7 +33,6 @@ CREATE TABLE empresa( /* MUDAR O NOME DESSA TABELA */
     estado CHAR(2) NOT NULL,
     cep CHAR(8) NOT NULL,
     dt_cadastro DATETIME DEFAULT NOW()
-    /* Caso seja aceito a ideia de definir qual o plano a empresa quer contratar, inserir nessa tabela 'plano' ou algo do tipo*/ 
 );
 
 CREATE TABLE estacionamento( /*  */
@@ -44,6 +45,8 @@ CREATE TABLE estacionamento( /*  */
     qtd_vaga_moto INT,
     qtd_vaga_vip INT, 
     valor_diario_vaga DECIMAL(4,2) NOT NULL
+    /* Caso seja aceito a ideia de definir qual o plano a empresa quer contratar, inserir nessa tabela 'plano' ou algo do tipo*/ 
+    /* nivel_plano constraint check(in()) */
 );
 
 CREATE TABLE vaga(
