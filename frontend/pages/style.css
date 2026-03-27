@@ -1,11 +1,11 @@
 * {
 	font-family: Montserrat;
+	padding: 0;
+	margin: 0;
 }
 
 body {
 	height: 100vh;
-	padding: 0;
-	margin: 0;
 	background-color: #f4f4f4;
 }
 
@@ -13,9 +13,24 @@ body {
 	display: flex;
 }
 
-.image {
+.image-box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 50vw;
 	height: 100vh;
+}
+.image-box-login {
+	background-image: linear-gradient(to bottom right, #000000, #1C0BFE, #666DC7);
+}
+.image-box-cadastro {
+	background-image: linear-gradient(to top left, #000000, #1C0BFE, #666DC7);
+}
+
+.image {
+	margin-left: 10vw;
+	width: 50vw;
+	object-fit: contain;
 }
 
 .login {
