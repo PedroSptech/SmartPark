@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Teste</title>
+</head>
+
+<body>
+    <h2>Simulação de Movimento Estacionamento</h2>
+    <Label>Movimento em Horário de Pico:</Label>
+    <input type="number" id="idHorarioPico" placeholder="Insira aqui"><br>
+    <Label>Movimento em Horário Fraco:</Label>
+    <input type="number" id="idHorarioFraco" placeholder="Insira aqui"><br><br>
+    <button onclick="calcular()">Calcular</button><br><br>
+
+    <div id="mensagem"></div>
+</body>
+
+</html>
+<script>
+    function calcular() {
+        let hP = Number(idHorarioPico.value);
+        let hF = Number(idHorarioFraco.value);
+
+        let precoAtual = 50;
+        let receitaPico = hP * precoAtual;
+        let receitaFraco = hF * precoAtual;
+        let totalPessoasAtual = hP + hF;
+        let receitaTotalAtual = receitaPico + receitaFraco;
+
+        let precoSimuladoFraco = 30;
+        let pessoasSimuladoFraco = hF * 2;
+        let receitaSimuladaFraco = pessoasSimuladoFraco * precoSimuladoFraco;
+
+        let receitaTotalSimulada = receitaPico + receitaSimuladaFraco;
+        let totalPessoasSimuladas = hP + pessoasSimuladoFraco;
+
+        let diferencaReceita = receitaTotalSimulada - receitaTotalAtual;
+
+        mensagem.innerHTML = `
+            <div style="margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                <b style="color: #333; font-size: 1.1em;">1. Receita Atual (Tarifas a R$ 50,00):</b><br>
+                • Movimento de Pico: ${hP} veículos -> R$ ${receitaPico.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}<br>
+                • Movimento Horário Fraco: ${hF} veículos -> R$ ${receitaFraco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}<br>
+                <b style="color: #555;">Receita Total do Dia: R$ ${receitaTotalAtual.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b>
+            </div>
+
+            <div style="margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                <b style="color: #0056b3; font-size: 1.1em;">2. Simulação Promocional (Apenas Horário Fraco a R$ 30,00):</b><br>
+                <small style="color: #666;">Projeção mantendo o pico a R$ 50,00 e abaixando o preço no horário fraco para atrair exatamente o dobro de clientes naquele período.</small><br>
+                • Pico mantido: ${hP} veículos -> R$ ${receitaPico.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}<br>
+                • Novo volume no Horário Fraco: ${pessoasSimuladoFraco} veículos -> R$ ${receitaSimuladaFraco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}<br>
+                • <b style="color: #0056b3;">Nova Receita Projetada: R$ ${receitaTotalSimulada.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b>
+            </div>
+
+            <div style="margin-bottom: 15px; padding-bottom: 10px;">
+                <b style="color: green; font-size: 1.1em;">3. Análise de Viabilidade:</b><br>
+                Barateando o ticket <b>apenas nos horários de ociosidade</b>, o estacionamento preenche as vagas vazias e <b>lucra R$ ${diferencaReceita.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} a mais!</b><br>
+                <small style="color: #666;">Otimização inteligente de preços variáveis em horários estratégicos.</small>
+            </div>
+        `;
+    }
+
+
+
+</script>
