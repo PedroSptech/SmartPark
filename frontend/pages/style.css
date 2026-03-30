@@ -24,7 +24,7 @@ body {
 	background-image: linear-gradient(to bottom right, #000000, #1C0BFE, #666DC7);
 }
 .image-box-cadastro {
-	background-image: linear-gradient(to top left, #000000, #1C0BFE, #666DC7);
+	background-image: linear-gradient(to top right, #000000 0%, #413CE3 53%, #666DC7 100%);
 }
 
 .image {
