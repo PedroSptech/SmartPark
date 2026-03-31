@@ -2,71 +2,101 @@
 	
     Comentado com as alterações
 
-	> Pontos a destacar:
-
-    - Falta registros do sensor no banco.
+	> Pontos a destacar:        
+        
     
-    - 
 */
 
 CREATE DATABASE smart_park;
 USE smart_park;
 
 CREATE TABLE funcionario( /* funcionário */
-	id_usuario INT PRIMARY KEY AUTO_INCREMENT,
-    /* fkEmpresa, para saber de qual empresa é o funcionário */
-	nome_usuario VARCHAR(40) NOT NULL,
-	email_usuario VARCHAR(254) NOT NULL, /* Alterei o varchar, email pode ter até 254 caracteres */
-	senha_usuario VARCHAR(8) NOT NULL, /* VARCHAR(8)? Não é muito pouco? */
+	id_usuario INT PRIMARY KEY AUTO_INCREMENT, /* TABELA PODE TER AUTO-RELACIONAMENTO PARA GESTOR*/
+	nome_funcionario VARCHAR(45) NOT NULL,
+	email_funcionario VARCHAR(254) NOT NULL, /* Alterei o varchar, email pode ter até 254 caracteres */
+	senha_usuario VARCHAR(16) NOT NULL, /* É de se analisar esse VARCHAR() */
 	nivel_acesso_usuario VARCHAR(20), -- Apagar usuário comum
 	-- CONSTRAINT Cnivel_acesso_usuario CHECK(nivel_acesso_usuario IN('Administrador','Cliente','Usuário Comum')) -- Apagar usuário comum.
+	fkCliente INT, /* fkEmpresa, para saber de qual empresa é o funcionário */
+	CONSTRAINT ctFkCliente
+	FOREIGN KEY (fkCliente) REFERENCES cliente(id_cliente),
+    fkGestor INT, -- AUTO RELACIONAMENTO
+    CONSTRAINT ctFkGestor
+	FOREIGN KEY (fkGestor) REFERENCES funcionario(id_usuario)
 );
 
 CREATE TABLE cliente(
-	id_empresa INT PRIMARY KEY AUTO_INCREMENT,
-    /* fkEstacionamento */
-    razao_social_empresa VARCHAR(40) NOT NULL, 
+	id_cliente INT PRIMARY KEY AUTO_INCREMENT, 
     cnpj_empresa CHAR(14) NOT NULL,
-    logradouro VARCHAR(100) NOT NULL,
+    logradouro VARCHAR(100) NOT NULL,  -- perguntar para o brandão e a julia se é preciso incluir uma tabela endereço ou pode deixar assim
     numero_logradouro INT NOT NULL,
     cidade VARCHAR(40) NOT NULL,
     estado CHAR(2) NOT NULL,
     cep CHAR(8) NOT NULL,
-    dt_cadastro DATETIME DEFAULT NOW()
+	razao_social_empresa VARCHAR(40) NOT NULL,
+    dtHr_cadastro DATETIME DEFAULT NOW() -- o que é isso?
 );
 
 CREATE TABLE estacionamento( /*  */
-	id_shopping INT PRIMARY KEY AUTO_INCREMENT, /* id_estacionamento */ 
-    razao_social_empresa VARCHAR(40) NOT NULL, /* DROPAR ESSA COLUNA */
+	id_estacionamento INT PRIMARY KEY AUTO_INCREMENT, /* id_estacionamento */ 
     nome_shopping VARCHAR(40) NOT NULL,
     qtd_vaga_total INT NOT NULL,
     qtd_vaga_pcd INT,
     qtd_vaga_idoso INT,
     qtd_vaga_moto INT,
-    qtd_vaga_vip INT, 
-    valor_diario_vaga DECIMAL(4,2) NOT NULL
-    /* Caso seja aceito a ideia de definir qual o plano a empresa quer contratar, inserir nessa tabela 'plano' ou algo do tipo*/ 
-    /* nivel_plano constraint check(in()) */
+    qtd_vaga_vip INT,
+    CONSTRAINT cQtd_vagas
+    CHECK (qtd_vaga_pcd + qtd_vaga_idoso + qtd_vaga_moto + qtd_vaga_vip <= qtd_vaga_total),
+    valor_diario_vaga DECIMAL(4,2) NOT NULL,
+	fkCliente INT NOT NULL, /* fkCliente   1:N   */ 
+	CONSTRAINT ctfkClienteEstacionamento
+	FOREIGN KEY (fkCliente) REFERENCES cliente(id_cliente)
 );
 
 CREATE TABLE vaga(
 	id_vaga INT PRIMARY KEY AUTO_INCREMENT,
-    id_shopping INT NOT NULL, /* substituir por fkEstacionamento */
     tipo_vaga VARCHAR(20), 
-    setor_vaga VARCHAR(8), -- S1-02
-    status_atual VARCHAR(15),
+    setor_vaga VARCHAR(10), -- S1-02
+    /* status_atual VARCHAR(15),*/ -- É DE SE PENSAR EM CRIAR UMA TABELA VAGA_STATUS ou usar o STATUS na tabela sensor e não aqui
     CONSTRAINT cTipo CHECK(tipo_vaga IN('Comum', 'PCD', 'Idoso', 'Moto', 'VIP')),
-    CONSTRAINT cStatus CHECK(status_atual IN('Livre', 'Ocupada')) /* essa check de Status é para ser na tabela sensor */
+    CONSTRAINT cStatus CHECK(status_atual IN('Livre', 'Ocupada')), /* essa check de Status é para ser na tabela sensor */
+	fkEstacionamento INT NOT NULL, /* fkEstacionamento   1:N   */
+	CONSTRAINT ctFkEstacionamentoVaga
+	FOREIGN KEY (fkEstacionamento) REFERENCES estacionamento(id_estacionamento)
 );
 
 CREATE TABLE sensor( /* E os registros do sensor tão aonde? Inserir informações mais detalhadas do sensor, dos dados capturados */
 	id_sensor INT PRIMARY KEY AUTO_INCREMENT,
-    id_vaga INT UNIQUE NOT NULL, /* substituir por fkVaga */
     modelo_sensor CHAR(5) DEFAULT 'LM393', /* para que modelo sensor se é um único sensor sempre? e da onde tiraram LM393? */
-    status_conexao VARCHAR(20),
-    dt_leitura DATETIME DEFAULT NOW() NOT NULL, 
-    CONSTRAINT cStatusSensor CHECK (status_conexao IN ('Ativo', 'Inativo'))
+    /*status_conexao VARCHAR(20),*/
+    CONSTRAINT cStatusSensor CHECK (status_conexao IN ('Ativo', 'Inativo')),
+    fkVaga INT UNIQUE NOT NULL, -- Isso pensando que só usaremos sensores em vagas | 1:1
+	FOREIGN KEY (fkVaga) REFERENCES vaga(id_vaga)
 );
+
+CREATE TABLE registros(
+	id_registro INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+	dtHr_leitura DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, -- IMPORTANTE DISCUTIR ESSA QUESTÃO DE DATA - HORA DO REGISTRO
+    registroSensor TINYINT(1)
+	CHECK (registroSensor IN (0,1)), /* check para verificar valores do sensor (0 ou 1) */
+	/* hrLeitura_Entrada TIME DEFAULT NOW() NOT NULL,
+    hrLeitura_Saida TIME DEFAULT NOW() NOT NULL, */ -- acho que não faz sentido ter hrLeitura_Entrada e Saida no mesmo registro.
+    fkSensor INT,
+    CONSTRAINT ctFkSensor
+    FOREIGN KEY (fkSensor) REFERENCES sensor(id_sensor)
+);
+
+/* CREATE TABLE vaga_status (
+    id_status INT PRIMARY KEY AUTO_INCREMENT,
+    status_vaga TINYINT(1) NOT NULL, 
+    -- 0 = Livre | 1 = Ocupada
+    dtHr_status DATETIME DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT cStatusVaga CHECK (status_vaga IN (0,1)),
+	fkVaga INT NOT NULL,
+    fkSensor INT, -- acho que opcional, mas de se pensar
+    FOREIGN KEY (fkVaga) REFERENCES vaga(id_vaga),
+    FOREIGN KEY (fkSensor) REFERENCES sensor(id_sensor)
+); */
 
 INSERT INTO usuario (nome_usuario, email_usuario, senha_usuario, nivel_acesso_usuario) VALUES 
 ('Ricardo Souza', 'ricardo.s@email.com', 'ric12345', 'Administrador'),
