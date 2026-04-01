@@ -20,7 +20,7 @@
             type: 'line',
             data: {
                 datasets: [{
-                    label: 'Analogico',
+                    label: 'Digital',
                     borderColor: '#63B1BC',
                     backgroundColor: '#ED145B'
                 }]
@@ -45,7 +45,7 @@
         var tempo = {};
 
         function obterDados(grafico, endpoint) {
-            fetch('http://localhost:3300/sensores/bloqueio' + endpoint)
+            fetch('http://localhost:3300/sensores/' + endpoint)
                 .then(response => response.json())
                 .then(valores => {
                     if (paginacao[endpoint] == null) {

@@ -50,7 +50,7 @@ const serial = async (
     arduino.pipe(new serialport.ReadlineParser({ delimiter: '\r\n' })).on('data', async (data) => {
         console.log(data);
         //const valores = data.split(';')
-        data = parseInt(data)
+        data = parseFloat(data)
         const sensorBloqueio = data;
 
         // armazena os valores dos sensores nos arrays correspondentes
