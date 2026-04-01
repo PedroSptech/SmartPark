@@ -8,7 +8,7 @@ const SERIAL_BAUD_RATE = 9600;
 const SERVIDOR_PORTA = 3300;
 
 // habilita ou desabilita a inserção de dados no banco de dados
-const HABILITAR_OPERACAO_INSERIR = false;
+const HABILITAR_OPERACAO_INSERIR = true;
 
 // função para comunicação serial
 const serial = async (
@@ -18,10 +18,10 @@ const serial = async (
     // conexão com o banco de dados MySQL
     let poolBancoDados = mysql.createPool(
         {
-            host: 'HOST_DO_BANCO',
-            user: 'USUARIO_DO_BANCO',
-            password: 'SENHA_DO_BANCO',
-            database: 'DATABASE_DO_BANCO',
+            host: 'localhost',
+            user: 'insert_user',
+            password: 'urubu@100',
+            database: 'smart_park',
             port: 3306
         }
     ).promise();
@@ -49,8 +49,9 @@ const serial = async (
     // processa os dados recebidos do Arduino
     arduino.pipe(new serialport.ReadlineParser({ delimiter: '\r\n' })).on('data', async (data) => {
         console.log(data);
-        const valores = data.split(';');
-        const sensorBloqueio = parseFloat(valores[1]);
+        //const valores = data.split(';')
+        data = parseInt(data)
+        const sensorBloqueio = data;
 
         // armazena os valores dos sensores nos arrays correspondentes
         valoresSensorBloqueio.push(sensorBloqueio);
@@ -59,14 +60,14 @@ const serial = async (
         if (HABILITAR_OPERACAO_INSERIR) {
 
             // este insert irá inserir os dados na tabela "medida"
-            await poolBancoDados.execute(
-                'INSERT INTO medida (sensor_bloqueio) VALUES (?, ?)',
+            for (let i = 1; i <= 10;i++) {
+                await poolBancoDados.execute(
+                `INSERT INTO registros (registroSensor, fkSensor) VALUES (?, ${i})`,
                 [sensorBloqueio]
             );
-            console.log("valores inseridos no banco: ", sensorBloqueio);
-
+            console.log("valores inseridos no banco: ", sensorBloqueio, " e no sensor: ", i);
+            }
         }
-
     });
 
     // evento para lidar com erros na comunicação serial
