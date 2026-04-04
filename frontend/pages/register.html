@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SmartPark</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../css/login_reg.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -15,9 +15,9 @@
 </head>
 <body>
   <div class="page">
-			<div class="login">
+			<div class="structure">
 				<div class="home home-registro">
-					<button class="btn-home btn">HOME</button>
+  				<a href="../index.html" class="btn-home btn">HOME</a>
 				</div>
 
 				<div class="form">
@@ -43,17 +43,18 @@
           <label class="input-text" for="ipt_passw">
 						Confirmar senha
 					</label>
-					<input type="password" class="input" id="ipt_passw">
+					<input type="password" class="input" id="ipt_confirm_passw">
 
-					<button class="btn btn-cadastro">Cadastrar</button>
+					<button class="btn btn-cadastro" onclick="registerUser()">Cadastrar</button>
 					<br>
-					<p class="input-text">Já tem uma conta? <a href="./login.html">Inscreva-se</a></p>
+					<p class="input-text">Já tem uma conta? <a href="./login.html">Entre!</a></p>
 				</div>
 			</div>
 
       <div class="image-box image-box-cadastro">
-				<img class="image" src="/images/logo-image.svg">
+				<img class="image" src="../images/logo-image.svg">
 			</div>
 		</div>  
 </body>
+<script src="../scripts/main.js"></script>
 </html>
