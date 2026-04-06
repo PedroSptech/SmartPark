@@ -4,6 +4,12 @@
 	margin: 0;
 }
 
+body {
+    overflow-x: hidden;
+	width: 100%;
+}
+
+
 .header {
 	padding: 15px 0;
 	background-image: linear-gradient(to bottom right, hsl(0, 0%, 10%), #1C0BFE);
@@ -26,7 +32,7 @@
   list-style-type: none;
   display: flex;
   align-items: center;
-  gap: 40px; 
+  gap: 20px; 
 }
 
 .navbar li a {
@@ -70,7 +76,7 @@ a {
 .banner {
 	background-image: linear-gradient(to bottom right, #1a137e, #1C0BFE, #666DC7);
 	width: 100vw;
-  height: 86vh;  
+ 	 height: 87vh;  
 	color: white;
 }
 
@@ -78,8 +84,8 @@ a {
 	display: flex;
 	font-size: 65px;
 	font-weight: bold;
-  text-align: center;
-  margin: auto;
+  	text-align: center;
+ 	 margin: auto;
 	width: 82vw;
 }
 
@@ -102,7 +108,7 @@ a {
 
 .left-container {
 	padding: 100px;
-	width: 50vw;	
+	width: 40vw;	
 }
 
 .left-container .title {
@@ -124,6 +130,6 @@ a {
 .know-img {
 	margin-top: 40px;
 	margin-bottom: 40px;
-	margin-right: 40px;
+	margin-right: 200px;
 	width: 50vw;	
 }
