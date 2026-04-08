@@ -65,6 +65,7 @@ const serial = async (
                 `INSERT INTO registros (registroSensor, fkSensor) VALUES (?, ${i})`,
                 [sensorBloqueio]
             );
+            
             console.log("valores inseridos no banco: ", sensorBloqueio, " e no sensor: ", i);
             }
         }

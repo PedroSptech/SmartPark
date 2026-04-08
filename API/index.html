@@ -6,6 +6,13 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
+<style>
+    .container-grafico {
+        position: relative;
+        height: 300px; 
+        width: 100%;
+    }
+</style>
 <body>
 
     <h1>Graphics</h1>
@@ -16,30 +23,41 @@
     </div>
 
     <script>
-        var sensorBloqueio = new Chart(document.getElementById('sensorBloqueio').getContext('2d'), {
-            type: 'line',
-            data: {
-                datasets: [{
-                    label: 'Digital',
-                    borderColor: '#63B1BC',
-                    backgroundColor: '#ED145B'
-                }]
-            },
-            options: {
-                scales: {
-                    x: {
-                        beginAtZero: true
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: '(%)'
-                        },
-                        beginAtZero: true,
-                    },
+    var sensorBloqueio = new Chart(document.getElementById('sensorBloqueio').getContext('2d'), {
+        type: 'line',
+        data: {
+            labels: [], 
+            datasets: [{
+                label: 'Sensor S03',
+                data: [],
+                borderColor: '#0D0917',
+                backgroundColor: '#1C0BFE',
+                fill: true,
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Tempo (segundos)'
+                    }
                 },
+                y: {
+                    min: 0,
+                    max: 1,
+                    ticks: {
+                        stepSize: 1,
+                        callback: function(value) {
+                            return value === 1 ? "Bloqueado" : "Livre";
+                        }
+                    }
+                }
             }
-        });
+        }
+    });
 
         var paginacao = {};
         var tempo = {};
