@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Parking — Simulador de Receita</title>
+</head>
+
+<body>
+    <h2>Smart Parking — Simulador de Receita</h2>
+
+    <label>Número de vagas do estacionamento:</label><br>
+    <input type="number" id="idTotalVagas" placeholder="Ex: 300"><br>
+
+    <label>Tarifa atual (R$):</label><br>
+    <input type="number" id="idPrecoAtual" placeholder="Ex: 50" value="50"><br>
+
+    <label>Tarifa promocional no horário fraco (R$):</label><br>
+    <input type="number" id="idPrecoPromo" placeholder="Ex: 30" value="30"><br>
+
+    <label>Veículos em horário de pico:</label><br>
+    <input type="number" id="idHorarioPico" placeholder="Ex: 200"><br>
+
+    <label>Veículos em horário fraco:</label><br>
+    <input type="number" id="idHorarioFraco" placeholder="Ex: 80"><br><br>
+
+    <button onclick="calcular()">Calcular</button><br><br>
+
+    <div id="mensagem"></div>
+
+</body>
+
+</html>
+
+<script>
+    const fmt = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    const fmtN = (v) => v.toLocaleString('pt-BR');
+
+    function calcular() {
+        const totalVagas = Number(idTotalVagas.value) || 0;
+        const precoAtual = Number(idPrecoAtual.value) || 50;
+        const precoPromo = Number(idPrecoPromo.value) || 30;
+        const hP = Number(idHorarioPico.value) || 0;
+        const hF = Number(idHorarioFraco.value) || 0;
+
+        if (hP === 0 && hF === 0) {
+            mensagem.innerHTML = '<p style="color:red;">Preencha ao menos um campo de veículos.</p>';
+            return;
+        }
+
+        const totalAtual = (hP + hF) * precoAtual;
+
+        const fatorCrescimento = 1.8;
+        const hFNovo = hF * fatorCrescimento;
+
+        const totalOtimizado = (hP * precoAtual) + (hFNovo * precoPromo);
+
+        const ganho = totalOtimizado - totalAtual;
+        const pct = totalAtual > 0 ? ((ganho / totalAtual) * 100).toFixed(1) : 0;
+
+        const vagasOciosas = totalVagas > 0 ? totalVagas - hF : 0;
+        const ocupacao = totalVagas > 0 ? ((hF / totalVagas) * 100).toFixed(1) + '%' : 'N/A';
+
+        const semanal = ganho * 7;
+        const mensal = ganho * 30;
+        const anual = ganho * 365;
+
+        mensagem.innerHTML = `
+
+    <div style="margin-bottom:15px;">
+        <b style="font-size:1.2em;">🚨 Dinheiro Perdido Hoje</b><br>
+        Você possui <b style="color:#c0392b;">${fmtN(vagasOciosas)} vagas ociosas</b> no horário fraco (${ocupacao}).<br>
+        Isso representa até <b>${fmt(vagasOciosas * precoAtual)}</b> não faturados por período.
+    </div>
+
+    <div style="margin-bottom:15px;">
+        <b style="font-size:1.2em;">📊 Cenário Atual</b><br>
+        • Receita diária: <b>${fmt(totalAtual)}</b>
+    </div>
+
+    <div style="margin-bottom:15px;">
+        <b style="font-size:1.2em; color:#0056b3;">🚀 Com Smart Parking</b><br>
+        • Aumento de fluxo no horário ocioso: <b>+80%</b><br>
+        • Nova receita diária: <b>${fmt(totalOtimizado)}</b>
+    </div>
+
+    <div style="margin-bottom:15px;">
+        <b style="font-size:1.2em; color:green;">💰 Ganho Direto</b><br>
+        • <b>+ ${fmt(ganho)} por dia</b><br>
+        • <b>+ ${pct}% de aumento</b>
+    </div>
+
+    <div style="margin-bottom:15px;">
+        <b style="font-size:1.2em;">📅 Projeção Financeira</b><br>
+        • Semana: <b>${fmt(semanal)}</b><br>
+        • Mês: <b>${fmt(mensal)}</b><br>
+        • Ano: <b style="color:green;">${fmt(anual)}</b>
+    </div>
+
+    <div style="margin-top:20px; padding-top:10px; border-top:1px solid #eee;">
+        <b style="color:#333;">💡 Conclusão</b><br>
+        O Smart Parking transforma vagas vazias em receita ativa usando
+        <b>dados em tempo real + precificação dinâmica</b>.<br><br>
+
+        <b style="font-size:1.1em; color:green;">
+        Seu estacionamento pode gerar ${fmt(anual)} a mais por ano.
+        </b>
+    </div>
+    `;
+    }
+</script>
