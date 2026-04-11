@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPark Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <div class="sidebar-pill">
+                <div class="icon">
+                    <a href="/pages/dashboard.html">
+                        <img src="/images/category.svg" alt="Dashboard">
+                    </a>
+                </div>
+                <div class="icon">
+                    <a href="perfil.html">
+                        <img src="/images/Vector.svg" alt="Perfil">
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="logo">
+                    <img src="/images/LOGO.svg" alt="Ícone Carro" class="logo-icon">
+                    <span class="logo-text">SmartPark</span>
+                </div>
+                <div class="user-info">
+                    SPTECH | sptech@sptech.school
+                </div>
+            </header>
+
+            <section class="stats-grid">
+                <div class="card date-card">
+                    <h3 id="clock">8:02:09</h3>
+                    <p>Segunda, 23/02/2027</p>
+                    <button>Ver Relatório Diário</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <p>Total Vagas Utilizadas</p>
+                    </div>
+                    <h2>452</h2>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <p>Queda</p>
+                    </div>
+                    <h2>30</h2>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <p>Falhas registradas</p>
+                    </div>
+                    <h2>30</h2>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <p>Super lotação</p>
+                    </div>
+                    <h2>42</h2>
+                </div>
+            </section>
+
+            <section class="charts-container">
+                <div class="chart-card">
+                    <h4>Variação de taxa de ocupação</h4>
+                    <div class="chart-wrapper">
+                        <canvas id="lineChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h4>Dia com maior pico</h4>
+                    <div class="chart-wrapper">
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="/scripts/dash.js"></script>
+</body>
+
+</html>
