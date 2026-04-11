@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartPark | Home</title>
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+
+  <header class="navbar">
+    <div class="logo">SmartPark</div>
+
+    <nav class="menu">
+      <a href="#home">Características</a>
+      <a href="#solucoes">Soluções</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#simulador.html">Simulador</a>
+    </nav>
+
+    <button class="navbar-btn" onclick="window.location.href='cadastro.html'">
+      Cadastro
+    </button>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="hero-text fade-up delay-2">
+      <span class=" badge">Revolucionando Estacionamentos</span>
+
+      <h1 class="fade-up delay-2">
+        Gerenciamento inteligente para
+        <span>shoppings</span>
+      </h1>
+
+      <p class="fade-up delay-3">
+        Otimize o fluxo de veículos, maximize a receita e proporcione uma
+        experiência premium aos seus visitantes com tecnologia de ponta
+        em visão computacional.
+      </p>
+
+      <div class="buttons fade-up delay-4">
+        <button class="primary">Começar Agora</button>
+        <button class="secondary">Ver Simulador</button>
+      </div>
+    </div>
+
+    <div class="hero-image fade-up delay-3">
+      <img src="images/heroimg.png" alt="Smart Parking">
+    </div>
+  </section>
+
+  <section class="solutions" id="solucoes">
+
+    <h2>
+      Soluções feitas para <span>Escalabilidade</span>
+    </h2>
+
+    <p class="subtitle">
+      Tudo o que você precisa para gerenciar espaços complexos em uma única plataforma intuitiva.
+    </p>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="icon">📊</div>
+        <h3>Monitoramento em Tempo Real</h3>
+        <p>
+          Acompanhe a ocupação de cada vaga em
+          tempo real com precisão de 99.9%
+          através de nossos sensores inteligentes.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="icon">📈</div>
+        <h3>Analíticos Avançados</h3>
+        <p>
+          Preveja horários de pico e otimize os
+          preços dinamicamente para maximizar a
+          rentabilidade do seu empreendimento.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🔗</div>
+        <h3>Integração Simples</h3>
+        <p>
+          API robusta que se conecta facilmente ao
+          seu software de PDV, totens de
+          pagamento e aplicativos mobile.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="how" id="sobre">
+
+    <div class="how-text">
+      <h2>Como funciona a SmartPark?</h2>
+      <p class="desc">
+        Implementação rápida e resultados imediatos. Nossa metodologia foi
+        desenhada para não interromper a operação do shopping.
+      </p>
+
+      <div class="steps">
+
+        <div class="step">
+          <div class="number">1</div>
+          <div>
+            <h3>Setup & Hardware</h3>
+            <p>Instalação de sensores IoT e câmeras de alta definição nos pontos
+              estratégicos do estacionamento.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="number">2</div>
+          <div>
+            <h3>Análise de Dados AI</h3>
+            <p>Nossa IA processa milhares de dados por segundo para gerar insights
+              acionáveis sobre o fluxo de veículos.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="number">3</div>
+          <div>
+            <h3>Resultados Exponenciais</h3>
+            <p>Redução de filas, maior rotatividade e aumento real na receita operacional
+              bruta mensal.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="how-image">
+      <img src="images/carros.png" alt="">
+    </div>
+
+  </section>
+
+  <section class="cta">
+
+    <div class="cta-text">
+      <h2>Pronto para modernizar seu estacionamento?</h2>
+      <p>
+        Junte-se a centenas de shoppings que já otimizaram sua gestão com a SmartPark.
+      </p>
+    </div>
+
+    <button class="cta-btn">Solicitar Demonstração</button>
+
+  </section>
+
+  <footer class="footer">
+
+    <script>
+      window.addEventListener("scroll", () => {
+        const nav = document.querySelector(".navbar");
+
+        if (window.scrollY > 50) {
+          nav.classList.add("scrolled");
+        } else {
+          nav.classList.remove("scrolled");
+        }
+      });
+    </script>
+
+    <div class="footer-left">
+      <h3>SmartPark</h3>
+      <p>© 2026 SmartPark Architectural Systems. All rights reserved.</p>
+    </div>
+
+    <div class="footer-right">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Cookie Policy</a>
+      <a href="#">Support</a>
+    </div>
+  </footer>
+
+
+</body>
+
+</html>
