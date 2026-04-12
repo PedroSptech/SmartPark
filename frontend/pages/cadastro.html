@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SmartPark | Cadastro</title>
+
+  <link rel="stylesheet" href="../css/login_reg.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body class="cadastro-page" onload="listarEstacionamentos()">
+
+  <div class="cadastro-wrapper">
+
+    <div class="cadastro-esquerda">
+
+      <div class="cad-brand">
+        <div class="cad-brand-icon">SP</div>
+        <span class="cad-brand-name">SmartPark</span>
+      </div>
+
+      <div class="cad-tagline">
+        <h2>A inteligência por trás da <span class="destaque">mobilidade urbana moderna.</span></h2>
+        <p>Gerencie sensores em tempo real, dados de ocupação e pagamentos a partir de uma única interface arquitetônica.</p>
+      </div>
+
+      <div class="cad-imagem-card">
+        <div class="cad-imagem-fundo">
+          <div class="cad-imagem-overlay">
+            <p class="cad-testemunho">"SmartPark transformed our facility's ROI by 42% in six months."</p>
+            <p class="cad-testemunho-autor">DIRECTOR OF OPERATIONS, CENTRAL PLAZA</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    
+    <div class="cadastro-direita">
+
+      <h1 class="card-titulo">Crie sua conta</h1>
+      <p class="card-descricao">Preencha os dados abaixo para acessar o SmartPark.</p>
+
+      <div class="card_erro" id="cardErro">
+        <span id="mensagem_erro"></span>
+      </div>
+
+      <div class="campo">
+        <label class="campo-label" for="nome_input">NOME COMPLETO</label>
+        <div class="campo-input-box">
+          <input id="nome_input" class="campo-input" type="text" placeholder="Fernando Brandão" />
+        </div>
+      </div>
+
+      <div class="campo">
+        <label class="campo-label" for="email_input">EMAIL</label>
+        <div class="campo-input-box">
+          <input id="email_input" class="campo-input" type="text" placeholder="fernando@business.com" />
+        </div>
+      </div>
+
+      <div class="campo">
+        <label class="campo-label" for="senha_input">SENHA</label>
+        <div class="campo-input-box">
+          <input id="senha_input" class="campo-input" type="password" placeholder="••••••••" />
+        </div>
+      </div>
+
+      <div class="campo">
+        <label class="campo-label" for="confirmacao_senha_input">CONFIRMAÇÃO DE SENHA</label>
+        <div class="campo-input-box">
+          <input id="confirmacao_senha_input" class="campo-input" type="password" placeholder="••••••••" />
+        </div>
+      </div>
+
+      <label class="checkbox-label">
+        <input type="checkbox" id="chk_termos" class="checkbox-input">
+        <span class="checkbox-box"></span>
+        <span class="checkbox-texto">
+          Eu li e concordo com os
+          <a class="link-termos" href="#">Termos de Uso</a>
+          e
+          <a class="link-termos" href="#">Política de Privacidade.</a>
+        </span>
+      </label>
+
+      <button class="btn-primario" onclick="cadastrar()">Crie sua conta</button>
+
+      <p class="cad-footer-txt">
+        Você já tem uma conta? <a class="cad-footer-link" href="login.html">Acesse aqui</a>
+      </p>
+
+      <div id="div_aguardar" class="loading-div">
+        <img src="loading-circle.gif" id="loading-gif">
+      </div>
+
+    </div>
+  </div>
+
+</body>
+
+<script>
+
+  function cadastrar() {
+    sumirMensagem()
+		div_aguardar.style.display = "none";
+
+    let emailVar = email_input.value;
+    let nomeVar = nome_input.value;
+    let senhaVar = senha_input.value;
+    let confirmacaoSenhaVar = confirmacao_senha_input.value;
+
+    if (
+      nomeVar == "" ||
+      emailVar == "" ||
+      senhaVar == "" ||
+      confirmacaoSenhaVar == ""
+    ) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML = "Preencha todos os campos antes de continuar.";
+      return false;
+    } else {
+			div_aguardar.style.display = "block";
+      setInterval(sumirMensagem, 5000);
+    }
+
+    if (senhaVar != confirmacaoSenhaVar) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML = "As senhas não coincidem. Verifique e tente novamente.";
+      return false;
+    }
+
+    if (!chk_termos.checked) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML = "Você precisa aceitar os Termos de Uso para continuar.";
+      finalizarAguardar();
+      return false;
+    }
+  }
+
+  function sumirMensagem() {
+    cardErro.style.display = "none";
+  }
+
+</script>
+</html>
