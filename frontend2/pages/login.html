@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<title>SmartPark | Login</title>
+
+	<link rel="stylesheet" href="../styles/login_reg.css" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+		rel="stylesheet" />
+</head>
+
+<body class="login-page">
+	<div class="login-wrapper">
+		<div class="login-brand">
+			<div class="brand-icon">P</div>
+			<span class="brand-name">SmartPark</span>
+		</div>
+		<p class="brand-subtitle">INTERFACE DE GERENCIAMENTO</p>
+
+		<div class="login-card">
+			<h1 class="card-titulo">Bem-vindo (a) de volta!</h1>
+			<p class="card-descricao">
+				Por favor, insira seus dados para acessar a central.
+			</p>
+
+			<div class="card_erro" id="cardErro">
+				<span id="mensagem_erro"></span>
+			</div>
+
+			<div class="campo">
+				<label class="campo-label" for="email_input">EMAIL</label>
+				<div class="campo-input-box">
+					<input id="email_input" class="campo-input" type="text" placeholder="name@company.com" />
+				</div>
+			</div>
+
+			<div class="campo">
+				<div class="campo-label-row">
+					<label class="campo-label" for="senha_input">SENHA</label>
+					<a class="link-esqueceu" href="#">Esqueceu sua senha?</a>
+				</div>
+				<div class="campo-input-box">
+					<input id="senha_input" class="campo-input" type="password" placeholder="••••••••" />
+				</div>
+			</div>
+
+			<div class="toggle-row">
+				<label class="toggle-label">
+					<input type="checkbox" id="chk_lembrar" class="toggle-check" />
+					<span class="toggle-track"><span class="toggle-thumb"></span></span>
+					<span class="toggle-texto">Lembrar deste dispositivo</span>
+				</label>
+			</div>
+
+			<button class="btn-primario" onclick="entrar()">
+				Entrar no Painel &nbsp; &rarr;
+			</button>
+
+			<div class="divisor"><span>Ou continue com</span></div>
+
+			<div class="alt-row">
+				<button class="btn-alt">SSO</button>
+				<button class="btn-alt">Key</button>
+			</div>
+
+			<div id="div_aguardar" class="loading-div">
+				<img src="../images/loading-circle.gif" id="loading-gif" />
+			</div>
+		</div>
+
+		<p class="login-footer-txt">
+			Não tem uma conta?
+			<a class="login-footer-link" href="cadastro.html">Peça um acesso</a>
+		</p>
+		<div class="login-footer-links">
+			<a href="#">POLÍTICA DE PRIVACIDADE</a>
+			<a href="#">TERMOS DE SERVIÇO</a>
+		</div>
+	</div>
+</body>
+
+<script>
+	function entrar() {
+		sumirMensagem()
+		div_aguardar.style.display = "none";
+		var emailVar = email_input.value;
+		var senhaVar = senha_input.value;
+
+		if (emailVar == "" || senhaVar == "") {
+			cardErro.style.display = "block";
+			mensagem_erro.innerHTML =
+				"Preencha todos os campos antes de continuar.";
+			return false;
+		} else {
+			div_aguardar.style.display = "block";
+			setInterval(sumirMensagem, 5000);
+		}
+
+		return false;
+	}
+
+	function sumirMensagem() {
+		cardErro.style.display = "none";
+	}
+</script>
+
+</html>
