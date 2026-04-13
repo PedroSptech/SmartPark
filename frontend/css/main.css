@@ -1,147 +1,150 @@
 * {
-	font-family: Montserrat;
-	padding: 0;
-	margin: 0;
+    font-family: Montserrat;
+    padding: 0;
+    margin: 0;
 }
 
 body {
     overflow-x: hidden;
-	width: 100%;
+    width: 100%;
 }
 
 
 .header {
-	padding: 15px 0;
-	background-image: linear-gradient(to bottom right, hsl(0, 0%, 10%), #1C0BFE);
+    padding: 15px 0;
+    background-image: linear-gradient(to bottom right, hsl(0, 0%, 10%), #1C0BFE);
 }
 
 .header .container {
-	display: flex;
-	width: 90%;
-	height: 10vh;
-	margin: auto;
-	justify-content: space-between;
-	align-items: center;
+    display: flex;
+    width: 90%;
+    height: 10vh;
+    margin: auto;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .title {
-	color: white;
+    color: white;
 }
 
 .navbar {
-  list-style-type: none;
-  display: flex;
-  align-items: center;
-  gap: 30px; 
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: 30px;
 }
 
 .navbar li a {
-  text-decoration: none;
-  color: white; 
-	font-size: 20px;
-  transition: 0.3s;
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    transition: 0.3s;
 }
 
 .navbar a:hover {
-	font-size: 21px;
+    font-size: 21px;
 }
 
 .now a {
-	font-weight: bold;
-}
-a {
-	text-decoration: none;
-}
-.btn {
-	font-size: 20px;
-	border: none;
-	background-color: white;
-	padding: 7px 20px 7px 20px;
-	color: #1C0BFE;
-	border-radius: 15px;
-	transition: 0.15s;
+    font-weight: bold;
 }
 
-.btn:hover{
-	transform: scale(1.02);
-	cursor: pointer;
+a {
+    text-decoration: none;
+}
+
+.btn {
+    font-size: 20px;
+    border: none;
+    background-color: white;
+    padding: 7px 20px 7px 20px;
+    color: #1C0BFE;
+    border-radius: 15px;
+    transition: 0.15s;
+}
+
+.btn:hover {
+    transform: scale(1.02);
+    cursor: pointer;
 }
 
 .divider {
-  border: none;
-  height: 1px;
-	background-color: white;
+    border: none;
+    height: 1px;
+    background-color: white;
 }
 
 .banner {
-	background-image: linear-gradient(to bottom right, #1a137e, #1C0BFE, #666DC7);
-	width: 100vw;
- 	height: 87vh;  
-	color: white;
+    background-image: linear-gradient(to bottom right, #1a137e, #1C0BFE, #666DC7);
+    width: 100vw;
+    height: 87vh;
+    color: white;
 }
 
-.banner .container  {
-	display: flex;
-	font-size: 70px;
-	font-weight: bold;
-  	text-align: center;
- 	 margin: auto;
-	width: 80vw;
+.banner .container {
+    display: flex;
+    font-size: 70px;
+    font-weight: bold;
+    text-align: center;
+    margin: auto;
+    width: 80vw;
 }
 
 .main-info {
-	margin-top: 20vh;
+    margin-top: 20vh;
 }
 
 .little-info {
-	margin-top: 5vh;
-	display: flex;
-	justify-content: center;
+    margin-top: 5vh;
+    display: flex;
+    justify-content: center;
 }
 
 .little-info .btn {
-	align-self: center;
-	font-size: 25px;
-	border-radius: 20px;
+    align-self: center;
+    font-size: 25px;
+    border-radius: 20px;
 }
 
 .know-more {
-	height: 100vh;
-	width: 100vw;
-	display: flex;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
 }
 
 .left-container {
-	padding: 100px;
-	width: 50vw;	
+    padding: 100px;
+    width: 50vw;
 }
 
 .left-container .title {
-	margin-bottom: 65px;
+    margin-bottom: 65px;
     font-weight: bold;
     font-size: 50px;
-    font-family: sans-serif; 
+    font-family: sans-serif;
     background: linear-gradient(to right, #1d4ed8, #3b82f6, #60a5fa);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    color: transparent; 
+    color: transparent;
 }
 
 .paragraphs {
-	font-size: 30px;
+    font-size: 30px;
 }
+
 .right-container {
-	display: flex;
-	width: 50vw;	
-	overflow: hidden;
+    display: flex;
+    width: 50vw;
+    overflow: hidden;
 }
 
 .know-img {
-	margin-top: 40px;
-	margin-bottom: 40px;
-	margin-right: 200px;
-	width: 50vw;	
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-right: 200px;
+    width: 50vw;
 }
 
 .footer {
@@ -165,7 +168,7 @@ a {
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    gap: 100px; 
+    gap: 100px;
 }
 
 .footer-logo {
@@ -221,4 +224,13 @@ a {
     color: white;
     border-radius: 4px;
     font-family: 'Poppins', sans-serif;
+}
+
+.calc {
+    width: 80%;
+    height: 50vh;
+    background-color: white;
+    margin: 30px auto;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2)
 }
