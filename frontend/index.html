@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SmartPark</title>
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="scripts/main.js" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
@@ -15,6 +16,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
     rel="stylesheet">
+  <script src="scripts/main.js"></script>
 </head>
 
 <body>
@@ -74,12 +76,37 @@
   <hr class="divider">
   <div class="banner">
     <div class="container" style="justify-content: center;">
-      <p class="main-info" style="margin-top: 5vh; width: 100%; text-align: center;">Calculadora</p>
+      <p class="main-info" style="margin-top: 5vh; width: 100%; text-align: center;">Smart Parking — Simulador de
+        Receita</p>
     </div>
     <div class="calc">
-    </div>
-    <div class="little-info" style="margin-top: 3vh;">
-      <a href="https://moodle.sptech.school/" class="btn">Simule já</a>
+      <div class="calc-inputs">
+        <label>Número de vagas do estacionamento:</label>
+        <input type="number" id="idTotalVagas" placeholder="Ex: 300">
+
+        <label>Tarifa atual (R$):</label>
+        <input type="number" id="idPrecoAtual" placeholder="Ex: 50" value="50">
+
+        <label>Tarifa promocional no horário fraco (R$):</label>
+        <input type="number" id="idPrecoPromo" placeholder="Ex: 30" value="30">
+
+        <label>Veículos em horário de pico:</label>
+        <input type="number" id="idHorarioPico" placeholder="Ex: 200">
+
+        <label>Veículos em horário fraco:</label>
+        <input type="number" id="idHorarioFraco" placeholder="Ex: 80">
+
+        <div class="calc-btn-container">
+          <button onclick="calcular()" class="btn">Simule já</button>
+        </div>
+      </div>
+
+      <div class="calc-results">
+        <div id="mensagem">
+          <p class="preview_calc">Preencha os dados e clique em "Simule já" para
+            ver os resultados aqui.</p>
+        </div>
+      </div>
     </div>
   </div>
   <hr class="divider">
