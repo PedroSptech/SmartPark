@@ -228,7 +228,7 @@ a {
 
 .calc {
     width: 85%;
-    min-height: 50vh;
+    min-height: 60vh;
     background-color: white;
     margin: 30px auto;
     border-radius: 15px;
@@ -238,8 +238,8 @@ a {
     padding: 30px;
     box-sizing: border-box;
     text-align: left;
-    font-size: 16px;
-    gap: 30px;
+    font-size: 30px;
+    gap: 20px;
 }
 
 .calc-inputs {
@@ -251,7 +251,7 @@ a {
 }
 
 .calc-inputs label {
-    margin-top: 10px;
+    margin-top: 20px;
     font-weight: 500;
 }
 
@@ -260,7 +260,7 @@ a {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 20px;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -289,4 +289,86 @@ a {
     color: #777;
     text-align: center;
     margin-top: 15vh;
+}
+
+.tech-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 40px;
+    background-color: transparent;
+    box-sizing: border-box;
+    width: 100%
+}
+
+.tech-container {
+    background: linear-gradient(to right, #172654 0%, #305cbd 50%, #5d98f7 100%);
+    border-radius: 24px;
+    padding: 100px 70px;
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+    color: #ffffff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+}
+
+.tech-title {
+    text-align: center;
+    font-size: 48px;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 70px;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+}
+
+.tech-cards-wrapper {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.tech-card {
+    flex: 1;
+    min-width: 350px;
+    border: 3px solid #ffffff;
+    border-radius: 20px;
+    padding: 60px 45px;
+    background-color: transparent;
+    box-sizing: border-box;
+}
+
+.tech-card h3 {
+    text-align: center;
+    font-size: 34px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 25px;
+    line-height: 1.4;
+}
+
+.tech-card p {
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.tech-card p:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+    .tech-cards-wrapper {
+        flex-direction: column;
+    }
+
+    .tech-container {
+        padding: 60px 35px;
+    }
+
+    .tech-title {
+        font-size: 36px;
+    }
 }
