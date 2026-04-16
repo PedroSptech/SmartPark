@@ -21,10 +21,15 @@ body {
 	height: 100vh;
 }
 .image-box-login {
-	background-image: linear-gradient(to bottom right, #000000, #1C0BFE, #666DC7);
+	background-image: linear-gradient(to bottom right, #000000, #1c0bfe, #666dc7);
 }
 .image-box-cadastro {
-	background-image: linear-gradient(to top right, #000000 0%, #413CE3 53%, #666DC7 100%);
+	background-image: linear-gradient(
+		to top right,
+		#000000 0%,
+		#413ce3 53%,
+		#666dc7 100%
+	);
 }
 
 .image {
@@ -49,12 +54,10 @@ body {
 .home-login {
 	justify-content: flex-end;
 	margin-right: 5vw;
-
 }
-.home-registro{
+.home-registro {
 	justify-content: flex-start;
 	margin-left: 5vw;
-
 }
 
 .form {
@@ -89,6 +92,7 @@ body {
 
 .input-text {
 	align-self: flex-start;
+	margin-top: 1vh;
 	margin-left: 7vw;
 }
 
@@ -128,4 +132,18 @@ body {
 	font-size: 14px;
 	border-radius: 18px;
 	padding: 11px 35px 11px 35px;
+}
+
+.card_erro {
+	display: none;
+	background-color: #fff3f3;
+	color: #d83320;
+	width: 25vw;
+	border-radius: 5px;
+	border-left: 4px solid #ed145b;
+	padding: 10px 14px;
+	margin: 0 auto 14px auto;
+	font-size: 13px;
+	font-weight: 500;
+	align-self: center;
 }
