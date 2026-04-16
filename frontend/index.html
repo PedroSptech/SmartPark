@@ -62,12 +62,10 @@
       </div>
     </div>
     <div class="right-container">
-      <img class="about-img" src="images/know-more.svg">
+      <img class="about-img" src="https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=900&auto=format&fit=crop&q=80">
     </div>
   </div>
 
-  <div class="how-work">
-    <img src="./images/how-work.svg" width="1920px">
   <div class="tech-section">
     <div class="tech-container">
       <h2 class="tech-title"> COMO NOSSA TECNOLOGIA FUNCIONA?</h2>
@@ -95,13 +93,17 @@
   </div>
 
   <hr class="divider">
+
   <div class="banner" id="id_calculator">
     <div class="container" style="justify-content: center;">
       <p class="main-info" style="margin-top: 5vh; width: 100%; text-align: center;">Smart Parking — Simulador de
         Receita</p>
     </div>
-    <div   class="calc">
+    <div class="calc">
       <div class="calc-inputs">
+        <div class="card_erro" id="cardErro">
+					<span id="error_message"></span>
+				</div>
         <label>Número de vagas do estacionamento:</label>
         <input type="number" id="idTotalVagas" placeholder="Ex: 300">
 
@@ -123,6 +125,7 @@
       </div>
 
       <div class="calc-results">
+
         <div id="mensagem">
           <p class="preview_calc">Preencha os dados e clique em "Simule já" para
             ver os resultados aqui.</p>

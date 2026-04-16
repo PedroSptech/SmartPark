@@ -81,9 +81,11 @@ function calcular() {
 	const hF = Number(idHorarioFraco.value) || 0;
 
 	if (hP === 0 && hF === 0) {
-		mensagem.innerHTML =
-			'<p style="color:red;">Preencha ao menos um campo de veículos.</p>';
+		cardErro.style.display = "block";
+		error_message.innerHTML = "Preencha ao menos um campo de veículos.";
 		return;
+	} else {
+		setInterval(sumirMensagem, 5000);
 	}
 
 	const totalAtual = (hP + hF) * precoAtual;
