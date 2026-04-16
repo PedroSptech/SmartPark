@@ -3,8 +3,9 @@
     padding: 0;
     margin: 0;
 }
+
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -110,31 +111,24 @@ a {
 }
 
 .know-more {
-    align-items: center; 
-    justify-content: space-between;
-    padding: 60px 10%; 
-    gap: 50px; 
+    height: 100vh;
+    width: 100vw;
     display: flex;
-}
-
-.know-more-inverted {
-    display: flex;
-    flex-direction: row-reverse; /* Esta é a mágica que inverte a ordem dos itens! */
     align-items: center;
-    justify-content: space-between;
-    padding: 60px 10%;
-    gap: 50px;
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 60px 8%;
+    gap: 60px;
 }
 
-.left-container, 
-.right-container {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
+.left-container {
+    padding: 100px;
+    width: 50vw;
 }
 
 .left-container .title {
-    margin-bottom: 65px;
+    margin-bottom: 40px;
     font-weight: bold;
     font-size: 50px;
     font-family: sans-serif;
@@ -146,19 +140,27 @@ a {
 }
 
 .paragraphs {
-    font-size: 30px;
+    font-size: 24px;
+    line-height: 1.5;
+}
+
+.right-container {
+    display: flex;
+    width: 50vw;
+    overflow: hidden;
 }
 
 .know-img {
     margin-top: 40px;
-    margin-bottom: 4210px;
-    margin-right: 100px;
+    margin-bottom: 40px;
+    margin-right: 200px;
     width: 50vw;
 }
+
 .about-img {
     width: 100%;
     max-height: 400px;
-    object-fit: cover; 
+    object-fit: cover;
 }
 
 .footer {
@@ -283,6 +285,8 @@ a {
     display: flex;
     flex-direction: column;
     padding-left: 10px;
+    font-size: 18px;
+    line-height: 1.5;
 }
 
 .calc-btn-container {
