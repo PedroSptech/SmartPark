@@ -4,6 +4,21 @@ const usuario = {
 	password: "jeremy@123",
 };
 
+function switchTab(tab) {
+	if (tab === 'empresa') {
+		formEmpresa.style.display = 'block';
+		formFuncionario.style.display = 'none';
+		tabEmpresa.classList.add('tab-active');
+		tabFuncionario.classList.remove('tab-active');
+		return;
+	} 
+
+	formEmpresa.style.display = 'none';
+	formFuncionario.style.display = 'block';
+	tabFuncionario.classList.add('tab-active');
+	tabEmpresa.classList.remove('tab-active');
+}
+
 function registerUser() {
 	const name = ipt_nome.value;
 	const email = ipt_email.value;
@@ -59,7 +74,7 @@ function loginUser() {
 		window.location.href = "./dashboard.html";
 	} else {
 		cardErro.style.display = "block";
-		error_message.innerHTML = "Preencha todos os campos";
+		error_message.innerHTML = "Usuario inválido.";
 		setInterval(sumirMensagem, 5000);
 		return;
 	}

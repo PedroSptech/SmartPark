@@ -11,45 +11,41 @@ body {
 
 .page {
 	display: flex;
+	width: 100vw;
+	overflow: hidden;
 }
 
 .image-box {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 50vw;
+	flex: 0 0 50vw;
 	height: 100vh;
 }
 .image-box-login {
 	background-image: linear-gradient(to bottom right, #000000, #1c0bfe, #666dc7);
 }
 .image-box-cadastro {
-	background-image: linear-gradient(
-		to top right,
-		#000000 0%,
-		#413ce3 53%,
-		#666dc7 100%
-	);
+	background-image: linear-gradient(to top right,#000000 0%,#413ce3 53%,#666dc7 100%
+);
 }
 
 .image {
-	margin-left: 10vw;
-	width: 40vw;
+	width: 60%;
 	object-fit: contain;
 }
 
 .structure {
-	justify-content: center;
-	align-items: center;
-	width: 100vw;
+	flex: 0 50vw;
 	height: 100vh;
 	display: flex;
-	display: inline;
+	flex-direction: column;
 }
 
 .home {
 	display: flex;
 	height: 10vh;
+	align-items: center;
 }
 .home-login {
 	justify-content: flex-end;
@@ -61,7 +57,6 @@ body {
 }
 
 .form {
-	margin-left: 5vw;
 	flex-direction: column;
 	display: flex;
 	align-self: center;
@@ -72,16 +67,15 @@ body {
 }
 
 .input {
+	display: block;
 	height: 4vh;
 	width: 25vw;
-	align-self: center;
-	justify-self: center;
 	outline: none;
 	border: none;
 	background-color: #7770db29;
 	font-size: 18px;
 	border-radius: 5px;
-	padding: 5px 10px 5px 10px;
+	padding: 5px 10px;
 }
 
 .title {
@@ -91,13 +85,13 @@ body {
 }
 
 .input-text {
-	align-self: flex-start;
+	display: block;
+	width: 25vw;
+	margin: 0 auto;
 	margin-top: 1vh;
-	margin-left: 7vw;
 }
 
 .btn {
-	align-self: self-end;
 	color: white;
 	border: none;
 	background-color: hsl(244, 99%, 32%);
@@ -112,17 +106,20 @@ body {
 }
 
 .btn-login {
-	margin-top: 3vh;
-	align-self: center;
-	padding: 10px 158px 10px 158px;
+	display: block;
+	margin: 3vh auto 0;
+	width: 25vw;
+	padding: 10px;
 	font-size: 16px;
+	font-weight: 600;
 	border-radius: 5px;
 }
 
 .btn-cadastro {
-	margin-top: 3vh;
-	align-self: center;
-	padding: 10px 144px 10px 144px;
+	display: block;
+	margin: 3vh auto 0;
+	width: 25vw;
+	padding: 10px 0;
 	font-size: 16px;
 	border-radius: 5px;
 }
@@ -131,7 +128,7 @@ body {
 	text-decoration: none;
 	font-size: 14px;
 	border-radius: 18px;
-	padding: 11px 35px 11px 35px;
+	padding: 11px 35px;
 }
 
 .card_erro {
@@ -145,5 +142,60 @@ body {
 	margin: 0 auto 14px auto;
 	font-size: 13px;
 	font-weight: 500;
+}
+
+.tab-switcher {
+	display: flex;
+	gap: 0.5rem;
+	background: #f0f3ff;
+	border-radius: 10px;
+	padding: 4px;
+	margin: 16px 0 18px;
+	width: 25vw;
 	align-self: center;
+}
+
+.tab-btn {
+	flex: 1;
+	padding: 8px 0;
+	border: none;
+	background: transparent;
+	border-radius: 7px;
+	font-size: 14px;
+	font-weight: 600;
+	color: #888;
+	cursor: pointer;
+	transition: background 0.3s;
+}
+
+.tab-active {
+	background: hsl(244, 99%, 32%);
+	color: white;
+}
+
+
+.form-row {
+	display: flex;
+	gap: 3vw;
+	width: 25vw;
+}
+ 
+.form-row .input-text {
+	width: 100%;
+}
+ 
+.form-row .input {
+	width: 100%;
+}
+
+.codigo_info {
+	background:#f0f3ff;
+	border-left:4px solid #1c0bfe;
+	border-radius:6px;
+	padding:10px 16px;
+	margin-bottom:14px;
+	font-size:13px;
+	color:#333;
+	width:25vw;
+	align-self:center;
 }
