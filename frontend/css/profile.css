@@ -1,0 +1,184 @@
+.main-content {
+    flex: 1;
+}
+
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    padding: 40px;
+    gap: 24px;
+}
+
+.profile-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 6px;
+}
+
+.profile-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+.avatar-circle {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: #f0f3ff;
+    border: 2px solid #dde2ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.avatar-initials {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #4466f2;
+}
+
+.profile-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #222;
+}
+
+.profile-email {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.profile-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    letter-spacing: 0.5px;
+}
+
+.profile-cnpj {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: -8px;
+}
+
+.profile-franuquia {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.profile-lista-franquia {
+    font-weight: 400;
+    color: #666;
+}
+
+.estacionamento-item {
+    background: #f7f8ff;
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.estacionamento-header {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.estacionamento-header span {
+    font-weight: 400;
+    color: #888;
+}
+
+.estacionamento-detail {
+    font-size: 0.82rem;
+    color: #555;
+}
+
+.estacionamento-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.btn-estacionamento {
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: none;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-acessar {
+    background: #4466f2;
+}
+
+.btn-modificar {
+    background: #3344cc;
+}
+
+.func-card {
+    margin-top: 20px;
+    border-radius: 20px;
+    padding: 25px;
+}
+
+.func-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.func-titulo {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #444;
+}
+
+.func-projecao {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.func-projecao th {
+    text-align: left;
+    color: #888;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.func-projecao td {
+    padding: 10px 12px;
+    color: #444;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.btn-remover {
+    background: #f0f3ff;
+    color: #4466f2;
+    border: none;
+    border-radius: 8px;
+    padding: 5px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}

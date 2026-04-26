@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPark - Perfil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/profile.css">
+</head>
+
+<body>
+    <div class="seta">
+        <a href="../index.html">
+            <img src="../images/Seta.svg" alt="">
+        </a>
+    </div>
+
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <div class="sidebar-pill">
+                <div class="icon">
+                    <a href="../pages/dashboard.html">
+                        <img src="../images/category-gray.svg" alt="Dashboard">
+                    </a>
+                </div>
+                <div class="icon">
+                    <a href="profile_page.html">
+                        <img src="../images/Vector-blue.svg" alt="Perfil">
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="logo">
+                    <img src="../images/LOGO.svg" alt="Ícone Carro" class="logo-icon">
+                    <span class="logo-text">SmartPark</span>
+                </div>
+                <div class="user-info">
+                    SPTECH | sptech@sptech.school
+                </div>
+            </header>
+
+            <div class="card profile-card">
+
+                <div class="profile-top">
+                    <div class="avatar-circle">
+                        <img src="../images/SPTech Logo.png" width="110px">
+                    </div>
+                    <p class="profile-name">SPTech</p>
+                    <p class="profile-email">sptech@sptech.school</p>
+                </div>
+
+                <div class="profile-bottom">
+                    <h3 class="profile-title">PERFIL DO EMPRESARIO</h3>
+                    <p class="profile-cnpj">SPTech, Shopping Paulista, CNPJ 12345678000199</p>
+                    <p class="profile-cnpj">SPTech, Shopping Morumbi , CNPJ 99100087654321</p>
+
+                    <p class="profile-franquia">FRANQUIAS:
+                        <span class="profile-lista-franquia">Shopping Paulista, Shopping Morumbi (total 2)</span>
+                    </p>
+
+                    <div class="estacionamento-item">
+                        <p class="estacionamento-header">SHOPPING 1: <span>(Shopping Paulista)</span></p>
+                        <p class="estacionamento-detail">Vagas: 500</p>
+                        <p class="estacionamento-detail">Logradouro: Av. Paulista, 2300</p>
+                        <div class="estacionamento-actions">
+                            <a href="dashboard.html?id=1" class="btn-estacionamento btn-acessar">Acessar Dashboards</a>
+                            <button class="btn-estacionamento btn-modificar">Modificar campos</button>
+                        </div>
+                    </div>
+
+                    <div class="estacionamento-item">
+                        <p class="estacionamento-header">SHOPPING 2: <span>(Shopping Morumbi)</span></p>
+                        <p class="estacionamento-detail">Vagas: 700</p>
+                        <p class="estacionamento-detail">Logradouro: Av. Roque Petroni Júnior, 1089</p>
+                        <div class="estacionamento-actions">
+                            <a href="dashboard.html?id=2" class="btn-estacionamento btn-acessar">Acessar Dashboards</a>
+                            <button class="btn-estacionamento btn-modificar">Modificar campos</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card func-card">
+                <div class="func-header">
+                    <h4 class="func-titulo">Funcionários</h4>
+                    <button class="btn-estacionamento btn-acessar">+ Adicionar</button>
+                </div>
+                <table class="func-projecao">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Estacionamento</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Gustavo Costa</td>
+                            <td>gustavo@shoppingpaulista.com</td>
+                            <td>Shopping Paulista</td>
+                            <td><button class="btn-remover">Remover</button></td>
+                        </tr>
+                        <tr>
+                            <td>Mariana Oliveira</td>
+                            <td>mariana@shoppingpaulista.com</td>
+                            <td>Shopping Paulista</td>
+                            <td><button class="btn-remover">Remover</button></td>
+                        </tr>
+                        <tr>
+                            <td>Lucas Ferreira</td>
+                            <td>lucas@shoppingmorumbi.com</td>
+                            <td>Shopping Morumbi</td>
+                            <td><button class="btn-remover">Remover</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
