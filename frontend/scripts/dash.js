@@ -7,7 +7,7 @@ window.onload = function() {
     new Chart(ctxLine, {
         type: 'line',
         data: {
-            labels: ['01 Aug', '02 Aug', '03 Aug', '04 Aug', '07 Aug', '08 Aug', '09 Aug', '10 Aug', '11 Aug', '14 Aug', '15 Aug', '16 Aug'],
+            labels: ['01 Aug', '02 Aug', '03 Aug', '04 Aug', '05 Aug', '06 Aug', '07 Aug', '8 Aug', '9 Aug', '10 Aug', '11 Aug', '12 Aug'],
             datasets: [{
                 data: [60, 75, 65, 82, 91, 58, 68, 45, 62, 75, 42, 68],
                 borderColor: '#4466f2',

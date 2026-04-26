@@ -10,7 +10,10 @@ body {
     min-height: 100vh;
     padding: 20px;
 }
-
+.seta img{
+    width: 50px;
+    height: 45px;
+}
 .dashboard-container {
     display: flex;
     max-width: 1400px;

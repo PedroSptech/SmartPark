@@ -11,6 +11,11 @@
 </head>
 
 <body>
+    <div class="seta">
+        <a href="../index.html">
+            <img src="../images/Seta.svg" alt="">
+        </a>
+    </div>
     <div class="dashboard-container">
         <nav class="sidebar">
             <div class="sidebar-pill">
@@ -41,7 +46,6 @@
                 <div class="card date-card">
                     <h3 id="clock">8:02:09</h3>
                     <p>Segunda, 23/02/2027</p>
-                    <button>Ver Relatório Diário</button>
                 </div>
 
                 <div class="card">
@@ -52,9 +56,9 @@
                 </div>
                 <div class="card">
                     <div class="card-header">
-                        <p>Queda</p>
+                        <p>Saída de veículos em relação a ultima hora</p>
                     </div>
-                    <h2>30</h2>
+                    <h2>30 </h2>
                 </div>
                 <div class="card">
                     <div class="card-header">
@@ -64,7 +68,7 @@
                 </div>
                 <div class="card">
                     <div class="card-header">
-                        <p>Taxa de ocupação</p>
+                        <p>Taxa de ocupação total</p>
                     </div>
                     <h2>68%</h2>
                 </div>
@@ -72,13 +76,13 @@
 
             <section class="charts-container">
                 <div class="chart-card">
-                    <h4>Variação de taxa de ocupação</h4>
+                    <h4>Taxa de ocupação maxima diaria</h4>
                     <div class="chart-wrapper">
                         <canvas id="lineChart"></canvas>
                     </div>
                 </div>
                 <div class="chart-card">
-                    <h4>Dia com maior pico</h4>
+                    <h4>Dia da semana com maior pico</h4>
                     <div class="chart-wrapper">
                         <canvas id="barChart"></canvas>
                     </div>
