@@ -80,7 +80,8 @@ a {
 .banner {
 	background-image: linear-gradient(to bottom right, #1a137e, #1c0bfe, #666dc7);
 	width: 100%;
-	height: 65vh;
+	min-height: 65vh;
+	padding-bottom: 60px;
 	color: white;
 }
 
@@ -95,7 +96,8 @@ a {
 }
 
 .main-info {
-	margin-top: 20vh;
+	margin-top: 10vh;
+
 }
 
 .little-info {
