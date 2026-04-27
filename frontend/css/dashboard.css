@@ -150,6 +150,34 @@ body {
     color: #333;
 }
 
+.vagas {
+    background-color: rgb(255, 70, 70);
+    border: 2px solid white;
+}
+
+.vagas h2, .vagas p {
+    color: white;
+}
+
+.giro {
+    background-color: rgb(255, 70, 70);
+    border: 2px solid white;
+}
+
+.giro h2, .giro p {
+    color: white;
+}
+
+.taxa-ocup {
+    background-color: rgb(255, 70, 70);
+    border: 2px solid white;
+} 
+
+.taxa-ocup h2, .taxa-ocup p {
+    color: white;
+}
+
+
 .dot {
     background: #f0f3ff;
     width: 35px;

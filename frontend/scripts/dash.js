@@ -9,7 +9,7 @@ window.onload = function() {
         data: {
             labels: ['01 Aug', '02 Aug', '03 Aug', '04 Aug', '05 Aug', '06 Aug', '07 Aug', '8 Aug', '9 Aug', '10 Aug', '11 Aug', '12 Aug'],
             datasets: [{
-                data: [60, 75, 65, 82, 91, 58, 68, 45, 62, 75, 42, 68],
+                data: [60, 75, 65, 82, 91, 58, 68, 45, 62, 75, 62, 50],
                 borderColor: '#4466f2',
                 backgroundColor: gradient,
                 fill: true,
