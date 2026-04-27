@@ -16,7 +16,7 @@ CREATE TABLE funcionario(
 	nome_funcionario VARCHAR(45) NOT NULL,
 	email_funcionario VARCHAR(254) NOT NULL,
 	senha_funcionario VARCHAR(16) NOT NULL, 
-	fkCliente INT,
+	fkCliente INT NOT NULL,
 	CONSTRAINT ctFkCliente
 	FOREIGN KEY (fkCliente) REFERENCES cliente(id_cliente)
 );
@@ -58,7 +58,7 @@ CREATE TABLE registros(
 	dtHr_leitura DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     registroSensor TINYINT(1)
 	CHECK (registroSensor IN (0,1)),
-    fkSensor INT,
+    fkSensor INT NOT NULL,
     CONSTRAINT ctFkSensor
     FOREIGN KEY (fkSensor) REFERENCES sensor(id_sensor)
 );
