@@ -1,19 +1,21 @@
 const usuario = {
 	name: "Jeremy",
-	email: "jeremy@gmail.com",
+	cnpj: "00525574000183",
 	password: "jeremy@123",
 };
 
 function switchTab(tab) {
 	if (tab === 'empresa') {
-		formEmpresa.style.display = 'block';
 		formFuncionario.style.display = 'none';
+
+		formEmpresa.style.display = 'block';
 		tabEmpresa.classList.add('tab-active');
 		tabFuncionario.classList.remove('tab-active');
 		return;
 	}
 
 	formEmpresa.style.display = 'none';
+
 	formFuncionario.style.display = 'block';
 	tabFuncionario.classList.add('tab-active');
 	tabEmpresa.classList.remove('tab-active');
@@ -62,15 +64,15 @@ function registerUser() {
 }
 
 function loginUser() {
-	const email = ipt_email.value;
-	const passw = ipt_passw.value;
+	const cnpj = ipt_cnpj_em.value;
+	const passw = ipt_passw_em.value;
 
 	const user = {
-		email,
+		cnpj,
 		passw,
 	};
 
-	if (user.email == usuario.email && user.passw == usuario.password) {
+	if (user.cnpj == usuario.cnpj && user.passw == usuario.password) {
 		window.location.href = "./dashboard.html";
 	} else {
 		cardErro.style.display = "block";
@@ -92,9 +94,12 @@ function calcular() {
 	const precoAtual = Number(idPrecoAtual.value) || 50;
 	const precoPromo = Number(idPrecoPromo.value) || 30;
 
-	if (totalVagas === 0) {
-		mensagem.innerHTML = '<p style="color:red;">Preencha o número de vagas.</p>';
+	if (totalVagas <= 0) {
+		cardErro.style.display = "block";
+		error_message.innerHTML = "Preencha o número de vagas.";
 		return;
+	} else {
+		setInterval(sumirMensagem, 5000);
 	}
 
 	const hP = totalVagas * 0.89;

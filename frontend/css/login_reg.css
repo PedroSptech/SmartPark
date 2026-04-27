@@ -18,8 +18,7 @@ body {
 .image-box {
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	flex: 0 0 50vw;
+	flex: 1;
 	height: 100vh;
 }
 .image-box-login {
@@ -30,8 +29,15 @@ body {
 );
 }
 
-.image {
-	width: 60%;
+.image-login {
+	width: 80%;
+	margin-left: 7vw;
+	object-fit: contain;
+}
+
+.image-cadastro {
+	width: 80%;
+	margin-left: 10vw;
 	object-fit: contain;
 }
 
