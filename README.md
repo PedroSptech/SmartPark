@@ -1,6 +1,4 @@
-# SmartPark 🚗  
-
-![logo-smartpark](./frontend/images/logo-text.svg)
+# ![logo-smartpark](./frontend/images/logo-text.svg)
 
 ## 📖 | Contexto:
 
