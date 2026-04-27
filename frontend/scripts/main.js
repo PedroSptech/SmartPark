@@ -127,7 +127,8 @@ function calcular() {
     <div style="margin-bottom:15px;">
         <b style="font-size:1.2em;">📊 Perfil de Ocupação do seu Estacionamento</b><br>
         • Horário de pico (89% das vagas): <b>${fmtN(Math.round(hP))} veículos</b><br>
-        • Horário fraco (30% das vagas): <b>${fmtN(Math.round(hF))} veículos</b>
+        • Horário fraco (30% das vagas): <b>${fmtN(Math.round(hF))} veículos</b><br>
+			FONTE (CET): <a href="https://www.cetsp.com.br/media/74631/btcetsp46.pdf">https://www.cetsp.com.br/media/74631/btcetsp46.pdf</a>
     </div>
 
     <div style="margin-bottom:15px;">
