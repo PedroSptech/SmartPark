@@ -1,11 +1,11 @@
 const listaUsuarios = [
     {
-        cnpj: "00525574000183",
+        cnpj: "12345678000199",
         password: "jeremy@123",
         tipo: "empresa"
     },
     {
-        email: "funcionario@smartpark.com",
+        email: "gustavo@shoppingpaulista.com",
         password: "123",
         tipo: "funcionario"
     }
