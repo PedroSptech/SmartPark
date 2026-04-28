@@ -1,89 +1,64 @@
-const usuario = {
-	name: "Jeremy",
-	cnpj: "00525574000183",
-	password: "jeremy@123",
-};
+const listaUsuarios = [
+    {
+        cnpj: "00525574000183",
+        password: "jeremy@123",
+        tipo: "empresa"
+    },
+    {
+        email: "funcionario@smartpark.com",
+        password: "123",
+        tipo: "funcionario"
+    }
+];
 
 function switchTab(tab) {
-	if (tab === 'empresa') {
-		formFuncionario.style.display = 'none';
-
-		formEmpresa.style.display = 'block';
-		tabEmpresa.classList.add('tab-active');
-		tabFuncionario.classList.remove('tab-active');
-		return;
-	}
-
-	formEmpresa.style.display = 'none';
-
-	formFuncionario.style.display = 'block';
-	tabFuncionario.classList.add('tab-active');
-	tabEmpresa.classList.remove('tab-active');
-}
-
-function registerUser() {
-	const name = ipt_nome.value;
-	const email = ipt_email.value;
-	const passw = ipt_passw.value;
-	const c_passw = ipt_confirm_passw.value;
-
-	if (name == "" || email == "" || passw == "" || c_passw == "") {
-		cardErro.style.display = "block";
-		error_message.innerHTML = "Preencha todos os campos";
-		return;
-	} else {
-		setInterval(sumirMensagem, 5000);
-	}
-
-	if (email.indexOf("@") == -1 || email.indexOf(".") == -1) {
-		cardErro.style.display = "block";
-		error_message.innerHTML = "Email inválido";
-		return;
-	} else {
-		setInterval(sumirMensagem, 5000);
-	}
-
-	if (passw.length < 6) {
-		cardErro.style.display = "block";
-		error_message.innerHTML = "Senha muito curta";
-		return;
-	} else {
-		setInterval(sumirMensagem, 5000);
-	}
-
-	if (passw !== c_passw) {
-		cardErro.style.display = "block";
-		error_message.innerHTML = "As senhas não coincidem";
-		return;
-	} else {
-		setInterval(sumirMensagem, 5000);
-	}
-
-	alert("Cadastro realizado com sucesso!");
-	window.location.href = "./login.html";
+    if (tab === 'empresa') {
+        formFuncionario.style.display = 'none';
+        formEmpresa.style.display = 'block';
+        tabEmpresa.classList.add('tab-active');
+        tabFuncionario.classList.remove('tab-active');
+    } else {
+        formEmpresa.style.display = 'none';
+        formFuncionario.style.display = 'block';
+        tabFuncionario.classList.add('tab-active');
+        tabEmpresa.classList.remove('tab-active');
+    }
 }
 
 function loginUser() {
-	const cnpj = ipt_cnpj_em.value;
-	const passw = ipt_passw_em.value;
+    const isEmpresa = formEmpresa.style.display !== 'none';
+    const loginInput = isEmpresa ? ipt_cnpj_em.value : ipt_email.value;
+    const senhaInput = isEmpresa ? ipt_passw_em.value : ipt_passw.value;
+    
+    let autenticado = false;
 
-	const user = {
-		cnpj,
-		passw,
-	};
+    for (let i = 0; i < listaUsuarios.length; i++) {
+        const user = listaUsuarios[i];
 
-	if (user.cnpj == usuario.cnpj && user.passw == usuario.password) {
-		window.location.href = "./dashboard.html";
-	} else {
-		cardErro.style.display = "block";
-		error_message.innerHTML = "Usuario inválido.";
-		setInterval(sumirMensagem, 5000);
-		return;
-	}
+        if (isEmpresa && user.tipo === "empresa") {
+            if (loginInput == user.cnpj && senhaInput == user.password) {
+                autenticado = true;
+                break;
+            }
+        } else if (!isEmpresa && user.tipo === "funcionario") {
+            if (loginInput == user.email && senhaInput == user.password) {
+                autenticado = true;
+                break;
+            }
+        }
+    }
+
+    if (autenticado) {
+        window.location.href = "./dashboard.html";
+    } else {
+        cardErro.style.display = "block";
+        error_message.innerHTML = "Credenciais inválidas.";
+        setTimeout(sumirMensagem, 5000);
+    }
 }
 
 function sumirMensagem() {
-	cardErro.style.display = "none";
+    cardErro.style.display = "none";
 }
 
 const fmt = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
