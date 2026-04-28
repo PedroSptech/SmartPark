@@ -221,3 +221,17 @@ canvas {
     width: 100% !important;
     height: 100% !important;
 }
+
+.heatmap-card {
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.heatmap-wrapper {
+    height: 100%;
+    background-image: url('../images/planta-estacionamento.png'); 
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+}

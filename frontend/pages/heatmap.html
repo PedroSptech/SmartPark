@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPark - Mapa de Calor</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="seta">
+        <a href="dashboard.html">
+            <img src="../images/Seta.svg" alt="Voltar">
+        </a>
+    </div>
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <div class="sidebar-pill">
+                <div class="icon">
+                    <a href="../pages/dashboard.html">
+                        <img src="../images/category.svg" alt="Dashboard">
+                    </a>
+                </div>
+                <div class="icon">
+                    <a href="../pages/profile_page.html">
+                        <img src="../images/Vector.svg" alt="Perfil">
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="logo">
+                    <img src="../images/LOGO.svg" alt="Ícone Carro" class="logo-icon">
+                    <span class="logo-text">SmartPark</span>
+                </div>
+                <div class="user-info">
+                    SPTECH | sptech@sptech.school
+                </div>
+            </header>
+
+            <section class="charts-container heatmap-section">
+                <div class="chart-card heatmap-card">
+                    <h4>Mapa de Calor - Ocupação em Tempo Real (G1)</h4>
+                    <div class="chart-wrapper heatmap-wrapper">
+                        <canvas id="heatmapChart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="../scripts/heatmap.js"></script>
+</body>
+</html>
