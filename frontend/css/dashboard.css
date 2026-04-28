@@ -229,9 +229,11 @@ canvas {
 }
 
 .heatmap-wrapper {
-    height: 100%;
+    width: 100%;
+    height: auto;
     background-image: url('../images/planta-estacionamento.png'); 
     background-size: cover;
     background-position: center; 
     border-radius: 10px;
+    
 }

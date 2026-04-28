@@ -1,3 +1,6 @@
+CREATE DATABASE smart_park;
+USE smart_park;
+
 CREATE TABLE cliente(
 	id_cliente INT PRIMARY KEY AUTO_INCREMENT, 
     cnpj_empresa CHAR(14) NOT NULL,
