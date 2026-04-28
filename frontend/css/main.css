@@ -456,6 +456,12 @@ a {
 	padding: 60px 45px;
 	background-color: transparent;
 	box-sizing: border-box;
+	transition: 0.3s;
+	cursor: default;
+}
+
+.tech-card:hover {
+	transform: scale(1.05);
 }
 
 .tech-card h3 {
