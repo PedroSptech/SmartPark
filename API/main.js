@@ -10,6 +10,8 @@ const SERVIDOR_PORTA = 3300;
 // habilita ou desabilita a inserção de dados no banco de dados
 const HABILITAR_OPERACAO_INSERIR = true;
 
+let controle_registro = 0
+
 // função para comunicação serial
 const serial = async (
     valoresSensorBloqueio,
@@ -19,8 +21,8 @@ const serial = async (
     let poolBancoDados = mysql.createPool(
         {
             host: 'localhost',
-            user: 'userInsert',
-            password: 'Sptech@2026',
+            user: 'user_Insert',
+            password: 'Sptech#2026',
             database: 'smart_park',
             port: 3307
         }
@@ -55,20 +57,20 @@ const serial = async (
 
         // armazena os valores dos sensores nos arrays correspondentes
         valoresSensorBloqueio.push(sensorBloqueio);
-
+        
         // insere os dados no banco de dados (se habilitado)
-        if (HABILITAR_OPERACAO_INSERIR) {
+        if (HABILITAR_OPERACAO_INSERIR && sensorBloqueio != controle_registro) {
 
             // este insert irá inserir os dados na tabela "medida"
-            if (sensorBloqueio != 0) {
-                await poolBancoDados.execute(
-                    `INSERT INTO registros (registroSensor, fkSensor) VALUES (?, 1)`,
-                    [sensorBloqueio]
-                );
+            await poolBancoDados.execute(
+                `INSERT INTO registros (registroSensor, fkSensor) VALUES (?, 1)`,
+                [sensorBloqueio]
+            );
 
-                console.log("valores inseridos no banco: ", sensorBloqueio);
-            }
-        }
+            console.log("valores inseridos no banco: ", sensorBloqueio);
+            controle_registro = sensorBloqueio;
+        } 
+        
     });
 
     // evento para lidar com erros na comunicação serial
