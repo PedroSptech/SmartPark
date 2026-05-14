@@ -23,18 +23,18 @@ function buscarPorId(req, res) {
 }
 
 function cadastrar(req, res) {
-  var cnpj = req.body.cnpjServer;
-  var razaoSocial = req.body.razaoServer;
-  var logradouro = req.body.logradouroServer;
-  var cep = req.body.cepServer;
-  var codigo = req.body.codigoServer; 
-  var numero = req.body.numeroServer;
-  var cidade = req.body.cidadeServer;
-  var estado = req.body.estadoServer;
-  var senha = req.body.senhaServer
+  const cnpj = req.body.cnpjServer;
+  const razaoSocial = req.body.razaoServer;
+  const logradouro = req.body.logradouroServer;
+  const cep = req.body.cepServer;
+  const numero = req.body.numeroServer;
+  const cidade = req.body.cidadeServer;
+  const estado = req.body.estadoServer;
+  const senha = req.body.senhaServer
 
   empresaModel.buscarPorCnpj(cnpj).then((resultado) => {
-    // TODO: FAZER FUNÇÂO PARA GERAR CODIGO DE EMPRESA
+    const codigo = gerarCodigo() 
+
     if (resultado.length > 0) {
       res
         .status(401)
@@ -45,6 +45,21 @@ function cadastrar(req, res) {
       });
     }
   });
+
+  function gerarCodigo() {
+      const alphabet = [
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
+        'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+      ];
+
+      let cnpj_split = cnpj.split('')
+      let code = cnpj_split.slice(-3)
+
+      for(let i = 0; i < 3; i++) {
+        code.push(alphabet[Math.floor(Math.random() * alphabet.length)])
+      } 
+      return code.join('')
+    }
 }
 
 module.exports = {
