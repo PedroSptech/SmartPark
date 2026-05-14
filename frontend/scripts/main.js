@@ -25,38 +25,6 @@ function switchTab(tab) {
     }
 }
 
-function loginUser() {
-    const isEmpresa = formEmpresa.style.display !== 'none';
-    const loginInput = isEmpresa ? ipt_cnpj_em.value : ipt_email.value;
-    const senhaInput = isEmpresa ? ipt_passw_em.value : ipt_passw.value;
-    
-    let autenticado = false;
-
-    for (let i = 0; i < listaUsuarios.length; i++) {
-        const user = listaUsuarios[i];
-
-        if (isEmpresa && user.tipo === "empresa") {
-            if (loginInput == user.cnpj && senhaInput == user.password) {
-                autenticado = true;
-                break;
-            }
-        } else if (!isEmpresa && user.tipo === "funcionario") {
-            if (loginInput == user.email && senhaInput == user.password) {
-                autenticado = true;
-                break;
-            }
-        }
-    }
-
-    if (autenticado) {
-        window.location.href = "./dashboard.html";
-    } else {
-        cardErro.style.display = "block";
-        error_message.innerHTML = "Credenciais inválidas.";
-        setTimeout(sumirMensagem, 5000);
-    }
-}
-
 function sumirMensagem() {
     cardErro.style.display = "none";
 }

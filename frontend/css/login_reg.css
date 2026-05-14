@@ -25,8 +25,12 @@ body {
 	background-image: linear-gradient(to bottom right, #000000, #1c0bfe, #666dc7);
 }
 .image-box-cadastro {
-	background-image: linear-gradient(to top right,#000000 0%,#413ce3 53%,#666dc7 100%
-);
+	background-image: linear-gradient(
+		to top right,
+		#000000 0%,
+		#413ce3 53%,
+		#666dc7 100%
+	);
 }
 
 .image-login {
@@ -139,9 +143,9 @@ body {
 
 .card_erro {
 	display: none;
-	background-color: #fff3f3;
+	background-color: #f5dddd;
 	color: #d83320;
-	width: 25vw;
+	width: 23vw;
 	border-radius: 5px;
 	border-left: 4px solid #ed145b;
 	padding: 10px 14px;
@@ -149,6 +153,30 @@ body {
 	font-size: 13px;
 	font-weight: 500;
 }
+
+.card_message {
+	display: none;
+	background-color: #dde4f0;
+	color: #1e6ed7;
+	width: 24vw;
+	border-radius: 5px;
+	border-left: 4px solid #1470e8;
+	padding: 10px 14px;
+	margin: 0 auto 14px auto;
+	font-size: 13px;
+	font-weight: 500;
+}
+
+.loading {
+	display: none;
+	justify-content: center;
+	padding: 10px 14px;
+}
+
+.loading img {
+	width: 50px;
+}
+
 
 .tab-switcher {
 	display: flex;
@@ -179,29 +207,28 @@ body {
 	color: white;
 }
 
-
 .form-row {
 	display: flex;
 	gap: 3vw;
 	width: 25vw;
 }
- 
+
 .form-row .input-text {
 	width: 100%;
 }
- 
+
 .form-row .input {
 	width: 100%;
 }
 
 .codigo_info {
-	background:#f0f3ff;
-	border-left:4px solid #1c0bfe;
-	border-radius:6px;
-	padding:10px 16px;
-	margin-bottom:14px;
-	font-size:13px;
-	color:#333;
-	width:25vw;
-	align-self:center;
+	background: #f0f3ff;
+	border-left: 4px solid #1c0bfe;
+	border-radius: 6px;
+	padding: 10px 16px;
+	margin-bottom: 14px;
+	font-size: 13px;
+	color: #333;
+	width: 25vw;
+	align-self: center;
 }
