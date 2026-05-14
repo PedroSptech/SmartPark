@@ -22,6 +22,34 @@ function buscarPorId(req, res) {
   });
 }
 
+function autenticar(req, res) {
+  const cnpj = req.body.cnpjServer
+  const senha = req.body.senhaServer
+
+  if (cnpj == undefined) {
+    return res.status(400).send("Seu cnpj está undefined!");
+  } else if (senha == undefined) {
+    return res.status(400).send("Sua senha está indefinida!");
+  } else {
+    empresaModel.autenticar(cnpj, senha)
+      .then(
+        function (resultadoAutenticar) {
+          if (resultadoAutenticar.length == 1) {
+            console.log(resultadoAutenticar);
+      
+              return res.json({
+                id: resultadoAutenticar[0].id,
+                nome: resultadoAutenticar[0].nome,
+                codigo: resultadoAutenticar[0].codigo,
+              });
+            } else if (resultadoAutenticar.length == 0) {
+              return res.status(403).send("Cnpj e/ou senha inválido(s)");
+            }
+        }
+      )
+  }
+}
+
 function cadastrar(req, res) {
   const cnpj = req.body.cnpjServer;
   const razaoSocial = req.body.razaoServer;
@@ -36,12 +64,12 @@ function cadastrar(req, res) {
     const codigo = gerarCodigo() 
 
     if (resultado.length > 0) {
-      res
+      return res
         .status(401)
         .json({ mensagem: `a empresa com o cnpj ${cnpj} já existe` });
     } else {
       empresaModel.cadastrar(razaoSocial, cnpj, codigo, logradouro, numero, cidade, estado, cep, senha).then((resultado) => {
-        res.status(201).json(resultado);
+        return res.status(201).json(resultado);
       });
     }
   });
@@ -63,6 +91,7 @@ function cadastrar(req, res) {
 }
 
 module.exports = {
+  autenticar,
   buscarPorCnpj,
   buscarPorId,
   cadastrar,

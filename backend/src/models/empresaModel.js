@@ -18,6 +18,19 @@ function buscarPorCnpj(cnpj) {
 	return database.executar(instrucaoSql);
 }
 
+function autenticar(cnpj, senha) {
+	var instrucaoSql = `
+			SELECT 
+				id_cliente as empresa_id, 
+				razao_social_empresa nome, 
+				codigo_ativacao as codigo
+			FROM cliente 
+			WHERE cnpj_empresa = '${cnpj}' AND senha_cliente = '${senha}';
+	`;
+
+	return database.executar(instrucaoSql);
+} 
+
 function cadastrar(
 	razaoSocial,
 	cnpj,
@@ -39,4 +52,4 @@ function cadastrar(
 	return database.executar(instrucaoSql);
 }
 
-module.exports = { buscarPorCnpj, buscarPorId, cadastrar, listar };
+module.exports = { buscarPorCnpj, buscarPorId, cadastrar, listar, autenticar };
