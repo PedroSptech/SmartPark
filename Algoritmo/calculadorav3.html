@@ -67,19 +67,19 @@
         mensagem.innerHTML = `
 
     <div style="margin-bottom:15px;">
-        <b style="font-size:1.2em;">📊 Perfil de Ocupação do seu Estacionamento</b><br>
+        <b style="font-size:1.2em;">Ocupação do seu Estacionamento</b><br>
         • Horário de pico (89% das vagas): <b>${fmtN(Math.round(hP))} veículos</b><br>
         • Horário fraco (30% das vagas): <b>${fmtN(Math.round(hF))} veículos</b>
     </div>
 
     <div style="margin-bottom:15px;">
-        <b style="font-size:1.2em;">🚨 Dinheiro Perdido Hoje</b><br>
+        <b style="font-size:1.2em;">Dinheiro Perdido Hoje</b><br>
         Você possui <b style="color:#c0392b;">${fmtN(Math.round(vagasOciosas))} vagas ociosas</b> no horário fraco (${ocupacao} de ocupação).<br>
         Isso representa até <b>${fmt(vagasOciosas * precoAtual)}</b> não faturados por período.
     </div>
 
     <div style="margin-bottom:15px;">
-        <b style="font-size:1.2em;">📊 Cenário Atual</b><br>
+        <b style="font-size:1.2em;">Cenário Atual</b><br>
         • Receita diária: <b>${fmt(totalAtual)}</b>
     </div>
 

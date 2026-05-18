@@ -529,3 +529,120 @@ a {
 		font-size: 36px;
 	}
 }
+.resultado-box {
+    margin-top: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #222;
+}
+
+.resultado-item,
+.conclusao {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 15px;
+}
+
+.resultado-item h3,
+.conclusao h3 {
+    margin-bottom: 12px;
+    color: #111;
+}
+
+.linha-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.barra {
+    height: 10px;
+    background-color: #e5e5e5;
+    border-radius: 20px;
+    margin-bottom: 15px;
+}
+
+.barra-fill {
+    height: 10px;
+    border-radius: 20px;
+}
+
+.pico {
+    width: 89%;
+    background-color: #0056b3;
+}
+
+.fraco {
+    width: 30%;
+    background-color: #999;
+}
+
+.negativo {
+    color: #c0392b;
+}
+
+.card-mini,
+.projecao-card,
+.ganho-box,
+.resultado-final {
+    background-color: #f5f7fa;
+    border-radius: 12px;
+    padding: 14px;
+    margin-top: 12px;
+}
+
+.card-mini {
+    display: flex;
+    justify-content: space-between;
+}
+
+.destaque {
+    border-color: #bcd7ff;
+    background-color: #f3f8ff;
+}
+
+.ganho-box {
+    text-align: center;
+    background-color: #f2fff6;
+}
+
+.ganho-box h2 {
+    color: green;
+    font-size: 1.8rem;
+    margin: 8px 0;
+}
+
+.ganho-box p {
+    color: green;
+    font-weight: bold;
+}
+
+.projecao-card span,
+.card-mini span {
+    color: #666;
+}
+
+.projecao-card b {
+    display: block;
+    margin-top: 5px;
+}
+
+.anual {
+    background-color: #f2fff6;
+}
+
+.anual b,
+.resultado-final b {
+    color: green;
+}
+
+.conclusao p {
+    line-height: 1.5;
+    color: #555;
+}
+
+.resultado-final {
+    text-align: center;
+    font-size: 1.05rem;
+}
