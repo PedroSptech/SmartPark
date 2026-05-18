@@ -1,35 +1,4 @@
-const listaUsuarios = [
-    {
-        cnpj: "12345678000199",
-        password: "jeremy@123",
-        tipo: "empresa"
-    },
-    {
-        email: "gustavo@shoppingpaulista.com",
-        password: "123",
-        tipo: "funcionario"
-    }
-];
 
-
-//TODO: EXPLICAR CODE
-function switchTab(tab, type) {
-    if (tab === 'empresa') {
-        formFuncionario.style.display = 'none';
-        formEmpresa.style.display = type == 1 ? 'block' : 'flex'
-        tabEmpresa.classList.add('tab-active');
-        tabFuncionario.classList.remove('tab-active');
-    } else {
-        formEmpresa.style.display = 'none';
-        formFuncionario.style.display = type == 1 ? 'block' : 'flex'
-        tabFuncionario.classList.add('tab-active');
-        tabEmpresa.classList.remove('tab-active');
-    }
-}
-
-function sumirMensagem() {
-    cardErro.style.display = "none";
-}
 
 const fmt = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 const fmtN = (v) => v.toLocaleString('pt-BR');
