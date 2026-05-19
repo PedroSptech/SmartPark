@@ -29,7 +29,7 @@ function autenticar(cnpj, senha) {
 	`;
 
 	return database.executar(instrucaoSql);
-} 
+}
 
 function cadastrar(
 	razaoSocial,
@@ -52,4 +52,33 @@ function cadastrar(
 	return database.executar(instrucaoSql);
 }
 
-module.exports = { buscarPorCnpj, buscarPorId, cadastrar, listar, autenticar };
+function buscarDadosPerfil(idEmpresa) {
+	var instrucaoSql = `
+		SELECT razao_social_empresa, cnpj_empresa
+		FROM cliente
+		WHERE id_cliente = ${idEmpresa};
+	`;
+	return database.executar(intrucaoSql);
+}
+
+function buscarEstacionamentos(idEmpresa) {
+	var instrucaoSql = `
+        SELECT e.id_estacionamento, e.nome_shopping, e.qtd_vaga_total, c.logradouro, c.numero_logradouro 
+        FROM estacionamento e
+        JOIN cliente c ON e.fkCliente = c.id_cliente
+        WHERE c.id_cliente = ${idEmpresa};
+    `;
+	return database.executar(instrucaoSql);
+}
+
+function buscarFuncionarios(idEmpresa) {
+	var instrucaoSql = `
+        SELECT f.nome_funcionario, f.email_funcionario, c.razao_social_empresa as local_trabalho 
+        FROM funcionario f
+        JOIN cliente c ON f.fkCliente = c.id_cliente
+        WHERE c.id_cliente = ${idEmpresa};
+    `;
+	return database.executar(instrucaoSql);
+}
+
+module.exports = { buscarPorCnpj, buscarPorId, cadastrar, listar, autenticar, buscarDadosPerfil, buscarEstacionamentos, buscarFuncionarios };

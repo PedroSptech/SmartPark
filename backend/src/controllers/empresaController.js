@@ -36,15 +36,15 @@ function autenticar(req, res) {
         function (resultadoAutenticar) {
           if (resultadoAutenticar.length == 1) {
             console.log(resultadoAutenticar);
-      
-              return res.json({
-                id: resultadoAutenticar[0].id,
-                nome: resultadoAutenticar[0].nome,
-                codigo: resultadoAutenticar[0].codigo,
-              });
-            } else if (resultadoAutenticar.length == 0) {
-              return res.status(403).send("Cnpj e/ou senha inválido(s)");
-            }
+
+            return res.json({
+              id: resultadoAutenticar[0].empresa_id,
+              nome: resultadoAutenticar[0].nome,
+              codigo: resultadoAutenticar[0].codigo,
+            });
+          } else if (resultadoAutenticar.length == 0) {
+            return res.status(403).send("Cnpj e/ou senha inválido(s)");
+          }
         }
       )
   }
@@ -61,7 +61,7 @@ function cadastrar(req, res) {
   const senha = req.body.senhaServer
 
   empresaModel.buscarPorCnpj(cnpj).then((resultado) => {
-    const codigo = gerarCodigo() 
+    const codigo = gerarCodigo()
 
     if (resultado.length > 0) {
       return res
@@ -75,19 +75,40 @@ function cadastrar(req, res) {
   });
 
   function gerarCodigo() {
-      const alphabet = [
-        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
-        'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-      ];
+    const alphabet = [
+      'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+      'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+    ];
 
-      let cnpj_split = cnpj.split('')
-      let code = cnpj_split.slice(-3)
+    let cnpj_split = cnpj.split('')
+    let code = cnpj_split.slice(-3)
 
-      for(let i = 0; i < 3; i++) {
-        code.push(alphabet[Math.floor(Math.random() * alphabet.length)])
-      } 
-      return code.join('')
+    for (let i = 0; i < 3; i++) {
+      code.push(alphabet[Math.floor(Math.random() * alphabet.length)])
     }
+    return code.join('')
+  }
+}
+
+function buscarPerfil(req, res) {
+  var idEmpresa = req.params.idEmpresa;
+  if (idEmpresa == undefined) {
+    return res.status(400).send("ID da empresa está undefined!");
+  }
+  var dadosPerfil = {};
+  empresaModel.buscarDadosPerfil(idEmpresa).then((resEmpresa) => {
+    dadosPerfil.empresa = resEmpresa[0];
+    empresaModel.buscarEstacionamentos(idEmpresa).then((resEstacionamentos) => {
+      dadosPerfil.estacionamentos = resEstacionamentos;
+      empresaModel.buscarFuncionarios(idEmpresa).then((resFuncionarios) => {
+        dadosPerfil.funcionarios = resFuncionarios;
+        res.status(200).json(dadosPerfil);
+      });
+    });
+  }).catch((erro) => {
+    console.log(erro);
+    res.status(500).json(erro.sqlMessage);
+  });
 }
 
 module.exports = {
@@ -96,4 +117,5 @@ module.exports = {
   buscarPorId,
   cadastrar,
   listar,
+  buscarPerfil
 };
