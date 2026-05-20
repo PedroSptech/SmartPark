@@ -94,7 +94,7 @@ function cadastrarEmpresa() {
 				);
 
 				setTimeout(() => {
-					window.location = "login.html";
+					window.location = "../pages/login.html";
 				}, "2000");
 
 				limparFormulario();
