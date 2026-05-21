@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="stylesheet" href="../css/profile.css">
-      <link rel="icon" href="../images/LOGO.svg">
+    <link rel="icon" href="../images/LOGO.svg">
 </head>
 
 <body>
@@ -56,28 +56,16 @@
                     <div class="avatar-circle">
                         <img src="../images/SPTech Logo.png" width="110px">
                     </div>
-                    <p class="profile-name">SPTech</p>
-                    <p class="profile-email">sptech@sptech.school</p>
+                    <p class="profile-name" id="nome_usuario">Carregando...</p>
+                    <p class="profile-email" id="email_usuario">Carregando...</p>
                 </div>
 
                 <div class="profile-bottom">
-                    <h3 class="profile-title">PERFIL DO EMPRESARIO</h3>
-                    <p class="profile-cnpj">SPTech, Shopping Paulista, CNPJ 12345678000199</p>
-                    <!-- <p class="profile-cnpj">SPTech, Shopping Morumbi , CNPJ 99100087654321</p> -->
+                    <h3 class="profile-title">PERFIL DO EMPRESÁRIO</h3>
+                    <p class="profile-cnpj" id="cnpj_usuario">Carregando CNPJ...</p>
 
-                    <p class="profile-franquia">ESTACIONAMENTO:
-                        <span class="profile-lista-franquia">Shopping Paulista</span>
-                    </p>
-
-                    <div class="estacionamento-item">
-                        <p class="estacionamento-header">Vagas: 1000</span></p>
-                        <p class="estacionamento-detail">Logradouro: Av. Paulista, 2300</p>
-                        <div class="estacionamento-actions">
-                            <a href="dashboard.html?id=1" class="btn-estacionamento btn-acessar">Acessar Dashboards</a>
-                        </div>
-                    </div>
-                    </div>
-
+                    <div id="lista_estacionamentos"></div>
+                </div>
             </div>
 
             <div class="card func-card">
@@ -93,30 +81,14 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Gustavo Costa</td>
-                            <td>gustavo@shoppingpaulista.com</td>
-                            <td>Shopping Paulista</td>
-                            <td><button class="btn-remover">Remover</button></td>
-                        </tr>
-                        <tr>
-                            <td>Mariana Oliveira</td>
-                            <td>mariana@shoppingpaulista.com</td>
-                            <td>Shopping Paulista</td>
-                            <td><button class="btn-remover">Remover</button></td>
-                        </tr>
-                        <tr>
-                            <td>Lucas Ferreira</td>
-                            <td>lucas@shoppingmorumbi.com</td>
-                            <td>Shopping Morumbi</td>
-                            <td><button class="btn-remover">Remover</button></td>
-                        </tr>
+                    <tbody id="lista_funcionarios">
+
                     </tbody>
                 </table>
             </div>
         </main>
     </div>
+    <script src="../scripts/profile.js"></script>
 </body>
 
 </html>
