@@ -58,7 +58,7 @@ function buscarDadosPerfil(idEmpresa) {
 		FROM cliente
 		WHERE id_cliente = ${idEmpresa};
 	`;
-	return database.executar(intrucaoSql);
+	return database.executar(instrucaoSql);
 }
 
 function buscarEstacionamentos(idEmpresa) {
@@ -81,4 +81,13 @@ function buscarFuncionarios(idEmpresa) {
 	return database.executar(instrucaoSql);
 }
 
-module.exports = { buscarPorCnpj, buscarPorId, cadastrar, listar, autenticar, buscarDadosPerfil, buscarEstacionamentos, buscarFuncionarios };
+module.exports = {
+	buscarPorCnpj,
+	buscarPorId,
+	cadastrar,
+	listar,
+	autenticar,
+	buscarDadosPerfil,
+	buscarEstacionamentos,
+	buscarFuncionarios
+};

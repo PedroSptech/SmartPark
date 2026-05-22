@@ -8,7 +8,7 @@ function buscarPorCnpj(req, res) {
   });
 }
 
-function listar(req, res) {
+function listar(_, res) {
   empresaModel.listar().then((resultado) => {
     res.status(200).json(resultado);
   });
@@ -92,16 +92,21 @@ function cadastrar(req, res) {
 
 function buscarPerfil(req, res) {
   var idEmpresa = req.params.idEmpresa;
+
   if (idEmpresa == undefined) {
     return res.status(400).send("ID da empresa está undefined!");
   }
-  var dadosPerfil = {};
+
+  let dadosPerfil = {};
   empresaModel.buscarDadosPerfil(idEmpresa).then((resEmpresa) => {
     dadosPerfil.empresa = resEmpresa[0];
+
     empresaModel.buscarEstacionamentos(idEmpresa).then((resEstacionamentos) => {
       dadosPerfil.estacionamentos = resEstacionamentos;
+
       empresaModel.buscarFuncionarios(idEmpresa).then((resFuncionarios) => {
         dadosPerfil.funcionarios = resFuncionarios;
+        console.log(dadosPerfil)
         res.status(200).json(dadosPerfil);
       });
     });
