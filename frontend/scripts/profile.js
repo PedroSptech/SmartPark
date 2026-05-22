@@ -10,6 +10,7 @@ function carregarPerfil() {
         .then(function (resposta) {
             if (resposta.ok) {
                 resposta.json().then(function (dados) {
+                    console.log(dados)
                     mostrarPerfil(dados);
                 });
             } else {
@@ -23,7 +24,6 @@ function carregarPerfil() {
 
 function mostrarPerfil(dados) {
     document.getElementById("nome_usuario").innerText = dados.empresa.razao_social_empresa;
-    document.getElementById("email_usuario").innerText = `contato@${dados.empresa.razao_social_empresa.replace(/\s+/g, '').toLowerCase()}.com.br`;
     document.getElementById("cnpj_usuario").innerText = `${dados.empresa.razao_social_empresa}, CNPJ ${dados.empresa.cnpj_empresa}`;
 
     var divEstacionamentos = document.getElementById("lista_estacionamentos");
