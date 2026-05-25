@@ -8,6 +8,18 @@ function buscarPorCnpj(req, res) {
   });
 }
 
+function cadastrarFuncionario(req, res) {
+  var nome = req.body.nome
+	var email = req.body.email
+	var senha = req.body.senha 
+  var id_cliente = req.params.id
+
+  empresaModel.cadastrarFuncionario(nome, email, senha, id_cliente).then((resultado) => {
+    return res.status(201).json(resultado)
+  })
+  
+}
+
 function listar(_, res) {
   empresaModel.listar().then((resultado) => {
     res.status(200).json(resultado);
@@ -122,5 +134,6 @@ module.exports = {
   buscarPorId,
   cadastrar,
   listar,
-  buscarPerfil
+  buscarPerfil,
+  cadastrarFuncionario
 };

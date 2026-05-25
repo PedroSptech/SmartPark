@@ -52,6 +52,17 @@ function cadastrar(
 	return database.executar(instrucaoSql);
 }
 
+function cadastrarFuncionario(nome, email, senha, id_cliente) {
+	var instrucaoSql = `
+		INSERT INTO funcionario
+			(nome_funcionario, email_funcionario, senha_funcionario, fkCliente)
+		VALUES
+			('${nome}', '${email}', '${senha}', ${id_cliente});
+	`
+
+	return database.executar(instrucaoSql)
+}
+
 function buscarDadosPerfil(idEmpresa) {
 	var instrucaoSql = `
 		SELECT razao_social_empresa, cnpj_empresa
@@ -60,6 +71,8 @@ function buscarDadosPerfil(idEmpresa) {
 	`;
 	return database.executar(instrucaoSql);
 }
+
+
 
 function buscarEstacionamentos(idEmpresa) {
 	var instrucaoSql = `
@@ -89,5 +102,6 @@ module.exports = {
 	autenticar,
 	buscarDadosPerfil,
 	buscarEstacionamentos,
-	buscarFuncionarios
+	buscarFuncionarios,
+	cadastrarFuncionario
 };
