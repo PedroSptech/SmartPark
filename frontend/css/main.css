@@ -41,10 +41,11 @@ body {
 	color: white;
 	font-size: 20px;
 	transition: 0.3s;
+	text-decoration: none;
 }
 
 .navbar a:hover {
-	font-size: 21px;
+	font-size: 23px;
 }
 
 .now a {
@@ -113,7 +114,7 @@ a {
 
 .little-info .btn {
 	align-self: center;
-	font-size: 35px;
+	font-size: 20px;
 	border-radius: 20px;
 }
 
