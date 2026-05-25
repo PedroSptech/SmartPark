@@ -63,10 +63,10 @@
                     <div id="lista_estacionamentos"></div>
                 </div>
             </div>
-
             <div class="card func-card">
                 <div class="func-header">
                     <h4 class="func-titulo">Funcionários</h4>
+                    <button class="btn-estacionamento btn-acessar" onclick="openPopUp()">+ Adicionar</button>
                 </div>
                 <table class="func-projecao">
                     <thead>
@@ -77,12 +77,33 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody id="lista_funcionarios">
-
-                    </tbody>
+                    <tbody id="lista_funcionarios" class="lista-funcionarios"></tbody>
                 </table>
             </div>
         </main>
+    </div>
+
+    <!--TODO: FAZER CSS PARA POPUP-->
+
+    <div id="formPopup" class="pop">
+        <div class="pop-content">
+            <span class="close-btn" id="closeFormBtn">&times;</span>
+            <form>
+            <h2>Cadastre um funcionario</h2>
+            
+            <div class="card_erro" id="cardErro">
+                <span id="error_message"></span>
+            </div>
+
+            <div class="card_message" id="cardMessage">
+                <span id="success_message"></span>
+            </div>
+            <input type="text" placeholder="Nome" id="ipt_nome_func">
+            <input type="text" placeholder="Email" id="ipt_email_func">
+            <input type="password" placeholder="Senha" id="ipt_passw_func">
+            <button onclick="cadastrarFunc()">Cadastrar</button>
+            </form>
+        </div>
     </div>
     <script src="../scripts/profile.js"></script>
 </body>
