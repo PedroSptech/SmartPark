@@ -16,11 +16,47 @@ function sumirMensagem() {
 	cardErro.style.display = "none";
 }
 
+ipt_cep.addEventListener('input', () => {
+	let cep = ipt_cep.value
+	if (cep.length == 8) {
+		buscarCep(cep);
+	}
+});
+
+async function buscarCep(cep) {
+	console.log(`fazendo requisição: ${cep}`)
+	await fetch(`https://viacep.com.br/ws/${cep}/json/ `)
+		.then(function (res) {
+			if (res.ok) {
+				res.json().then((dados) => {
+					preencherEndereco(dados)
+				})
+				return
+			} else {
+				console.error("Erro ao buscar endereço");
+			}
+		})
+		.catch(function (erro) {
+			console.error("Erro:", erro);
+		});
+}
+
+function preencherEndereco(body_complete) {
+	
+	document.getElementById("ipt_cidade").value = body_complete.localidade ?? "Não encontrado"  
+	document.getElementById("ipt_estado").value = body_complete.uf ?? "Não encontrado" 
+	document.getElementById("ipt_logradouro").value = body_complete.logradouro  ?? "Não encontrado" 
+
+	document.getElementById("ipt_cidade").disabled = true
+	document.getElementById("ipt_estado").disabled = true
+	document.getElementById("ipt_logradouro").disabled  = true
+}
+
 function cadastrarEmpresa() {
 	var cnpj = ipt_cnpj.value;
 	var raza_social = ipt_rzsocial.value;
-	var logradouro = ipt_logradouro.value;
 	var cep = ipt_cep.value;
+	var logradouro = ipt_logradouro.value;
 	var numero = ipt_numero.value;
 	var cidade = ipt_cidade.value;
 	var estado = ipt_estado.value;
