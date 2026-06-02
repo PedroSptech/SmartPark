@@ -1,15 +1,63 @@
+let myLineChart; 
+
 window.onload = function() {
+    inicializarGraficoBarras();
+    //exemplo: tirar o 1 depois 
+    obterDadosGraficoLinha(1); 
+
+    setInterval(function() {
+        console.log("Atualizando o gráfico...");
+        obterDadosGraficoLinha(1);
+    }, 5000);
+};
+
+function obterDadosGraficoLinha(idEstacionamento) {
+    fetch(`/medidas/ultimas/${idEstacionamento}`, { cache: 'no-store' })
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    plotarGraficoLinha(resposta, idEstacionamento);
+                });
+            } else {
+                console.log('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.log(`Erro na obtenção dos dados para o gráfico: ${error.message}`);
+        });
+}
+
+function plotarGraficoLinha(resposta, idEstacionamento) {
+    console.log('Iniciando plotagem do gráfico de linhas...');
+
+    let labelsGrafico = [];
+    let dadosGrafico = [];
+
+    for (let i = 0; i < resposta.length; i++) {
+        let registro = resposta[i];
+        
+        labelsGrafico.push(registro.momento_grafico); 
+        dadosGrafico.push(registro.taxa_ocupacao); 
+    }
+
     const ctxLine = document.getElementById('lineChart').getContext('2d');
     const gradient = ctxLine.createLinearGradient(0, 0, 0, 300);
     gradient.addColorStop(0, 'rgba(68, 102, 242, 0.3)');
     gradient.addColorStop(1, 'rgba(68, 102, 242, 0)');
 
-    new Chart(ctxLine, {
+    if (myLineChart) {
+        //apaga os dados anteriores para poder plotar o novo
+        myLineChart.destroy();
+    }
+
+    myLineChart = new Chart(ctxLine, {
         type: 'line',
         data: {
-            labels: ['01 Aug', '02 Aug', '03 Aug', '04 Aug', '05 Aug', '06 Aug', '07 Aug', '8 Aug', '9 Aug', '10 Aug', '11 Aug', '12 Aug'],
+            labels: labelsGrafico, 
             datasets: [{
-                data: [60, 75, 65, 82, 91, 58, 68, 45, 62, 75, 62, 50],
+                data: dadosGrafico, 
                 borderColor: '#4466f2',
                 backgroundColor: gradient,
                 fill: true,
@@ -29,7 +77,10 @@ window.onload = function() {
             }
         }
     });
+}
 
+
+function inicializarGraficoBarras() {
     const ctxBar = document.getElementById('barChart').getContext('2d');
     new Chart(ctxBar, {
         type: 'bar',
@@ -51,4 +102,4 @@ window.onload = function() {
             }
         }
     });
-};
+}
