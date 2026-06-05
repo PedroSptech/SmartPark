@@ -41,7 +41,27 @@ function buscarMedidasEmTempoReal(idEstacionamento) {
     return database.executar(instrucaoSql);
 }
 
+function buscarMaximoPorData(idEstacionamento, data) {
+    var instrucaoSql = `
+        SELECT 
+            MAX(vagas_ocupadas) AS maximo_ocupacao
+        FROM (
+            SELECT 
+                DATE(r.dtHr_leitura) AS dia,
+                SUM(r.registroSensor = 1) AS vagas_ocupadas
+            FROM registros r
+            JOIN sensor s ON r.fkSensor = s.id_sensor
+            JOIN vaga v ON s.fkVaga = v.id_vaga
+            WHERE v.fkEstacionamento = ${idEstacionamento}
+              AND DATE(r.dtHr_leitura) = '${data}'
+            GROUP BY r.dtHr_leitura
+        ) AS sub;
+    `;
+    console.log("Executando SQL buscarMaximoPorData:\n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 module.exports = {
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
+    buscarMedidasEmTempoReal,
+    buscarMaximoPorData
 };

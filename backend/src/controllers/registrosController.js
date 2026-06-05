@@ -36,7 +36,22 @@ function buscarMedidasEmTempoReal(req, res) {
         });
 }
 
+function buscarMaximoPorData(req, res) {
+    var idEstacionamento = req.params.idEstacionamento;
+    var data = req.params.data;
+
+    registrosModel.buscarMaximoPorData(idEstacionamento, data)
+        .then(function (resultado) {
+            res.status(200).json(resultado[0]);
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
+    buscarMedidasEmTempoReal,
+    buscarMaximoPorData
 };

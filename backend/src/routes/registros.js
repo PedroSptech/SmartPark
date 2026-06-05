@@ -9,6 +9,10 @@ router.get("/ultimas/:idEstacionamento", function (req, res) {
 
 router.get("/tempo-real/:idEstacionamento", function (req, res) {
     registrosController.buscarMedidasEmTempoReal(req, res);
-})
+});
+
+router.get("/historico/:idEstacionamento/:data", function (req, res) {
+    registrosController.buscarMaximoPorData(req, res);
+});
 
 module.exports = router;
