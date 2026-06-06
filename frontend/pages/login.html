@@ -33,8 +33,13 @@
 					<button class="tab-btn tab-active" id="tabEmpresa" onclick="switchTab('empresa', 1)">Empresa</button>
 					<button class="tab-btn" id="tabFuncionario" onclick="switchTab('funcionario', 1)">Funcionário</button>
 				</div>
-
-				2
+				
+				<div id="cardErro" style="display:none; color:red;">
+					<p id="error_message"></p>
+				</div>
+				<div id="cardMessage" style="display:none; color:green;">
+					<p id="success_message"></p>
+				</div>
 
 				<div id="formEmpresa">
 					<label class="input-text" for="ipt_cnpj_em" >CNPJ</label>

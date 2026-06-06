@@ -1,3 +1,8 @@
+var cardErro = document.getElementById("cardErro");
+var cardMessage = document.getElementById("cardMessage");
+var error_message = document.getElementById("error_message");
+var success_message = document.getElementById("success_message");
+
 function invalidoMensagem(message) {
 	cardErro.style.display = "block";
 	cardMessage.style.display = "none";
@@ -190,6 +195,7 @@ function entrarEmpresa() {
 					console.log(JSON.stringify(json));
 					sessionStorage.NOME_USUARIO = json.nome;
 					sessionStorage.ID_USUARIO = json.id;
+					sessionStorage.EMAIL_USUARIO = json.email;
 					
 					validoMensagem(
 						"Login realizado com sucesso! Redirecionando para a dashboard!",
