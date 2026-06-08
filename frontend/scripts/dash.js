@@ -1,13 +1,13 @@
 let myLineChart;
 let myBarChart;
 
-window.onload = function() {
+window.onload = function () {
     var idEstacionamento = sessionStorage.ID_USUARIO || 1
     inicializarGraficoBarras(idEstacionamento);
-    obterDadosGraficoLinha(idEstacionamento); 
+    obterDadosGraficoLinha(idEstacionamento);
     obterDadosGraficoLinha(idEstacionamento);
 
-    setInterval(function() {
+    setInterval(function () {
         console.log("Atualizando o gráfico...");
         obterDadosGraficoLinha(idEstacionamento);
     }, 5000);
@@ -33,7 +33,7 @@ function obterDadosGraficoLinha(idEstacionamento) {
 
 function formatarData(date) {
     var ano = date.getFullYear();
-                //retorna o mes de 0 a 11, por isso tem +1
+    //retorna o mes de 0 a 11, por isso tem +1
     var mes = date.getMonth() + 1;
     if (mes < 10) {
         mes = "0" + mes;
@@ -49,7 +49,7 @@ function formatarData(date) {
 
 function labelDia(date) {
     var dias = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB'];
-                    //retorna um número de 0 a 6 do dia de hoje da semana
+    //retorna um número de 0 a 6 do dia de hoje da semana
     return dias[date.getDay()];
 }
 
@@ -67,7 +67,7 @@ function buscarFeriadoNaData(listaFeriados, dataAtual) {
 }
 
 function dataReferenciaHistorica(date, isFeriado) {
-                   //interpola fazendo com que elas não sejam iguais se uma mudar 
+    //interpola fazendo com que elas não sejam iguais se uma mudar 
     var novaData = new Date(date);
     //se for feriado pega o dado do ano passado se não do mês passado
     if (isFeriado) {
@@ -156,9 +156,14 @@ function plotarGraficoLinha(resposta, idEstacionamento) {
 
     for (let i = 0; i < resposta.length; i++) {
         let registro = resposta[i];
-        
-        labelsGrafico.push(registro.momento_grafico); 
-        dadosGrafico.push(registro.taxa_ocupacao); 
+
+        labelsGrafico.push(registro.momento_grafico);
+        dadosGrafico.push(registro.taxa_ocupacao);
+    }
+
+    if (dadosGrafico.length > 0) {
+        let ultimaTaxa = dadosGrafico[dadosGrafico.length - 1];
+        alertar(ultimaTaxa, idEstacionamento);
     }
 
     const ctxLine = document.getElementById('lineChart').getContext('2d');
@@ -174,9 +179,9 @@ function plotarGraficoLinha(resposta, idEstacionamento) {
     myLineChart = new Chart(ctxLine, {
         type: 'line',
         data: {
-            labels: labelsGrafico, 
+            labels: labelsGrafico,
             datasets: [{
-                data: dadosGrafico, 
+                data: dadosGrafico,
                 borderColor: '#4466f2',
                 backgroundColor: gradient,
                 fill: true,
@@ -238,7 +243,7 @@ function inicializarGraficoBarras(idEstacionamento) {
                                 name: "Dia do Projeto em grupo",
                                 type: "national"
                             });
-                            
+
                             processarProximosDias(idEst, proximosDias, listaFeriados, 0, [], [], [], []);
                         });
                     })
