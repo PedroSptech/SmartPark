@@ -19,4 +19,8 @@ router.get("/setor/:idEstacionamento", function (req, res) {
     registrosController.buscarVagasPorSetor(req, res);
 });
 
+router.get("/tempo-medio/:idEstacionamento", function (req, res) {
+    registrosController.buscarTempoMedio(req, res);
+});
+
 module.exports = router;

@@ -67,9 +67,27 @@ function buscarVagasPorSetor(req, res) {
         });
 }
 
+function buscarTempoMedio(req, res) {
+    var idEstacionamento = req.params.idEstacionamento;
+
+    registrosModel.buscarTempoMedio(idEstacionamento)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum dado encontrado.");
+            }
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
     buscarMaximoPorData,
-    buscarVagasPorSetor
+    buscarVagasPorSetor,
+    buscarTempoMedio
 };

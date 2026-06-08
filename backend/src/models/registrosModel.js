@@ -48,7 +48,7 @@ function buscarMaximoPorData(idEstacionamento, data) {
         FROM (
             SELECT 
                 DATE(r.dtHr_leitura) AS dia,
-                SUM(r.registroSensor = 1) AS vagas_ocupadas
+                SUM(r.registroSensor) AS vagas_ocupadas
             FROM registros r
             JOIN sensor s ON r.fkSensor = s.id_sensor
             JOIN vaga v ON s.fkVaga = v.id_vaga
@@ -57,6 +57,7 @@ function buscarMaximoPorData(idEstacionamento, data) {
             GROUP BY r.dtHr_leitura
         ) AS sub;
     `;
+
     console.log("Executando SQL buscarMaximoPorData:\n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
@@ -88,9 +89,37 @@ function buscarVagasPorSetor(idEstacionamento) {
     return database.executar(instrucaoSql);
 }
 
+function buscarTempoMedio(idEstacionamento) {
+   var instrucaoSql = `
+        SELECT 
+            e.nome_shopping,
+            ROUND(AVG(TIMESTAMPDIFF(MINUTE, entrada.dtHr_leitura, saida.dtHr_leitura)), 2) AS tempo_medio_geral_minutos
+        FROM registros entrada
+        JOIN sensor s ON entrada.fkSensor = s.id_sensor
+        JOIN vaga v ON s.fkVaga = v.id_vaga
+        JOIN estacionamento e ON v.fkEstacionamento = e.id_estacionamento
+        JOIN registros saida ON saida.fkSensor = entrada.fkSensor 
+                            AND saida.registroSensor = 0 
+                            AND saida.dtHr_leitura > entrada.dtHr_leitura
+        WHERE entrada.registroSensor = 1
+        AND e.id_estacionamento = ${idEstacionamento} 
+        AND saida.dtHr_leitura = (
+            SELECT MIN(r_aux.dtHr_leitura)
+            FROM registros r_aux
+            WHERE r_aux.fkSensor = entrada.fkSensor
+                AND r_aux.registroSensor = 0
+                AND r_aux.dtHr_leitura > entrada.dtHr_leitura
+        )
+        GROUP BY e.nome_shopping;
+    `;
+    console.log("Executando SQL buscarVagasPorSetor:\n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
     buscarMaximoPorData,
-    buscarVagasPorSetor
+    buscarVagasPorSetor,
+    buscarTempoMedio
 };
