@@ -182,8 +182,21 @@ body {
 }
 
 .vagas {
+    border: 2px solid white;
+}
+
+.vagas-critico {
     background-color: rgb(255, 70, 70);
     border: 2px solid white;
+
+}
+
+.vagas-medio {
+    background-color: yellowgreen;
+}
+
+.vagas-satisfatorio {
+    background-color: green;
 }
 
 .vagas h2, .vagas p {

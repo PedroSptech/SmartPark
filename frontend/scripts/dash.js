@@ -5,13 +5,50 @@ window.onload = function() {
     var idEstacionamento = sessionStorage.ID_USUARIO || 1
     inicializarGraficoBarras(idEstacionamento);
     obterDadosGraficoLinha(idEstacionamento); 
-    obterDadosGraficoLinha(idEstacionamento);
+    obterDadosVagasOcupadas(idEstacionamento)
+    obterTempoMedio(idEstacionamento)
 
     setInterval(function() {
         console.log("Atualizando o gráfico...");
         obterDadosGraficoLinha(idEstacionamento);
+        obterDadosVagasOcupadas(idEstacionamento)
     }, 5000);
 };
+
+function obterDadosVagasOcupadas(idEstacionamento) {
+    fetch(`/registros/ultimas/${idEstacionamento}`, { cache: 'no-store' })
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    plotarKpiOcupadas(resposta[resposta.length - 1]);
+                });
+            } else {
+                console.log('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.log(`Erro na obtenção dos dados para o gráfico: ${error.message}`);
+        });
+}
+
+function obterTempoMedio(idEstacionamento) {
+    fetch(`/registros/tempo-medio/${idEstacionamento}`, { cache: 'no-store' })
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarTempoMedio(resposta[0 ]);
+                });
+            } else {
+                console.log('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.log(`Erro na obtenção dos dados para o gráfico: ${error.message}`);
+        });
+}
 
 function obterDadosGraficoLinha(idEstacionamento) {
     fetch(`/registros/ultimas/${idEstacionamento}`, { cache: 'no-store' })
@@ -148,6 +185,40 @@ function processarProximosDias(idEstacionamento, proximosDias, listaFeriados, in
         });
 }
 
+
+function plotarKpiOcupadas(resposta) {
+    let kpi = document.getElementById("num-ocupacao")
+    let card = document.getElementById("vagas-totais")
+    let pctOcupacao = resposta.taxa_ocupacao
+    kpi.innerText = pctOcupacao + "%"
+
+   if (pctOcupacao <= 20) {
+        card.className = "card vagas vagas-critico";
+    } else if (pctOcupacao < 80) {
+        card.className = "card";
+    } else {
+        card.className = "card vagas vagas-satisfatorio";
+    }
+}
+
+function plotarTempoMedio(resposta) {
+    let tempo_medi = resposta.tempo_medio_geral_minutos
+    let kpi = document.getElementById("tempo-ocupacao")
+
+   if (tempo_medi < 60) {
+        kpi.innerText = `${tempo_medi} min`;
+    } else {
+        const horas = Math.floor(tempo_medi / 60);
+        const minutosRestantes = tempo_medi % 60;
+
+        if (minutosRestantes === 0) {
+            kpi.innerText = `${horas}h`;
+        } else {
+            kpi.innerText = `${horas}h ${minutosRestantes}min`;
+        }
+    }
+}
+
 function plotarGraficoLinha(resposta, idEstacionamento) {
     console.log('Iniciando plotagem do gráfico de linhas...');
 
@@ -234,7 +305,7 @@ function inicializarGraficoBarras(idEstacionamento) {
 
                             //feriado de teste só para aparecer no grafico
                             listaFeriados.push({
-                                date: "2026-06-10",
+                                date: "2026-06-09",
                                 name: "Dia do Projeto em grupo",
                                 type: "national"
                             });
