@@ -10,11 +10,13 @@ body {
     min-height: 100vh;
     padding: 20px;
 }
-.seta img{
+
+.seta img {
     width: 50px;
     height: 45px;
     transition: opacity 0.2s;
 }
+
 .seta img:hover {
     opacity: 0.5;
 }
@@ -39,7 +41,7 @@ body {
     align-items: center;
     justify-content: space-around;
     padding: 10px 0;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -69,7 +71,7 @@ body {
     align-items: center;
     padding: 0 40px;
     margin-bottom: 25px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
@@ -79,7 +81,7 @@ body {
 }
 
 .logo img {
-    height: 50px; 
+    height: 50px;
     width: auto;
 }
 
@@ -108,7 +110,7 @@ body {
     border-radius: 15px;
     padding: 20px;
     position: relative;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     color: #333;
     display: flex;
     flex-direction: column;
@@ -173,20 +175,34 @@ body {
     display: none;
 }
 
-#vagas-totais:hover .original{
+#vagas-totais:hover .original {
     display: none;
 }
 
-#vagas-totais:hover .info{
+#vagas-totais:hover .info {
     display: block;
 }
 
 .vagas {
-    background-color: rgb(255, 70, 70);
     border: 2px solid white;
 }
 
-.vagas h2, .vagas p {
+.vagas-critico {
+    background-color: rgb(255, 70, 70);
+    border: 2px solid white;
+
+}
+
+.vagas-medio {
+    background-color: yellowgreen;
+}
+
+.vagas-satisfatorio {
+    background-color: green;
+}
+
+.vagas h2,
+.vagas p {
     color: white;
 }
 
@@ -195,16 +211,18 @@ body {
     border: 2px solid white;
 }
 
-.giro h2, .giro p {
+.giro h2,
+.giro p {
     color: white;
 }
 
 .taxa-ocup {
     background-color: rgb(255, 70, 70);
     border: 2px solid white;
-} 
+}
 
-.taxa-ocup h2, .taxa-ocup p {
+.taxa-ocup h2,
+.taxa-ocup p {
     color: white;
 }
 
@@ -231,7 +249,7 @@ body {
     background-color: white;
     border-radius: 20px;
     padding: 25px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     color: #333;
 }
 
@@ -249,20 +267,35 @@ body {
 }
 
 canvas {
-    width: 100% ;
-    height: 100% ;
+    width: 100%;
+    height: 100%;
 }
 
 .heatmap-card {
     height: 600px;
     display: flex;
     flex-direction: column;
-    /* box-shadow: inset ; */
+}
+
+.heatmap-wrapper {
+    width: 100%;
+    height: auto;
+    background-image: url('../images/planta-estacionamento.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+
+}
+
+.heatmap-card {
+    height: 600px;
+    display: flex;
+    flex-direction: column;
 }
 
 .heatmap-wrapper {
     height: 100%;
-    background-image: url('../images/planta-estacionamento.png'); 
+    background-image: url('../images/planta-estacionamento.png');
     background-size: cover;
     background-position: center;
     border-radius: 10px;
@@ -279,4 +312,60 @@ canvas {
     width: 100%;
     height: 22vh;
     border-radius: 10px;
+}
+
+.alertas-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.card-alerta {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.4s ease-out;
+}
+
+.alerta-vermelho {
+    background-color: #ef4444;
+    border-left: 6px solid #b91c1c;
+}
+
+.alerta-amarelo {
+    background-color: #f59e0b;
+    border-left: 6px solid #b45309;
+}
+
+.alerta-icone {
+    font-size: 2rem;
+    margin-right: 15px;
+}
+
+.alerta-texto h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.alerta-texto p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

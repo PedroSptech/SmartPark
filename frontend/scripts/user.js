@@ -1,7 +1,7 @@
-var cardErro = document.getElementById("cardErro");
-var cardMessage = document.getElementById("cardMessage");
-var error_message = document.getElementById("error_message");
-var success_message = document.getElementById("success_message");
+const cardErro = document.getElementById("cardErro");
+const cardMessage = document.getElementById("cardMessage");
+const error_message = document.getElementById("error_message");
+const success_message = document.getElementById("success_message");
 
 function invalidoMensagem(message) {
 	cardErro.style.display = "block";
@@ -47,26 +47,26 @@ async function buscarCep(cep) {
 }
 
 function preencherEndereco(body_complete) {
-	
-	document.getElementById("ipt_cidade").value = body_complete.localidade ?? "Não encontrado"  
-	document.getElementById("ipt_estado").value = body_complete.uf ?? "Não encontrado" 
-	document.getElementById("ipt_logradouro").value = body_complete.logradouro  ?? "Não encontrado" 
+
+	document.getElementById("ipt_cidade").value = body_complete.localidade ?? "Não encontrado"
+	document.getElementById("ipt_estado").value = body_complete.uf ?? "Não encontrado"
+	document.getElementById("ipt_logradouro").value = body_complete.logradouro ?? "Não encontrado"
 
 	document.getElementById("ipt_cidade").disabled = true
 	document.getElementById("ipt_estado").disabled = true
-	document.getElementById("ipt_logradouro").disabled  = true
+	document.getElementById("ipt_logradouro").disabled = true
 }
 
 function cadastrarEmpresa() {
-	var cnpj = ipt_cnpj.value;
-	var raza_social = ipt_rzsocial.value;
-	var cep = ipt_cep.value;
-	var logradouro = ipt_logradouro.value;
-	var numero = ipt_numero.value;
-	var cidade = ipt_cidade.value;
-	var estado = ipt_estado.value;
-	var senha = ipt_passw.value;
-	var confirmar_senha = ipt_confirm_passw.value;
+	const cnpj = ipt_cnpj.value;
+	const raza_social = ipt_rzsocial.value;
+	const cep = ipt_cep.value;
+	const logradouro = ipt_logradouro.value;
+	const numero = ipt_numero.value;
+	const cidade = ipt_cidade.value;
+	const estado = ipt_estado.value;
+	const senha = ipt_passw.value;
+	const confirmar_senha = ipt_confirm_passw.value;
 
 	if (
 		cnpj == "" ||
@@ -98,7 +98,7 @@ function cadastrarEmpresa() {
 	} else {
 		setInterval(sumirMensagem, 5000);
 	}
-	
+
 	if (confirmar_senha != senha) {
 		invalidoMensagem("Senhas não coicidem.");
 		return false;
@@ -153,8 +153,8 @@ function cadastrarEmpresa() {
 }
 
 function entrarEmpresa() {
-	var cnpj = ipt_cnpj_em.value;
-	var senha = ipt_passw_em.value;
+	const cnpj = ipt_cnpj_em.value;
+	const senha = ipt_passw_em.value;
 
 	if (cnpj == "" || senha == "") {
 		invalidoMensagem("Preencha todos os campos corretamente.");
@@ -163,7 +163,7 @@ function entrarEmpresa() {
 		setInterval(sumirMensagem, 5000);
 	}
 
-	
+
 	if (cnpj.length < 14) {
 		invalidoMensagem("Digite um CNPJ valido.");
 		return false;
@@ -196,18 +196,19 @@ function entrarEmpresa() {
 					sessionStorage.NOME_USUARIO = json.nome;
 					sessionStorage.ID_USUARIO = json.id;
 					sessionStorage.EMAIL_USUARIO = json.email;
-					
+					sessionStorage.TIPO_USUARIO = "empresa";
+
 					validoMensagem(
 						"Login realizado com sucesso! Redirecionando para a dashboard!",
 					);
-					
+
 					setTimeout(function () {
 						window.location = "./dashboard.html";
-					}, 1000); 
+					}, 1000);
 				});
 			} else {
 				resposta.text().then((texto) => {
-					if(resposta.status == 403) {
+					if (resposta.status == 403) {
 						btn_submit.style.display = "block"
 						loading_gif.style.display = "none"
 						invalidoMensagem(texto);
@@ -224,3 +225,75 @@ function entrarEmpresa() {
 	return false;
 }
 
+function entrarFuncionario() {
+	const email = ipt_email.value;
+	const senha = ipt_passw.value;
+
+	if (email == "" || senha == "") {
+		invalidoMensagem("Preencha todos os campos corretamente.");
+		return false;
+	} else {
+		setInterval(sumirMensagem, 5000);
+	}
+
+	// CRIAR VALIDAÇÃO DE @ && email && .com
+	// if (email.length < 14) {
+	// 	invalidoMensagem("Digite um CNPJ valido.");
+	//	return false;
+	// } else {
+	//	setInterval(sumirMensagem, 5000);
+	// }
+
+	btn_submit.style.display = "none"
+	loading_gif.style.display = "flex"
+
+	fetch("/empresas/autenticar/funcionario", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			emailServer: email,
+			senhaServer: senha,
+		}),
+	})
+		.then(function (resposta) {
+			console.log("ESTOU NO THEN DO entrar()!");
+
+			if (resposta.ok) {
+				console.log(resposta);
+
+				resposta.json().then((json) => {
+					console.log(json);
+					console.log(JSON.stringify(json));
+					sessionStorage.NOME_USUARIO = json.nome;
+					sessionStorage.ID_USUARIO = json.id;
+					sessionStorage.EMAIL_USUARIO = json.email;
+					sessionStorage.TIPO_USUARIO = "funcionario";
+
+					validoMensagem(
+						"Login realizado com sucesso! Redirecionando para a dashboard!",
+					);
+
+					setTimeout(function () {
+						window.location = "./dashboard.html";
+					}, 1000);
+				});
+			} else {
+				resposta.text().then((texto) => {
+					if (resposta.status == 403) {
+						btn_submit.style.display = "block"
+						loading_gif.style.display = "none"
+						invalidoMensagem(texto);
+					} else {
+						setInterval(sumirMensagem, 5000);
+					}
+				})
+			}
+		})
+		.catch(function (erro) {
+			console.log(erro);
+		});
+
+	return false;
+}

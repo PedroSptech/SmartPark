@@ -25,7 +25,7 @@
                         <img src="../images/category.svg" alt="Dashboard">
                     </a>
                 </div>
-                <div class="icon">
+                <div class="icon" id="botao_perfil">
                     <a href="../pages/profile_page.html">
                         <img src="../images/Vector.svg" alt="Perfil">
                     </a>
@@ -48,52 +48,45 @@
                 </div>
             </header>
 
+            <div id="mural_alertas" class="alertas-container"></div>
+
             <section class="stats-grid">
                 <div class="card date-card">
                     <h3 id="clock">8:02:09</h3>
                     <p>Segunda, 23/02/2027</p>
                 </div>
 
-                <div class="card vagas" id="vagas-totais">
+                <div class="card" id="vagas-totais">
                     <div class="card-header">
                         <p>Total Vagas Ocupadas</p>
                     </div>
-                    <h2 class="original">451 de 1000</h2>
-
-                    <h2 class="info">45%</h2>
+                    <h2 id="num-ocupacao">...</h2>
                 </div>
-
-
-                <div class="card giro">
-                    <div class="card-header">
-                        <p>Giro de vagas em relação a ultima hora</p>
-                    </div>
-                    <h2>-49</h2>
-                </div>
+                
                 <div class="card tempo-medio">
                     <div class="card-header">
                         <p>Tempo de permanência média por vaga</p>
                     </div>
-                    <h2>25m</h2>
+                    <h2 id="tempo-ocupacao">...</h2>
                 </div>
-                
             </section>
 
-            <section class="charts-container">
-                <div class="chart-card">
-                    <h4>Taxa de ocupação a cada 30 minutos</h4>
-                    <div class="chart-wrapper">
-                        <canvas id="lineChart"></canvas>
-                    </div>
-                </div>
-                <div class="chart-card">
-                    <h4>Próximos dias</h4>
-                    <div class="chart-wrapper">
-                        <canvas id="barChart"></canvas>
-                    </div>
-                </div>
-            </section>
-        </main>
+    <section class="charts-container">
+        <div class="chart-card">
+            <h4>Taxa de ocupação a cada 30 minutos</h4>
+            <div class="chart-wrapper">
+                <canvas id="lineChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <h4>Próximos dias</h4>
+            <div class="chart-wrapper">
+                <canvas id="barChart"></canvas>
+            </div>
+        </div>
+        <script src="../scripts/alert.js"></script>
+    </section>
+    </main>
     </div>
     <script src="../scripts/dash.js"></script>
 </body>

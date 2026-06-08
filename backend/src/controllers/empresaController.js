@@ -10,14 +10,14 @@ function buscarPorCnpj(req, res) {
 
 function cadastrarFuncionario(req, res) {
   var nome = req.body.nome
-	var email = req.body.email
-	var senha = req.body.senha 
+  var email = req.body.email
+  var senha = req.body.senha
   var id_cliente = req.params.id
 
   empresaModel.cadastrarFuncionario(nome, email, senha, id_cliente).then((resultado) => {
     return res.status(201).json(resultado)
   })
-  
+
 }
 
 function listar(_, res) {
@@ -128,6 +128,34 @@ function buscarPerfil(req, res) {
   });
 }
 
+function autenticarFuncionario(req, res) {
+  const email = req.body.emailServer
+  const senha = req.body.senhaServer
+
+  if (email == undefined) {
+    return res.status(400).send("Seu email está undefined!");
+  } else if (senha == undefined) {
+    return res.status(400).send("Sua senha está indefinida!");
+  } else {
+    empresaModel.autenticarFuncionario(email, senha)
+      .then(
+        function (resultadoAutenticar) {
+          if (resultadoAutenticar.length == 1) {
+            console.log(resultadoAutenticar);
+
+            return res.json({
+              id: resultadoAutenticar[0].funcionario_id,
+              nome: resultadoAutenticar[0].nome,
+              email: resultadoAutenticar[0].email
+            });
+          } else if (resultadoAutenticar.length == 0) {
+            return res.status(403).send("Email e/ou senha inválido(s)");
+          }
+        }
+      )
+  }
+}
+
 module.exports = {
   autenticar,
   buscarPorCnpj,
@@ -135,5 +163,6 @@ module.exports = {
   cadastrar,
   listar,
   buscarPerfil,
-  cadastrarFuncionario
+  cadastrarFuncionario,
+  autenticarFuncionario
 };
