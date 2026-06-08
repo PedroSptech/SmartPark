@@ -3,17 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BobIA</title>
+    <title>BobIA | Smart Park</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div id="container">
         <h1>BobIA</h1>
-        <textarea id="pergunta" type="text" placeholder="Digite a pergunta..."></textarea>
+
+        <p style="color:#1F2A44; margin-bottom:15px;">
+            Olá! Sou o BobIA, assistente virtual da Smart Park.
+            Estou aqui para ajudar com informações sobre estacionamentos,
+            vagas, mobilidade urbana e tirar suas dúvidas de forma rápida.
+        </p>
+
+        <textarea id="pergunta" type="text" placeholder="Como posso ajudar você hoje?"></textarea>
+
         <br><br>
-        <button onclick="gerarResposta()">Gerar Resposta</button>
-        <h3>Resposta da IA:</h3>
+
+        <button onclick="gerarResposta()">Perguntar ao BobIA</button>
+
+        <h3>Resposta do BobIA:</h3>
+
         <div id="resposta"></div>
     </div>
 
