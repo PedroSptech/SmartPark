@@ -64,7 +64,7 @@ function buscarMaximoPorData(idEstacionamento, data) {
 function buscarVagasPorSetor(idEstacionamento) {
     var instrucaoSql = `
         SELECT
-            v.setor_vaga,
+            v.setor_vaga AS setor,
             v.tipo_vaga,
             COUNT(v.id_vaga)              AS total_vagas,
             SUM(r.registroSensor)         AS vagas_ocupadas,

@@ -1,39 +1,175 @@
-window.onload = function () {
-    const canvasHeatmap = document.getElementById('heatmapChart');
+const ID_ESTACIONAMENTO = 1;
+ 
+const URL_SETOR = `http://localhost:3012/registros/setor/${ID_ESTACIONAMENTO}`;
+ 
+// Intervalo de atualização automática em milissegundos
+const INTERVALO_ATUALIZACAO_MS = 5000;
+ 
+// mapa de posições
 
-    const ctxHeatmap = canvasHeatmap.getContext('2d');
+// valores xp/yp: posição percentual (0–100) dentro do canvas
 
-    const mapData = [
-        { x: 15, y: 20, v: 90, label: 'Setor A1' },
-        { x: 50, y: 20, v: 40, label: 'Setor A2' },
-        { x: 85, y: 20, v: 70, label: 'Setor A3' },
-        { x: 15, y: 80, v: 85, label: 'Setor B1' },
-        { x: 50, y: 80, v: 25, label: 'Setor B2' },
-        { x: 85, y: 80, v: 10, label: 'Setor VIP' }
-    ];
+const POSICOES_SETOR = {
+    'A1':  { xp: 17, yp: 15 },
+    'A2':  { xp: 40, yp: 15 },
+    'A3':  { xp: 62, yp: 15 },
+    // 'A4':  { xp: 78, yp: 28 },
+    'B1':  { xp: 17, yp: 80 },
+    'B2':  { xp: 40, yp: 80 },
+    'B3':  { xp: 62, yp: 80 },
+    // 'B4':  { xp: 78, yp: 72 },
+    'C1':  { xp: 94, yp: 35 },
+    'C2':  { xp: 94, yp: 65 },
+};
 
-    const getColor = (val) => {
-        if (val > 80) return 'rgba(255, 70, 70, 0.8)';
-        if (val > 50) return 'rgba(255, 206, 86, 0.8)';
-        return 'rgba(75, 192, 192, 0.8)';                
-    };
+//   setor - 'A1'
+//   xp / yp - posição percentual (vem de POSICOES_SETOR)
+//   taxa_ocupacao - percentual geral do setor (usado para cor e label)
+//   tipos - array com breakdown por tipo de vaga
+//   cada item: { tipo_vaga, total_vagas, vagas_ocupadas, taxa_ocupacao }
 
-    const bubbleData = mapData.map(d => ({
-        x: d.x, y: d.y, r: 35, v: d.v, label: d.label
-    }));
+let SETORES_DADOS = [];
+ 
+let chartHeatmap = null;
+ 
+// fetch agrupando por setor
 
-    new Chart(ctxHeatmap, {
+//   [
+//     { setor:'A1', tipo_vaga:'Comum',  total_vagas:2, vagas_ocupadas:2, taxa_ocupacao:100 },
+//     { setor:'A1', tipo_vaga:'PCD',    total_vagas:1, vagas_ocupadas:1, taxa_ocupacao:100 },
+//     { setor:'A1', tipo_vaga:'VIP',    total_vagas:1, vagas_ocupadas:0, taxa_ocupacao:0   },
+//     { setor:'B1', tipo_vaga:'Comum',  total_vagas:2, vagas_ocupadas:1, taxa_ocupacao:50  }
+//   ]
+
+//   {
+//     A1: { totalGeral:4, ocupadasGeral:3, tipos:[...] },
+//     B1: { totalGeral:2, ocupadasGeral:1, tipos:[...] },
+//   }
+
+// SETORES_DADOS cruzando com POSICOES_SETOR.
+
+async function buscarDadosSetor() {
+    try {
+        const resposta = await fetch(URL_SETOR);
+ 
+        // sem registros
+        if (resposta.status === 204) {
+            console.warn("Nenhum dado de setor retornado pelo servidor.");
+            return;
+        }
+ 
+        if (!resposta.ok) {
+            console.error("Erro na requisição:", resposta.status);
+            return;
+        }
+ 
+        // linhas vindas do banco
+        const linhas = await resposta.json();
+ 
+        // cada chave do objeto é um setor ('A1', 'B1')
+        const agrupado = {};
+ 
+        linhas.forEach(function (linha) {
+            const setor = linha.setor; // ex: 'A1'
+ 
+            if (!agrupado[setor]) {
+                agrupado[setor] = {
+                    totalGeral:    0,
+                    ocupadasGeral: 0,
+                    tipos:         []
+                };
+            }
+ 
+            // total geral e ocupada geral de cada setor
+            agrupado[setor].totalGeral    += Number(linha.total_vagas);
+            agrupado[setor].ocupadasGeral += Number(linha.vagas_ocupadas);
+ 
+            // guardar tipos de vaga para colocar no painel lateral
+            agrupado[setor].tipos.push({
+                tipo_vaga:      linha.tipo_vaga,
+                total_vagas:    Number(linha.total_vagas),
+                vagas_ocupadas: Number(linha.vagas_ocupadas),
+                taxa_ocupacao:  Number(linha.taxa_ocupacao)
+            });
+        });
+ 
+        // setores dados cruzando com posicoes setor
+        SETORES_DADOS = Object.keys(agrupado)
+            .filter(function (setor) {
+                // ignora setores sem posição mapeada
+                return POSICOES_SETOR[setor] !== undefined;
+            })
+            .map(function (setor) {
+                const grupo = agrupado[setor];
+                const pos = POSICOES_SETOR[setor];
+                console.log(pos);
+                
+ 
+                const taxaGeral = grupo.totalGeral === 0
+                    ? 0
+                    : Math.round((grupo.ocupadasGeral / grupo.totalGeral) * 100);
+ 
+                return {
+                    setor:         setor,                   // 'A1'
+                    xp:            pos.xp,                  // posição x% no canvas
+                    yp:            pos.yp,                  // posição y% no canvas
+                    taxa_ocupacao: taxaGeral,               // número 0–100
+                    totalGeral:    grupo.totalGeral,
+                    ocupadasGeral: grupo.ocupadasGeral,
+                    tipos:         grupo.tipos              // breakdown por tipo
+                };
+            });
+ 
+    } catch (erro) {
+        console.error("Falha ao buscar dados do setor:", erro);
+    }
+}
+ 
+// getColor retorna a cor da bolha baseada na taxa de ocupação
+
+function getColor(taxa, alpha) {
+    alpha = alpha !== undefined ? alpha : 0.82;
+    if (taxa > 80) return `rgba(226, 75, 74, ${alpha})`;   // vermelho — crítico
+    if (taxa > 50) return `rgba(245, 166, 35, ${alpha})`;  // amarelo  — alerta
+    return         `rgba(46, 204, 113, ${alpha})`;         // verde    — normal
+}
+ 
+// PLOTAR: cria o Chart.js pela primeira vez
+//
+// cada setor uma bolha no gráfico
+//   x, y - posição no canvas (0–100)
+//   r - raio fixo 35 (pode ser proporcional a total_vagas no futuro)
+//   v - taxa_ocupacao (usado pelo tooltip e pela cor)
+
+function plotarMapa() {
+    const canvas = document.getElementById('heatmapChart');
+    const ctx    = canvas.getContext('2d');
+ 
+    const bubbleData = SETORES_DADOS.map(function (s) {
+        return {
+            x:     s.xp,
+            y:     s.yp,
+            r:     35,
+            v:     s.taxa_ocupacao,
+            setor: s.setor,
+            tipos: s.tipos,
+            totalGeral:    s.totalGeral,
+            ocupadasGeral: s.ocupadasGeral
+        };
+    });
+ 
+    chartHeatmap = new Chart(ctx, {
         type: 'bubble',
         data: {
             datasets: [{
-                data: bubbleData,
-                backgroundColor: bubbleData.map(d => getColor(d.v)),
-                borderColor: bubbleData.map(d => getColor(d.v).replace('0.8', '1')),
+                data:            bubbleData,
+                backgroundColor: bubbleData.map(function (d) { return getColor(d.v, 0.82); }),
+                borderColor:     bubbleData.map(function (d) { return getColor(d.v, 1); }),
                 borderWidth: 2
             }]
         },
         options: {
-            responsive: true,
+            responsive:          true,
             maintainAspectRatio: false,
             scales: {
                 x: { display: false, min: 0, max: 100 },
@@ -43,11 +179,70 @@ window.onload = function () {
                 legend: { display: false },
                 tooltip: {
                     callbacks: {
-                        label: (ctx) => `${ctx.raw.label}: ${ctx.raw.v}% ocupado`
+                        // Linha principal: nome do setor e taxa geral
+                        label: function (ctx) {
+                            const d = ctx.raw;
+                            return `Setor ${d.setor}: ${d.v}% ocupado (${d.ocupadasGeral}/${d.totalGeral})`;
+                        },
+                        // Linhas extras: breakdown por tipo de vaga
+                        afterLabel: function (ctx) {
+                            const d = ctx.raw;
+                            return d.tipos.map(function (t) {
+                                return `  ├ ${t.tipo_vaga}: ${t.vagas_ocupadas}/${t.total_vagas} vagas`;
+                            });
+                        }
                     }
                 }
             }
         }
     });
+}
+ 
+// PASSO 4 — ATUALIZAR:
 
+// Não recria o canvas — apenas substitui data e cores para manter
+// a animação de transição do Chart.js.
+
+function atualizarMapa() {
+    if (!chartHeatmap) return; // ainda não foi plotado
+ 
+    const bubbleData = SETORES_DADOS.map(function (s) {
+        return {
+            x:     s.xp,
+            y:     s.yp,
+            r:     35,
+            v:     s.taxa_ocupacao,
+            setor: s.setor,
+            tipos: s.tipos,
+            totalGeral:    s.totalGeral,
+            ocupadasGeral: s.ocupadasGeral
+        };
+    });
+ 
+    // substitui os dados e recalcula as cores
+    chartHeatmap.data.datasets[0].data            = bubbleData;
+    chartHeatmap.data.datasets[0].backgroundColor = bubbleData.map(function (d) { return getColor(d.v, 0.82); });
+    chartHeatmap.data.datasets[0].borderColor     = bubbleData.map(function (d) { return getColor(d.v, 1); });
+ 
+    chartHeatmap.update();
+}
+ 
+async function inicializarMapa() {
+    //sequência das três funções
+    
+    // primeira função: busca os dados
+    await buscarDadosSetor();
+ 
+    // segunda função: plota com os dados obtidos
+    plotarMapa();
+ 
+    // terceira função: atualização automática
+    setInterval(async function () {
+        await buscarDadosSetor();
+        atualizarMapa();
+    }, INTERVALO_ATUALIZACAO_MS);
+}
+ 
+window.onload = function () {
+    inicializarMapa();
 };

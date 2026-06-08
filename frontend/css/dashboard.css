@@ -257,22 +257,7 @@ canvas {
     height: 600px;
     display: flex;
     flex-direction: column;
-}
-
-.heatmap-wrapper {
-    width: 100%;
-    height: auto;
-    background-image: url('../images/planta-estacionamento.png'); 
-    background-size: cover;
-    background-position: center; 
-    border-radius: 10px;
-    
-}
-
-.heatmap-card {
-    height: 600px;
-    display: flex;
-    flex-direction: column;
+    /* box-shadow: inset ; */
 }
 
 .heatmap-wrapper {
@@ -283,3 +268,15 @@ canvas {
     border-radius: 10px;
 }
 
+.cards-alertas {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.card-kpi {
+    background-color: white;
+    width: 100%;
+    height: 22vh;
+    border-radius: 10px;
+}
