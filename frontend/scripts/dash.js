@@ -1,5 +1,10 @@
+if (sessionStorage.TIPO_USUARIO === 'funcionario') {
+    document.getElementById('botao_perfil').style.display = 'none';
+}
+
 let myLineChart;
 let myBarChart;
+
 
 window.onload = function () {
     var idEstacionamento = sessionStorage.ID_USUARIO || 1

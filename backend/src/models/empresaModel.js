@@ -31,6 +31,20 @@ function autenticar(cnpj, senha) {
 	return database.executar(instrucaoSql);
 }
 
+function autenticarFuncionario(email, senha) {
+	var instrucaoSql = `
+			SELECT 
+				id_usuario as funcionario_id,
+				nome_funcionario as nome, 
+				email_funcionario as email, 
+				senha_funcionario as senha
+			FROM funcionario
+			WHERE email_funcionario = '${email}' AND senha_funcionario = '${senha}';
+	`;
+
+	return database.executar(instrucaoSql);
+}
+
 function cadastrar(
 	razaoSocial,
 	cnpj,
@@ -103,5 +117,6 @@ module.exports = {
 	buscarDadosPerfil,
 	buscarEstacionamentos,
 	buscarFuncionarios,
-	cadastrarFuncionario
+	cadastrarFuncionario,
+	autenticarFuncionario
 };
