@@ -17,6 +17,7 @@
             <img src="../images/Seta.svg" alt="">
         </a>
     </div>
+
     <div class="dashboard-container">
         <nav class="sidebar">
             <div class="sidebar-pill">
@@ -25,11 +26,13 @@
                         <img src="../images/category.svg" alt="Dashboard">
                     </a>
                 </div>
+
                 <div class="icon" id="botao_perfil">
                     <a href="../pages/profile_page.html">
                         <img src="../images/Vector.svg" alt="Perfil">
                     </a>
                 </div>
+
                 <div class="icon">
                     <a href="../pages/heatmap.html">
                         <img src="../images/Chart.svg" alt="Perfil">
@@ -37,12 +40,14 @@
                 </div>
             </div>
         </nav>
+
         <main class="main-content">
             <header class="top-bar">
                 <div class="logo">
                     <img src="../images/LOGO.svg" alt="Ícone Carro" class="logo-icon">
                     <span class="logo-text">SmartPark</span>
                 </div>
+
                 <div class="user-info">
                     SPTECH | sptech@sptech.school
                 </div>
@@ -51,7 +56,19 @@
             <div id="mural_alertas" class="alertas-container"></div>
 
             <section class="stats-grid">
+
                 <div class="card date-card">
+                    <div class="card-header">
+                        <p>Data e Hora</p>
+
+                        <div class="info-tooltip">
+                            <span class="info-icon">i</span>
+                            <div class="tooltip-text">
+                                Exibe a data e o horário atual do sistema em tempo real.
+                            </div>
+                        </div>
+                    </div>
+
                     <h3 id="clock">8:02:09</h3>
                     <p>Segunda, 23/02/2027</p>
                 </div>
@@ -59,35 +76,77 @@
                 <div class="card" id="vagas-totais">
                     <div class="card-header">
                         <p>Total Vagas Ocupadas</p>
+
+                        <div class="info-tooltip">
+                            <span class="info-icon">i</span>
+                            <div class="tooltip-text">
+                                Exibe a quantidade total de vagas atualmente ocupadas no estacionamento.
+                            </div>
+                        </div>
                     </div>
+
                     <h2 id="num-ocupacao">...</h2>
                 </div>
-                
+
                 <div class="card tempo-medio">
                     <div class="card-header">
                         <p>Tempo de permanência média por vaga</p>
+
+                        <div class="info-tooltip">
+                            <span class="info-icon">i</span>
+                            <div class="tooltip-text">
+                                Calcula o tempo médio que os veículos permanecem estacionados.
+                            </div>
+                        </div>
                     </div>
+
                     <h2 id="tempo-ocupacao">...</h2>
                 </div>
+
             </section>
 
-    <section class="charts-container">
-        <div class="chart-card">
-            <h4>Taxa de ocupação a cada 30 minutos</h4>
-            <div class="chart-wrapper">
-                <canvas id="lineChart"></canvas>
-            </div>
-        </div>
-        <div class="chart-card">
-            <h4>Próximos dias</h4>
-            <div class="chart-wrapper">
-                <canvas id="barChart"></canvas>
-            </div>
-        </div>
-        <script src="../scripts/alert.js"></script>
-    </section>
-    </main>
+            <section class="charts-container">
+
+                <div class="chart-card">
+                    <div class="card-header">
+                        <h4>Taxa de ocupação a cada 30 minutos</h4>
+
+                        <div class="info-tooltip">
+                            <span class="info-icon">i</span>
+                            <div class="tooltip-text">
+                                Mostra a variação da ocupação das vagas ao longo do dia em intervalos de 30 minutos.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-wrapper">
+                        <canvas id="lineChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="card-header">
+                        <h4>Próximos dias</h4>
+
+                        <div class="info-tooltip">
+                            <span class="info-icon">i</span>
+                            <div class="tooltip-text">
+                                Apresenta a previsão de ocupação para os próximos dias com base nos dados históricos.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-wrapper">
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+
+            </section>
+
+            <script src="../scripts/alert.js"></script>
+        </main>
     </div>
+
     <script src="../scripts/dash.js"></script>
 </body>
 
