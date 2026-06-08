@@ -1,36 +1,89 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BobIA | Smart Park</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <div id="container">
+
+        <img src="./images/LOGO.svg" alt="Smart Park" class="logo">
+
         <h1>BobIA</h1>
 
-        <p style="color:#1F2A44; margin-bottom:15px;">
+        <p class="intro">
             Olá! Sou o BobIA, assistente virtual da Smart Park.
-            Estou aqui para ajudar com informações sobre estacionamentos,
-            vagas, mobilidade urbana e tirar suas dúvidas de forma rápida.
+            Estou preparado para responder dúvidas sobre estacionamentos,
+            mobilidade urbana, vagas, tecnologia e tudo relacionado ao ecossistema Smart Park.
         </p>
 
-        <textarea id="pergunta" type="text" placeholder="Como posso ajudar você hoje?"></textarea>
+        <textarea
+            id="pergunta"
+            placeholder="Digite sua pergunta..."
+        ></textarea>
 
         <br><br>
 
-        <button onclick="gerarResposta()">Perguntar ao BobIA</button>
+        <button onclick="gerarResposta()">
+            Perguntar ao BobIA
+        </button>
 
-        <h3>Resposta do BobIA:</h3>
+        <h3>Resposta do BobIA</h3>
 
         <div id="resposta"></div>
+
     </div>
 
+    <footer class="footer">
+        <div class="container footer-content">
+
+            <div class="footer-left">
+
+                <div class="footer-logo">
+                    <img src="./images/LOGO.svg" alt="Smart Park">
+                    <span class="footer-brand">SmartPark</span>
+                </div>
+
+                <div class="footer-contact">
+
+                    <div class="contact-item">
+                        <p class="label">WhatsApp Atendimento</p>
+                        <p class="value">(11) 99999-9999</p>
+                    </div>
+
+                    <div class="contact-item">
+                        <p class="label">Central de Relacionamento</p>
+                        <p class="value">4005-5986</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="footer-right">
+
+                <p class="form-title">Links Rápidos</p>
+
+                <ul class="footer-links">
+                    <li><a href="../../frontend/index.html">Home</a></li>
+                    <li><a href="../../frontend/pages/about_us.html">Sobre Nós</a>
+                    <li><a href="../../frontend/pages/login.html">Login</a></li>
+                    <li><a href="../../frontend/pages/register.html">Cadastrar</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+    </footer>
+
     <script>
-        
         async function gerarResposta() {
+
             const pergunta = document.getElementById('pergunta').value;
 
             const response = await fetch('/perguntar', {
@@ -43,11 +96,11 @@
 
             const data = await response.json();
 
-            resposta.style.display = 'block';
+            document.getElementById('resposta').style.display = 'block';
             document.getElementById('resposta').innerText = data.resultado;
         }
-
     </script>
-    
+
 </body>
+
 </html>

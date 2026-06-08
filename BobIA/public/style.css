@@ -1,3 +1,9 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
     background-image: linear-gradient(
@@ -7,21 +13,31 @@ body {
         #666dc7
     );
     min-height: 100vh;
-    margin: 0;
-    padding: 40px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 #container {
     width: 85%;
     max-width: 1000px;
     background: white;
-    padding: 40px;
+    padding: 50px;
     border-radius: 24px;
     box-shadow: 0 10px 30px rgba(0,0,0,.15);
     text-align: center;
+    margin-top: 40px;
+}
+
+.logo {
+    width: 120px;
+    margin-bottom: 20px;
 }
 
 h1 {
@@ -37,10 +53,11 @@ h1 {
     -webkit-text-fill-color: transparent;
 }
 
-p {
+.intro {
     color: #555;
     margin-bottom: 25px;
     line-height: 1.6;
+    font-size: 1rem;
 }
 
 textarea {
@@ -95,11 +112,106 @@ h3 {
     line-height: 1.7;
 }
 
-#resposta::-webkit-scrollbar {
-    width: 8px;
+.footer {
+    background-color: #0d0917;
+    width: 100%;
+    margin-top: 40px;
+    padding: 30px 0;
+    color: white;
 }
 
-#resposta::-webkit-scrollbar-thumb {
-    background: #1c0bfe;
-    border-radius: 10px;
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-logo img {
+    width: 40px;
+}
+
+.footer-brand {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.footer-contact {
+    display: flex;
+    gap: 40px;
+}
+
+.contact-item .label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.contact-item .value {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.footer-right {
+    border-left: 1px solid white;
+    padding-left: 40px;
+}
+
+.form-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-links a {
+    color: #ccc;
+    text-decoration: none;
+    transition: .3s;
+}
+
+.footer-links a:hover {
+    color: white;
+}
+
+@media (max-width: 768px) {
+
+    #container {
+        width: 95%;
+        padding: 30px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .footer-right {
+        border-left: none;
+        padding-left: 0;
+    }
+
+    .footer-contact {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    textarea {
+        width: 100%;
+    }
 }
