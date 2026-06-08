@@ -213,3 +213,5 @@ SELECT
     nome_shopping,
     qtd_vaga_total * valor_diario_vaga AS receita_maxima_diaria
 FROM estacionamento;
+
+SELECT * FROM cliente;
