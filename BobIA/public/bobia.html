@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BobIA | Smart Park</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="container">
+
+        <img src="./images/LOGO.svg" alt="Smart Park" class="logo">
+
+        <h1>BobIA</h1>
+
+        <p class="intro">
+            Olá! Sou o BobIA, assistente virtual da Smart Park.
+            Estou preparado para responder dúvidas sobre estacionamentos,
+            mobilidade urbana, vagas, tecnologia e tudo relacionado ao ecossistema Smart Park.
+        </p>
+
+        <textarea
+            id="pergunta"
+            placeholder="Digite sua pergunta..."
+        ></textarea>
+
+        <br><br>
+
+        <button id="btn_submit" onclick="gerarResposta()">
+            Perguntar ao BobIA
+        </button>
+        
+        <div class="loading" id="loading_gif">
+         	<img src="images/gifs/loading.gif">
+      	</div>
+
+        <h3>Resposta do BobIA</h3>
+
+        <div id="resposta"></div>
+
+    </div>
+</body>
+<script src="../main.js"></script>
+</html>
