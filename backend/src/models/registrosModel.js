@@ -60,8 +60,37 @@ function buscarMaximoPorData(idEstacionamento, data) {
     console.log("Executando SQL buscarMaximoPorData:\n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+
+function buscarVagasPorSetor(idEstacionamento) {
+    var instrucaoSql = `
+        SELECT
+            v.setor_vaga,
+            v.tipo_vaga,
+            COUNT(v.id_vaga)              AS total_vagas,
+            SUM(r.registroSensor)         AS vagas_ocupadas,
+            ROUND(
+                SUM(r.registroSensor) / COUNT(v.id_vaga) * 100
+            , 0)                          AS taxa_ocupacao
+        FROM vaga v
+        JOIN sensor s ON s.fkVaga = v.id_vaga
+        JOIN (
+            SELECT fkSensor, registroSensor
+            FROM registros
+            WHERE id_registro IN (
+                SELECT MAX(id_registro) FROM registros GROUP BY fkSensor
+            )
+        ) r ON r.fkSensor = s.id_sensor
+        WHERE v.fkEstacionamento = ${idEstacionamento}
+        GROUP BY v.setor_vaga, v.tipo_vaga
+        ORDER BY v.setor_vaga;
+    `;
+    console.log("Executando SQL buscarVagasPorSetor:\n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
-    buscarMaximoPorData
+    buscarMaximoPorData,
+    buscarVagasPorSetor
 };

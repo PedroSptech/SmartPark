@@ -15,4 +15,8 @@ router.get("/historico/:idEstacionamento/:data", function (req, res) {
     registrosController.buscarMaximoPorData(req, res);
 });
 
+router.get("/setor/:idEstacionamento", function (req, res) {
+    registrosController.buscarVagasPorSetor(req, res);
+});
+
 module.exports = router;

@@ -50,8 +50,26 @@ function buscarMaximoPorData(req, res) {
         });
 }
 
+function buscarVagasPorSetor(req, res) {
+    var idEstacionamento = req.params.idEstacionamento;
+
+    registrosModel.buscarVagasPorSetor(idEstacionamento)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum dado de setor encontrado.");
+            }
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
-    buscarMaximoPorData
+    buscarMaximoPorData,
+    buscarVagasPorSetor
 };
