@@ -4,7 +4,7 @@ if (sessionStorage.TIPO_USUARIO === 'funcionario') {
 
 let myLineChart;
 let myBarChart;
-
+let alertas = [];
 
 window.onload = function () {
     var idEstacionamento = sessionStorage.ID_USUARIO || 1
@@ -26,7 +26,6 @@ function obterDadosVagasOcupadas(idEstacionamento) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-
                     plotarKpiOcupadas(resposta[resposta.length - 1]);
                 });
             } else {
@@ -61,7 +60,6 @@ function obterDadosGraficoLinha(idEstacionamento) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-
                     plotarGraficoLinha(resposta, idEstacionamento);
                 });
             } else {
@@ -75,49 +73,40 @@ function obterDadosGraficoLinha(idEstacionamento) {
 
 function formatarData(date) {
     var ano = date.getFullYear();
-    //retorna o mes de 0 a 11, por isso tem +1
     var mes = date.getMonth() + 1;
     if (mes < 10) {
         mes = "0" + mes;
     }
-
     var dia = date.getDate();
     if (dia < 10) {
         dia = "0" + dia;
     }
-
     return ano + "-" + mes + "-" + dia;
 }
 
 function labelDia(date) {
     var dias = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB'];
-    //retorna um número de 0 a 6 do dia de hoje da semana
     return dias[date.getDay()];
 }
 
 function buscarFeriadoNaData(listaFeriados, dataAtual) {
     var feriadoEncontrado = null;
-
     for (var i = 0; i < listaFeriados.length; i++) {
         if (listaFeriados[i].date == dataAtual) {
             feriadoEncontrado = listaFeriados[i];
             break;
         }
     }
-
     return feriadoEncontrado;
 }
 
 function dataReferenciaHistorica(date, isFeriado) {
-    //interpola fazendo com que elas não sejam iguais se uma mudar 
     var novaData = new Date(date);
-    //se for feriado pega o dado do ano passado se não do mês passado
     if (isFeriado) {
         novaData.setFullYear(novaData.getFullYear() - 1);
     } else {
         novaData.setMonth(novaData.getMonth() - 1);
     }
-
     return formatarData(novaData);
 }
 
@@ -174,22 +163,18 @@ function processarProximosDias(idEstacionamento, proximosDias, listaFeriados, in
                 dados.push(null);
                 cores.push('#e2e8f0');
                 infoKpi.push("Sem informacoes");
-
                 processarProximosDias(idEstacionamento, proximosDias, listaFeriados, indice + 1, labels, dados, cores, infoKpi);
             }
         })
         .catch(function (erro) {
             console.log("Erro ao buscar historico: " + erro.message);
-
             labels.push(labelDia(dia));
             dados.push(null);
             cores.push('#e2e8f0');
             infoKpi.push("Sem informacoes");
-
             processarProximosDias(idEstacionamento, proximosDias, listaFeriados, indice + 1, labels, dados, cores, infoKpi);
         });
 }
-
 
 function plotarKpiOcupadas(resposta) {
     let kpi = document.getElementById("num-ocupacao")
@@ -232,7 +217,6 @@ function plotarGraficoLinha(resposta, idEstacionamento) {
 
     for (let i = 0; i < resposta.length; i++) {
         let registro = resposta[i];
-
         labelsGrafico.push(registro.momento_grafico);
         dadosGrafico.push(registro.taxa_ocupacao);
     }
@@ -248,7 +232,6 @@ function plotarGraficoLinha(resposta, idEstacionamento) {
     gradient.addColorStop(1, 'rgba(68, 102, 242, 0)');
 
     if (myLineChart) {
-        //apaga os dados anteriores para poder plotar o novo
         myLineChart.destroy();
     }
 
@@ -279,25 +262,20 @@ function plotarGraficoLinha(resposta, idEstacionamento) {
     });
 }
 
-
 function inicializarGraficoBarras(idEstacionamento) {
     var idEst = idEstacionamento;
     var hoje = new Date();
     var anoAtual = hoje.getFullYear();
     var proximosDias = [];
 
-    //Pega a data dos proximos 5 dias
     for (var i = 1; i <= 5; i++) {
         var d = new Date(hoje);
-        //da +1 ao dia da data 
         d.setDate(hoje.getDate() + i);
         proximosDias.push(d);
     }
 
-    //poderia ser feito com um json local de feriados 
     var listaFeriados = [];
 
-    //Pega todos os feriados desse ano
     fetch("https://brasilapi.com.br/api/feriados/v1/" + anoAtual)
         .then(function (resAno) {
             resAno.json().then(function (feriadosAno) {
@@ -305,7 +283,6 @@ function inicializarGraficoBarras(idEstacionamento) {
                     listaFeriados.push(feriadosAno[k]);
                 }
 
-                //Pega todos os feriados do ano anterior
                 fetch("https://brasilapi.com.br/api/feriados/v1/" + (anoAtual - 1))
                     .then(function (resAnoPassado) {
                         resAnoPassado.json().then(function (feriadosAnoPassado) {
@@ -313,7 +290,6 @@ function inicializarGraficoBarras(idEstacionamento) {
                                 listaFeriados.push(feriadosAnoPassado[j]);
                             }
 
-                            //feriado de teste só para aparecer no grafico
                             listaFeriados.push({
                                 date: "2026-06-09",
                                 name: "Dia do Projeto em grupo",
@@ -375,4 +351,67 @@ function renderizarGraficoBarras(labels, dados, cores, infoKpi) {
             }
         }
     });
+}
+
+function alertar(taxaAtual, idEstacionamento) {
+    var grauDeAviso = '';
+    var grauDeAvisoCor = '';
+
+    var limites = {
+        lotado: 95,
+        quase_lotado: 80,
+        ideal: 50,
+        vazio: 20
+    };
+
+    if (taxaAtual >= limites.lotado) {
+        grauDeAviso = 'Lotado';
+        grauDeAvisoCor = 'cor-alerta alerta-vermelho';
+        exibirAlerta(taxaAtual, idEstacionamento, grauDeAviso, grauDeAvisoCor);
+    } else if (taxaAtual >= limites.quase_lotado && taxaAtual < limites.lotado) {
+        grauDeAviso = 'Quase Lotado';
+        grauDeAvisoCor = 'cor-alerta alerta-amarelo';
+        exibirAlerta(taxaAtual, idEstacionamento, grauDeAviso, grauDeAvisoCor);
+    } else {
+        removerAlerta(idEstacionamento);
+    }
+}
+
+function exibirAlerta(taxaAtual, idEstacionamento, grauDeAviso, grauDeAvisoCor) {
+    var indice = alertas.findIndex(item => item.idEstacionamento == idEstacionamento);
+
+    if (indice >= 0) {
+        alertas[indice] = { idEstacionamento, taxaAtual, grauDeAviso, grauDeAvisoCor };
+    } else {
+        alertas.push({ idEstacionamento, taxaAtual, grauDeAviso, grauDeAvisoCor });
+    }
+
+    exibirCards();
+}
+
+function removerAlerta(idEstacionamento) {
+    alertas = alertas.filter(item => item.idEstacionamento != idEstacionamento);
+    exibirCards();
+}
+
+function exibirCards() {
+    var mural = document.getElementById('mural_alertas');
+    mural.innerHTML = '';
+
+    for (var i = 0; i < alertas.length; i++) {
+        var mensagem = alertas[i];
+        mural.innerHTML += transformarEmDiv(mensagem);
+    }
+}
+
+function transformarEmDiv({ idEstacionamento, taxaAtual, grauDeAviso, grauDeAvisoCor }) {
+    return `
+    <div class="card-alerta ${grauDeAvisoCor}">
+        <div class="alerta-icone">&#9888;</div>
+        <div class="alerta-texto">
+            <h3>Atenção: Estacionamento ${idEstacionamento} está ${grauDeAviso}!</h3>
+            <p>A taxa de ocupação atual chegou a ${taxaAtual}%.</p>
+        </div>
+    </div>
+    `;
 }
