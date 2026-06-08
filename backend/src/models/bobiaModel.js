@@ -1,4 +1,9 @@
+const path = require('path');
+
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env.dev') });
+
 const { GoogleGenAI } = require("@google/genai");
+
 
 const chatIA = new GoogleGenAI({ apiKey: process.env.MINHA_CHAVE });
 
@@ -6,7 +11,7 @@ async function gerarResposta(mensagem) {
      try {
         const modeloIA = await chatIA.models.generateContent({
             model: "gemini-2.5-flash",
-            contents: `${mensagem}`
+            contents: `Em um paragráfo, sem formatações de estilização no texto responda: ${mensagem}`
 
         });
         const resposta = modeloIA.text;
