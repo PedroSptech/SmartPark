@@ -1,3 +1,7 @@
+if (sessionStorage.TIPO_USUARIO === 'funcionario') {
+    window.location = './dashboard.html';
+}
+
 function carregarPerfil() {
     var idEmpresa = sessionStorage.ID_USUARIO;
 
@@ -72,39 +76,39 @@ function cadastrarFunc() {
     var email = ipt_email_func.value.trim()
     var senha = ipt_passw_func.value
 
-	fetch(`/empresas/cadastrar/funcionario/${sessionStorage.ID_USUARIO}`, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({
-			nome,
-			email,
-			senha
-		}),
-	})
-		.then(function (resposta) {
-			console.log("resposta: ", resposta);
+    fetch(`/empresas/cadastrar/funcionario/${sessionStorage.ID_USUARIO}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            nome,
+            email,
+            senha
+        }),
+    })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
 
-			if (resposta.ok) {
-				validoMensagem(
-					"Cadastro realizado com sucesso! Redirecionando para tela de Login...",
-				);
+            if (resposta.ok) {
+                validoMensagem(
+                    "Cadastro realizado com sucesso! Redirecionando para tela de Login...",
+                );
 
-				setTimeout(() => {
-					closePopUp()
-				}, "2000");
+                setTimeout(() => {
+                    closePopUp()
+                }, "2000");
 
-				limparFormulario();
-			} else {
-				invalidoMensagem("Houve um erro ao tentar realizar o cadastro!");
-			}
-		})
-		.catch(function (resposta) {
-			console.log(`#ERRO: ${resposta}`);
-		});
+                limparFormulario();
+            } else {
+                invalidoMensagem("Houve um erro ao tentar realizar o cadastro!");
+            }
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
 
-	return false;
+    return false;
 }
 
 carregarPerfil();

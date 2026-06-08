@@ -196,6 +196,7 @@ function entrarEmpresa() {
 					sessionStorage.NOME_USUARIO = json.nome;
 					sessionStorage.ID_USUARIO = json.id;
 					sessionStorage.EMAIL_USUARIO = json.email;
+					sessionStorage.TIPO_USUARIO = "empresa";
 
 					validoMensagem(
 						"Login realizado com sucesso! Redirecionando para a dashboard!",
@@ -268,6 +269,7 @@ function entrarFuncionario() {
 					sessionStorage.NOME_USUARIO = json.nome;
 					sessionStorage.ID_USUARIO = json.id;
 					sessionStorage.EMAIL_USUARIO = json.email;
+					sessionStorage.TIPO_USUARIO = "funcionario";
 
 					validoMensagem(
 						"Login realizado com sucesso! Redirecionando para a dashboard!",

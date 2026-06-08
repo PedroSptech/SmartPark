@@ -1,3 +1,7 @@
+if (sessionStorage.TIPO_USUARIO === 'funcionario') {
+    document.getElementById('botao_perfil').style.display = 'none';
+}
+
 window.onload = function () {
     const canvasHeatmap = document.getElementById('heatmapChart');
 
@@ -15,7 +19,7 @@ window.onload = function () {
     const getColor = (val) => {
         if (val > 80) return 'rgba(255, 70, 70, 0.8)';
         if (val > 50) return 'rgba(255, 206, 86, 0.8)';
-        return 'rgba(75, 192, 192, 0.8)';                
+        return 'rgba(75, 192, 192, 0.8)';
     };
 
     const bubbleData = mapData.map(d => ({
