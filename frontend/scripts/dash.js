@@ -37,7 +37,8 @@ function obterDadosVagasOcupadas(idEstacionamento) {
                         return;
                     }
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    var ultimoRegistro = resposta[resposta.length - 1];
+                    // CORRIGIDO: a query usa ORDER BY DESC, então o mais recente é o primeiro elemento
+                    var ultimoRegistro = resposta[0];
                     var taxaAtual = Number(ultimoRegistro.taxa_ocupacao);
                     plotarKpiOcupadas(ultimoRegistro);
                     alertar(taxaAtual, idEstacionamento);
@@ -149,10 +150,27 @@ function processarProximosDias(idEstacionamento, proximosDias, listaFeriados, in
     fetch("/registros/historico/" + idEstacionamento + "/" + dataRef)
         .then(function (res) {
             if (res.ok) {
-                res.json().then(function (json) {
-                    var maximo = json && json[0] ? Number(json[0].maximo_ocupacao) : null;
+                res.text().then(function (texto) {
+                    var json;
+                    try {
+                        json = texto ? JSON.parse(texto) : [];
+                    } catch (e) {
+                        console.log("Resposta inválida do histórico: " + texto);
+                        json = [];
+                    }
+                    // CORRIGIDO: valida que json é um array antes de acessar json[0]
+                    if (!json || !Array.isArray(json)) {
+                        labels.push(labelDia(dia));
+                        dados.push(null);
+                        cores.push('#e2e8f0');
+                        infoKpi.push("Sem informacoes");
+                        processarProximosDias(idEstacionamento, proximosDias, listaFeriados, indice + 1, labels, dados, cores, infoKpi);
+                        return;
+                    }
 
-                    if (maximo == null || maximo == undefined) {
+                    var maximo = json[0] ? Number(json[0].maximo_ocupacao) : null;
+
+                    if (maximo == null || isNaN(maximo)) {
                         dados.push(null);
                         labels.push(labelDia(dia));
                         cores.push('#e2e8f0');

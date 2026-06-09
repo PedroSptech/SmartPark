@@ -1,6 +1,6 @@
 const ID_ESTACIONAMENTO = 1;
 
-const URL_SETOR = `http://localhost:3012/registros/setor/${ID_ESTACIONAMENTO}`;
+const URL_SETOR = `http://localhost:80/registros/setor/${ID_ESTACIONAMENTO}`;
 
 // Intervalo de atualização automática em milissegundos
 const INTERVALO_ATUALIZACAO_MS = 10000;

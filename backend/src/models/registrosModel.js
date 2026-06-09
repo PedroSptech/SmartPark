@@ -59,9 +59,6 @@ function buscarMaximoPorData(idEstacionamento, data) {
     `;
     console.log("Executando SQL buscarMaximoPorData:\n" + instrucaoSql);
     return database.executar(instrucaoSql);
-
-    console.log("Executando SQL buscarMaximoPorData:\n" + instrucaoSql);
-    return database.executar(instrucaoSql);
 }
 
 function buscarVagasPorSetor(idEstacionamento) {
@@ -106,7 +103,7 @@ function buscarTempoMedio(idEstacionamento) {
                             AND DATE(saida.dtHr_leitura) = DATE(entrada.dtHr_leitura)
         WHERE entrada.registroSensor = 1
         AND e.id_estacionamento = ${idEstacionamento}
-        AND DATE(entrada.dtHr_leitura) = CURDATE()
+        AND DATE(entrada.dtHr_leitura) = '2026-06-08'
         AND TIMESTAMPDIFF(MINUTE, entrada.dtHr_leitura, saida.dtHr_leitura) <= 240
         AND saida.dtHr_leitura = (
             SELECT MIN(r_aux.dtHr_leitura)
@@ -119,8 +116,6 @@ function buscarTempoMedio(idEstacionamento) {
         GROUP BY e.nome_shopping;
     `;
     console.log("Executando SQL buscarTempoMedio:\n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-    console.log("Executando SQL buscarVagasPorSetor:\n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
