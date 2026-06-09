@@ -7,7 +7,14 @@ let myBarChart;
 let alertas = [];
 
 window.onload = function () {
-    var idEstacionamento = sessionStorage.ID_USUARIO || 1
+    var parametros = new URLSearchParams(window.location.search);
+    var idEstacionamento = parametros.get("id")
+        || sessionStorage.ID_ESTACIONAMENTO
+        || sessionStorage.ID_USUARIO
+        || 1;
+
+    sessionStorage.ID_ESTACIONAMENTO = idEstacionamento;
+
     inicializarGraficoBarras(idEstacionamento);
     obterDadosGraficoLinha(idEstacionamento);
     obterDadosVagasOcupadas(idEstacionamento);
