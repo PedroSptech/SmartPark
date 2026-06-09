@@ -103,17 +103,23 @@ function buscarTempoMedio(idEstacionamento) {
         JOIN registros saida ON saida.fkSensor = entrada.fkSensor 
                             AND saida.registroSensor = 0 
                             AND saida.dtHr_leitura > entrada.dtHr_leitura
+                            AND DATE(saida.dtHr_leitura) = DATE(entrada.dtHr_leitura)
         WHERE entrada.registroSensor = 1
-        AND e.id_estacionamento = ${idEstacionamento} 
+        AND e.id_estacionamento = ${idEstacionamento}
+        AND DATE(entrada.dtHr_leitura) = CURDATE()
+        AND TIMESTAMPDIFF(MINUTE, entrada.dtHr_leitura, saida.dtHr_leitura) <= 240
         AND saida.dtHr_leitura = (
             SELECT MIN(r_aux.dtHr_leitura)
             FROM registros r_aux
             WHERE r_aux.fkSensor = entrada.fkSensor
                 AND r_aux.registroSensor = 0
                 AND r_aux.dtHr_leitura > entrada.dtHr_leitura
+                AND DATE(r_aux.dtHr_leitura) = DATE(entrada.dtHr_leitura)
         )
         GROUP BY e.nome_shopping;
     `;
+    console.log("Executando SQL buscarTempoMedio:\n" + instrucaoSql);
+    return database.executar(instrucaoSql);
     console.log("Executando SQL buscarVagasPorSetor:\n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
