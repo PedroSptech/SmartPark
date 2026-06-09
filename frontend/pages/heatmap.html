@@ -53,10 +53,42 @@
                         <canvas id="heatmapChart"></canvas>
                     </div>
                 </div>
+
                 <div class="cards-alertas">
-                    <div class="card-kpi"><h1>Setor atual informações</h1></div>
-                    <div class="card-kpi"><h1>Setores em alerta</h1></div>
-                    <div class="card-kpi"><h1>Setores extremamente vazios</h1></div>
+
+                    <div class="card-kpi">
+                        <h4 class="kpi-titulo">Setor selecionado</h4>
+
+                        <p class="kpi-hint" id="kpi-vazio">
+                            Clique em uma bolha no mapa para ver os detalhes do setor.
+                        </p>
+
+                        <div id="kpi-detalhe" style="display:none;">
+                            <div class="card-alerta" id="kpi-banner-setor">
+                                <span class="alerta-icone" id="kpi-icone-setor"></span>
+                                <div class="alerta-texto">
+                                    <h3 id="kpi-nome-setor">—</h3>
+                                    <p id="kpi-taxa-geral"></p>
+                                </div>
+                            </div>
+                            <div class="alertas-container" id="kpi-lista-tipos"></div>
+                        </div>
+                    </div>
+
+                    <div class="card-kpi">
+                        <h4 class="kpi-titulo">Setores em alerta</h4>
+                        <div class="alertas-container" id="kpi-lista-criticos">
+                            <p class="kpi-hint">Carregando...</p>
+                        </div>
+                    </div>
+
+                    <div class="card-kpi">
+                        <h4 class="kpi-titulo">Setores vazios</h4>
+                        <div class="alertas-container" id="kpi-lista-vazios">
+                            <p class="kpi-hint">Carregando...</p>
+                        </div>
+                    </div>
+
                 </div>
             </section>
         </main>
