@@ -209,8 +209,6 @@ function plotarMapa() {
     });
 }
 
-// ATUALIZAR:
-
 function atualizarMapa() {
     if (!chartHeatmap) return; // ainda não foi plotado
 
@@ -235,8 +233,6 @@ function atualizarMapa() {
     chartHeatmap.update();
 }
 
-
-// CARD 1 — setor selecionado
 
 function preencherCardSetor(setor) {
     document.getElementById('kpi-vazio').style.display = 'none';
@@ -308,13 +304,6 @@ function renderCardCriticos() {
     });
 }
 
-
-// ─────────────────────────────────────────────────────────────────────────────
-// CARD 3 — extremamente vazios (taxa < 20%)
-//
-// Reutiliza: alertas-container, card-alerta, alerta-verde (nova),
-//            alerta-icone, alerta-texto
-// ─────────────────────────────────────────────────────────────────────────────
 function renderCardVazios() {
     const lista = document.getElementById('kpi-lista-vazios');
     lista.innerHTML = '';
