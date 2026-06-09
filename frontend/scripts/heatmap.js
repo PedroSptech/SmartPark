@@ -1,3 +1,7 @@
+if (sessionStorage.TIPO_USUARIO === 'funcionario') {
+    document.getElementById('botao_perfil').style.display = 'none';
+}
+
 const ID_ESTACIONAMENTO = 1;
  
 const URL_SETOR = `http://localhost:3012/registros/setor/${ID_ESTACIONAMENTO}`;
