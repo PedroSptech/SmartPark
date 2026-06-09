@@ -8,7 +8,7 @@ function buscarUltimasMedidas(idEstacionamento, limite_linhas) {
         SELECT 
             CASE 
                 WHEN r.registroSensor = 1 THEN FLOOR(70 + (RAND() * 25))
-                ELSE FLOOR(20 + (RAND() * 25))
+                ELSE FLOOR(15 + (RAND() * 25))
             END AS taxa_ocupacao, 
             DATE_FORMAT(r.dtHr_leitura, '%H:%i:%s') AS momento_grafico
         FROM registros r
@@ -57,6 +57,8 @@ function buscarMaximoPorData(idEstacionamento, data) {
             GROUP BY r.dtHr_leitura
         ) AS sub;
     `;
+    console.log("Executando SQL buscarMaximoPorData:\n" + instrucaoSql);
+    return database.executar(instrucaoSql);
 
     console.log("Executando SQL buscarMaximoPorData:\n" + instrucaoSql);
     return database.executar(instrucaoSql);

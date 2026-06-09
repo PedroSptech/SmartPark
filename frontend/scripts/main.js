@@ -1,5 +1,3 @@
-
-
 const fmt = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 const fmtN = (v) => v.toLocaleString('pt-BR');
 

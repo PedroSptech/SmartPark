@@ -42,7 +42,10 @@ function buscarMaximoPorData(req, res) {
 
     registrosModel.buscarMaximoPorData(idEstacionamento, data)
         .then(function (resultado) {
-            res.status(200).json(resultado[0]);
+            if (!resultado || resultado.length === 0 || resultado[0].maximo_ocupacao === null) {
+                return res.status(204).send("Sem dados para essa data.");
+            }
+            res.status(200).json(resultado);
         })
         .catch(function (erro) {
             console.log(erro);

@@ -25,8 +25,15 @@ function obterDadosVagasOcupadas(idEstacionamento) {
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
+                    if (!resposta || resposta.length === 0) {
+                        console.log('Nenhum dado de vagas ocupadas retornado');
+                        return;
+                    }
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    plotarKpiOcupadas(resposta[resposta.length - 1]);
+                    var ultimoRegistro = resposta[resposta.length - 1];
+                    var taxaAtual = Number(ultimoRegistro.taxa_ocupacao);
+                    plotarKpiOcupadas(ultimoRegistro);
+                    alertar(taxaAtual, idEstacionamento);
                 });
             } else {
                 console.log('Nenhum dado encontrado ou erro na API');
@@ -42,15 +49,22 @@ function obterTempoMedio(idEstacionamento) {
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
+                    if (!resposta || resposta.length === 0 || !resposta[0]) {
+                        console.log('Nenhum dado de tempo médio retornado');
+                        document.getElementById("tempo-ocupacao").innerText = "N/A";
+                        return;
+                    }
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     plotarTempoMedio(resposta[0]);
                 });
             } else {
                 console.log('Nenhum dado encontrado ou erro na API');
+                document.getElementById("tempo-ocupacao").innerText = "N/A";
             }
         })
         .catch(function (error) {
             console.log(`Erro na obtenção dos dados para o gráfico: ${error.message}`);
+            document.getElementById("tempo-ocupacao").innerText = "N/A";
         });
 }
 
@@ -59,6 +73,10 @@ function obterDadosGraficoLinha(idEstacionamento) {
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
+                    if (!resposta || resposta.length === 0) {
+                        console.log('Nenhum dado para o gráfico de linha');
+                        return;
+                    }
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     plotarGraficoLinha(resposta, idEstacionamento);
                 });
@@ -125,7 +143,7 @@ function processarProximosDias(idEstacionamento, proximosDias, listaFeriados, in
         .then(function (res) {
             if (res.ok) {
                 res.json().then(function (json) {
-                    var maximo = json.maximo_ocupacao;
+                    var maximo = json && json[0] ? Number(json[0].maximo_ocupacao) : null;
 
                     if (maximo == null || maximo == undefined) {
                         dados.push(null);
@@ -143,7 +161,7 @@ function processarProximosDias(idEstacionamento, proximosDias, listaFeriados, in
                     labels.push(label);
 
                     if (maximo == 0) {
-                        dados.push(null);
+                        dados.push(0);
                     } else {
                         dados.push(maximo);
                     }
@@ -160,7 +178,7 @@ function processarProximosDias(idEstacionamento, proximosDias, listaFeriados, in
                 });
             } else {
                 labels.push(labelDia(dia));
-                dados.push(null);
+                dados.push(0);
                 cores.push('#e2e8f0');
                 infoKpi.push("Sem informacoes");
                 processarProximosDias(idEstacionamento, proximosDias, listaFeriados, indice + 1, labels, dados, cores, infoKpi);
@@ -177,12 +195,13 @@ function processarProximosDias(idEstacionamento, proximosDias, listaFeriados, in
 }
 
 function plotarKpiOcupadas(resposta) {
+    console.log("KPI:", resposta.taxa_ocupacao);
     let kpi = document.getElementById("num-ocupacao")
     let card = document.getElementById("vagas-totais")
     let pctOcupacao = resposta.taxa_ocupacao
     kpi.innerText = pctOcupacao + "%"
 
-    if (pctOcupacao <= 20) {
+    if (pctOcupacao <= 25) {
         card.className = "card vagas vagas-critico";
     } else if (pctOcupacao < 80) {
         card.className = "card";
@@ -192,8 +211,13 @@ function plotarKpiOcupadas(resposta) {
 }
 
 function plotarTempoMedio(resposta) {
-    let tempo_medi = resposta.tempo_medio_geral_minutos
+    let tempo_medi = Math.round(resposta.tempo_medio_geral_minutos)
     let kpi = document.getElementById("tempo-ocupacao")
+
+    if (tempo_medi == null || isNaN(tempo_medi)) {
+        kpi.innerText = "N/A";
+        return;
+    }
 
     if (tempo_medi < 60) {
         kpi.innerText = `${tempo_medi} min`;
@@ -219,11 +243,6 @@ function plotarGraficoLinha(resposta, idEstacionamento) {
         let registro = resposta[i];
         labelsGrafico.push(registro.momento_grafico);
         dadosGrafico.push(registro.taxa_ocupacao);
-    }
-
-    if (dadosGrafico.length > 0) {
-        let ultimaTaxa = dadosGrafico[dadosGrafico.length - 1];
-        alertar(ultimaTaxa, idEstacionamento);
     }
 
     const ctxLine = document.getElementById('lineChart').getContext('2d');
@@ -291,7 +310,7 @@ function inicializarGraficoBarras(idEstacionamento) {
                             }
 
                             listaFeriados.push({
-                                date: "2026-06-09",
+                                date: "2026-06-10",
                                 name: "Dia do Projeto em grupo",
                                 type: "national"
                             });
@@ -354,23 +373,17 @@ function renderizarGraficoBarras(labels, dados, cores, infoKpi) {
 }
 
 function alertar(taxaAtual, idEstacionamento) {
+    console.log("ALERTA:", taxaAtual);
     var grauDeAviso = '';
     var grauDeAvisoCor = '';
 
-    var limites = {
-        lotado: 95,
-        quase_lotado: 80,
-        ideal: 50,
-        vazio: 20
-    };
-
-    if (taxaAtual >= limites.lotado) {
+    if (taxaAtual >= 90) {
         grauDeAviso = 'Lotado';
-        grauDeAvisoCor = 'cor-alerta alerta-vermelho';
+        grauDeAvisoCor = 'alerta-vermelho';
         exibirAlerta(taxaAtual, idEstacionamento, grauDeAviso, grauDeAvisoCor);
-    } else if (taxaAtual >= limites.quase_lotado && taxaAtual < limites.lotado) {
-        grauDeAviso = 'Quase Lotado';
-        grauDeAvisoCor = 'cor-alerta alerta-amarelo';
+    } else if (taxaAtual < 25) {
+        grauDeAviso = 'Pouco Utilizado';
+        grauDeAvisoCor = 'alerta-vermelho';
         exibirAlerta(taxaAtual, idEstacionamento, grauDeAviso, grauDeAvisoCor);
     } else {
         removerAlerta(idEstacionamento);
