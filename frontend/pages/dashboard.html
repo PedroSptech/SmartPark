@@ -70,7 +70,7 @@
                     </div>
 
                     <h3 id="clock">8:02:09</h3>
-                    <p>Segunda, 23/02/2027</p>
+                    <p id="data">Segunda, 23/02/2027</p>
                 </div>
 
                 <div class="card" id="vagas-totais">
@@ -149,5 +149,32 @@
 
     <script src="../scripts/dash.js"></script>
 </body>
+    <script>
+        function atualizarRelogio() {
+            let agora = new Date();
+            let horaAtual = agora.toLocaleTimeString('pt-BR');
+            
+            document.getElementById('clock').textContent = horaAtual;
+        }
+        function atualizarData() {
+            const agora = new Date();
+            const opcoesData = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            
+            const dataAtual = agora.toLocaleDateString('pt-BR', opcoesData);
+            
+            document.getElementById('data').textContent = dataAtual;
+        }
 
+        setInterval(atualizarData, 1000);
+        setInterval(atualizarRelogio, 1000);
+        
+        atualizarData();
+        atualizarRelogio();
+    </script>
+    
 </html>

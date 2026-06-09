@@ -99,12 +99,13 @@
                 <span id="success_message"></span>
             </div>
             <input type="text" placeholder="Nome" id="ipt_nome_func">
-            <input type="text" placeholder="Email" id="ipt_email_func">
-            <input type="password" placeholder="Senha" id="ipt_passw_func">
-            <button onclick="cadastrarFunc()">Cadastrar</button>
+            <input type="email" placeholder="Email" id="ipt_email_func">
+            <input type="password" placeholder="Senha" id="ipt_passw_func" minlength="8">
+            <button type="button" onclick="cadastrarFunc()" class="btn-submit">Cadastrar</button>
             </form>
         </div>
     </div>
+    <script src="../scripts/helper.js"></script>
     <script src="../scripts/profile.js"></script>
 </body>
 

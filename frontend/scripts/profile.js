@@ -72,9 +72,24 @@ function closePopUp() {
 }
 
 function cadastrarFunc() {
-    var nome = ipt_nome_func.value.trim()
-    var email = ipt_email_func.value.trim()
-    var senha = ipt_passw_func.value
+    var nome = ipt_nome_func.value.trim();
+    var email = ipt_email_func.value.trim();
+    var senha = ipt_passw_func.value;
+
+    if (nome === "" || email === "" || senha === "") {
+        invalidoMensagem("Preencha todos os campos.");
+        return false;
+    }
+
+    if (!emailValido(email)) {
+        invalidoMensagem("Digite um email válido.");
+        return false;
+    }
+
+    if (!senhaValida(senha)) {
+        invalidoMensagem("A senha deve ter no mínimo 8 caracteres.");
+        return false;
+    }
 
     fetch(`/empresas/cadastrar/funcionario/${sessionStorage.ID_USUARIO}`, {
         method: "POST",
@@ -92,14 +107,16 @@ function cadastrarFunc() {
 
             if (resposta.ok) {
                 validoMensagem(
-                    "Cadastro realizado com sucesso! Redirecionando para tela de Login...",
+                    "Funcionário cadastrado com sucesso!",
                 );
 
                 setTimeout(() => {
-                    closePopUp()
+                    closePopUp();
                 }, "2000");
 
-                limparFormulario();
+                ipt_nome_func.value = "";
+                ipt_email_func.value = "";
+                ipt_passw_func.value = "";
             } else {
                 invalidoMensagem("Houve um erro ao tentar realizar o cadastro!");
             }

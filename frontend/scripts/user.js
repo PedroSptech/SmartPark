@@ -268,6 +268,8 @@ function entrarFuncionario() {
 					console.log(JSON.stringify(json));
 					sessionStorage.NOME_USUARIO = json.nome;
 					sessionStorage.ID_USUARIO = json.id;
+					sessionStorage.ID_CLIENTE = json.clienteId;
+					sessionStorage.ID_ESTACIONAMENTO = json.estacionamentoId;
 					sessionStorage.EMAIL_USUARIO = json.email;
 					sessionStorage.TIPO_USUARIO = "funcionario";
 

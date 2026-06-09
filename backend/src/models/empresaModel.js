@@ -34,12 +34,17 @@ function autenticar(cnpj, senha) {
 function autenticarFuncionario(email, senha) {
 	var instrucaoSql = `
 			SELECT 
-				id_usuario as funcionario_id,
-				nome_funcionario as nome, 
-				email_funcionario as email, 
-				senha_funcionario as senha
-			FROM funcionario
-			WHERE email_funcionario = '${email}' AND senha_funcionario = '${senha}';
+				f.id_usuario as funcionario_id,
+				f.nome_funcionario as nome,
+				f.email_funcionario as email,
+				f.fkCliente as cliente_id,
+				(
+					SELECT MIN(e.id_estacionamento)
+					FROM estacionamento e
+					WHERE e.fkCliente = f.fkCliente
+				) as estacionamento_id
+			FROM funcionario f
+			WHERE f.email_funcionario = '${email}' AND f.senha_funcionario = '${senha}';
 	`;
 
 	return database.executar(instrucaoSql);

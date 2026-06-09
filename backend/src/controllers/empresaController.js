@@ -146,7 +146,9 @@ function autenticarFuncionario(req, res) {
             return res.json({
               id: resultadoAutenticar[0].funcionario_id,
               nome: resultadoAutenticar[0].nome,
-              email: resultadoAutenticar[0].email
+              email: resultadoAutenticar[0].email,
+              clienteId: resultadoAutenticar[0].cliente_id,
+              estacionamentoId: resultadoAutenticar[0].estacionamento_id
             });
           } else if (resultadoAutenticar.length == 0) {
             return res.status(403).send("Email e/ou senha inválido(s)");
