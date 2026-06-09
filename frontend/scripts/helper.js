@@ -14,6 +14,37 @@ function switchTab(tab, type) {
 }
 
 function sumirMensagem() {
-	cardErro.style.display = "none";
+	const cardErro = document.getElementById("cardErro");
+
+	if (cardErro) {
+		cardErro.style.display = "none";
+	}
 }
 
+function invalidoMensagem(message) {
+	const cardErro = document.getElementById("cardErro");
+	const cardMessage = document.getElementById("cardMessage");
+	const errorMessage = document.getElementById("error_message");
+
+	cardErro.style.display = "block";
+	cardMessage.style.display = "none";
+	errorMessage.textContent = message;
+}
+
+function validoMensagem(message) {
+	const cardErro = document.getElementById("cardErro");
+	const cardMessage = document.getElementById("cardMessage");
+	const successMessage = document.getElementById("success_message");
+
+	cardErro.style.display = "none";
+	cardMessage.style.display = "block";
+	successMessage.textContent = message;
+}
+
+function emailValido(email) {
+	return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function senhaValida(senha) {
+	return senha.length >= 8;
+}
